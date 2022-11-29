@@ -14,7 +14,7 @@ module.exports = {
   ],
   overrides: [
   ],
-  ignorePatterns: ['.eslintrc.js', 'vite.config.ts'],
+  ignorePatterns: ['.eslintrc.js'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
@@ -30,5 +30,13 @@ module.exports = {
     'import/prefer-default-export': 0,
     'class-methods-use-this': 0,
     'react/react-in-jsx-scope': 0,
+    'import/no-extraneous-dependencies': 0,
+    'react/function-component-definition': [
+      2,
+      {
+        namedComponents: ['arrow-function', 'function-declaration'],
+        unnamedComponents: 'arrow-function',
+      },
+    ],
   },
 };
