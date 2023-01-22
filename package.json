@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently --kill-others \"npm run start:dev --workspace=server\"",
+    "dev": "concurrently --kill-others \"npm run start:dev --workspace=server\" \"npm run dev --workspace=web\"",
     "prepare": "husky install",
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "eslint:fix": "eslint --fix . --ext .js,.jsx,.ts,.tsx"
