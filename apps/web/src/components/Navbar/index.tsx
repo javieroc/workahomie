@@ -12,6 +12,7 @@ import {
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { ReactComponent as Logo } from 'src/assets/logo.svg';
 import { Divider } from './Divider';
+import { AuthButton } from './AuthButton';
 
 const Navbar: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -53,12 +54,7 @@ const Navbar: FC = () => {
             ))}
           </HStack>
           <HStack>
-            <Button colorScheme="purple" size="sm" borderRadius="50px">
-              Sign up
-            </Button>
-            <Button colorScheme="purple" variant="outline" size="sm" borderRadius="50px">
-              Sign in
-            </Button>
+            <AuthButton />
           </HStack>
         </HStack>
       </Flex>
