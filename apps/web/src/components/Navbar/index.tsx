@@ -1,21 +1,16 @@
 import { FC } from 'react';
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  HStack,
-  Stack,
-  IconButton,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Box, Flex, Heading, HStack, Stack, IconButton, useDisclosure } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { ReactComponent as Logo } from 'src/assets/logo.svg';
+import { useAuth0 } from '@auth0/auth0-react';
 import { Divider } from './Divider';
-import { AuthButton } from './AuthButton';
+import { LoginButton } from '../LoginButton';
+import { UserMenu } from './UserMenu';
+import { LogoutButton } from '../LogoutButton';
 
 const Navbar: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isAuthenticated } = useAuth0();
 
   const links = [
     {
@@ -53,9 +48,7 @@ const Navbar: FC = () => {
               </Heading>
             ))}
           </HStack>
-          <HStack>
-            <AuthButton />
-          </HStack>
+          <HStack>{isAuthenticated ? <UserMenu /> : <LoginButton />}</HStack>
         </HStack>
       </Flex>
       {isOpen && (
@@ -66,18 +59,7 @@ const Navbar: FC = () => {
                 {link.label}
               </Heading>
             ))}
-            <Button width="200px" colorScheme="purple" size="sm" borderRadius="50px">
-              Sign up
-            </Button>
-            <Button
-              width="200px"
-              colorScheme="purple"
-              variant="outline"
-              size="sm"
-              borderRadius="50px"
-            >
-              Sign in
-            </Button>
+            {isAuthenticated && <LogoutButton />}
           </Stack>
         </Box>
       )}
