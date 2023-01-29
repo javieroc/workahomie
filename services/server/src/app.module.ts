@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HostsModule } from './hosts/hosts.module';
+import { AuthzModule } from './authz/authz.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { HostsModule } from './hosts/hosts.module';
     MongooseModule.forRoot(
       `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
     ),
+    AuthzModule,
     HostsModule,
   ],
   controllers: [AppController],

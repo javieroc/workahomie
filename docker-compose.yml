@@ -2,9 +2,13 @@ version: '3.3'
 
 services:
   server:
-    build: ./services/server/
+    build:
+      dockerfile: Dockerfile
+      target: development
+      context: ./services/server/
     volumes:
-      - ./services/server/:/app
+      - ./services/server/:/usr/src/app
+      - /usr/src/app/node_modules
     command: "npm run start:dev"
     ports:
       - 8000:8000

@@ -12,6 +12,8 @@ RUN npm run build
 
 FROM node:18-alpine As production
 
+WORKDIR /usr/src/app
+
 COPY . .
 
 COPY --from=development /usr/src/app/node_modules ./node_modules
