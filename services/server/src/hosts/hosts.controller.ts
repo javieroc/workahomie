@@ -7,8 +7,14 @@ import {
   Param,
   Delete,
   UseGuards,
+  UseInterceptors,
+  UploadedFile,
+  Req,
 } from '@nestjs/common';
 import { JwtGuard } from 'src/authz/jwt.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
+import { RequestWithUser } from 'src/interfaces/RequestWithUser';
 import { HostsService } from './hosts.service';
 import { CreateHostDto } from './dto/create-host.dto';
 import { UpdateHostDto } from './dto/update-host.dto';
@@ -19,10 +25,17 @@ export class HostsController {
 
   @UseGuards(JwtGuard)
   @Post()
-  create(@Body() createHostDto: CreateHostDto) {
-    return this.hostsService.create(createHostDto);
+  @UseInterceptors(FileInterceptor('profile', { storage: memoryStorage() }))
+  create(
+    @Req() req: RequestWithUser,
+    @Body() createHostDto: CreateHostDto,
+    @UploadedFile() profile: Express.Multer.File,
+  ) {
+    const userId = req.user.sub.split('|')[1];
+    return this.hostsService.create({ ...createHostDto, userId }, profile);
   }
 
+  @UseGuards(JwtGuard)
   @Get()
   findAll() {
     return this.hostsService.findAll();

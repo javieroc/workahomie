@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { passportJwtSecret } from 'jwks-rsa';
+import { Payload } from './types';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -15,12 +16,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       }),
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       audience: process.env.AUTH0_AUDIENCE,
-      issuer: `${process.env.AUTH0_ISSUER_URL}`,
+      issuer: process.env.AUTH0_ISSUER_URL,
       algorithms: ['RS256'],
     });
   }
 
-  validate(payload: unknown): unknown {
+  validate(payload: Payload): Payload {
     return payload;
   }
 }

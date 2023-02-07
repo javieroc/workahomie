@@ -1,16 +1,27 @@
 import { Model } from 'mongoose';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { CreateHostDto } from './dto/create-host.dto';
 import { UpdateHostDto } from './dto/update-host.dto';
 import { Host, HostDocument } from './schemas/host.schema';
 
 @Injectable()
 export class HostsService {
-  constructor(@InjectModel(Host.name) private HostModel: Model<HostDocument>) {}
+  constructor(
+    @InjectModel(Host.name) private HostModel: Model<HostDocument>,
+    private readonly cloudinaryService: CloudinaryService,
+  ) {}
 
-  create(createHostDto: CreateHostDto): Promise<Host> {
+  async create(
+    createHostDto: CreateHostDto & { userId: string },
+    profile?: Express.Multer.File,
+  ): Promise<Host> {
     const host = new this.HostModel(createHostDto);
+    if (profile) {
+      const image = await this.cloudinaryService.uploadImage(profile);
+      host.profileImages = [image.secure_url];
+    }
     return host.save();
   }
 

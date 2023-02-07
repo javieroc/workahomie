@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { faker } from '@faker-js/faker';
 import { Layout } from 'src/components';
 import { Host, Story } from 'src/types';
@@ -8,6 +9,7 @@ import NearHostImage4 from 'src/assets/near-host-4.jpeg';
 import NearHostImage5 from 'src/assets/near-host-5.jpeg';
 import NearHostImage6 from 'src/assets/near-host-6.jpeg';
 import { Hero, NearHostList, PeopleStories, TryHosting } from './components';
+import { useHosts } from './hooks/useHosts';
 
 const hosts: Host[] = [
   NearHostImage1,
@@ -36,7 +38,9 @@ const stories: Story[] = Array(20)
     user: faker.name.fullName(),
   }));
 
-function Home(): JSX.Element {
+const Home: FC = () => {
+  const { data } = useHosts();
+
   return (
     <Layout>
       <Hero />
@@ -45,6 +49,6 @@ function Home(): JSX.Element {
       <PeopleStories stories={stories} />
     </Layout>
   );
-}
+};
 
 export { Home };

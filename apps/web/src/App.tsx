@@ -10,7 +10,7 @@ const App: FC = () => {
       <Auth0ProviderWithNavigate>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/try-hosting" element={<AuthenticationGuard component={BecomeAHost} />} />
+          <Route path="/trying-hosting" element={<AuthenticationGuard component={BecomeAHost} />} />
           <Route
             path="*"
             element={

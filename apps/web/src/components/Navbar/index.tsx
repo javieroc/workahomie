@@ -3,6 +3,7 @@ import { Box, Flex, Heading, HStack, Stack, IconButton, useDisclosure } from '@c
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { ReactComponent as Logo } from 'src/assets/logo.svg';
 import { useAuth0 } from '@auth0/auth0-react';
+import { Link } from 'react-router-dom';
 import { Divider } from './Divider';
 import { LoginButton } from '../LoginButton';
 import { UserMenu } from './UserMenu';
@@ -30,7 +31,9 @@ const Navbar: FC = () => {
   return (
     <Flex direction="column">
       <Flex color="gray.50" height="80px" align="center" justify="space-between" padding="0px 32px">
-        <Logo />
+        <Link to="/">
+          <Logo />
+        </Link>
         <IconButton
           size="sm"
           variant="outline"

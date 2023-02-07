@@ -7,6 +7,9 @@ export type HostDocument = HydratedDocument<Host>;
 @Schema()
 export class Host {
   @Prop()
+  userId: string;
+
+  @Prop()
   firstName: string;
 
   @Prop()

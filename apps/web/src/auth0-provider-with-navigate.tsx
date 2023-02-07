@@ -17,6 +17,7 @@ const Auth0ProviderWithNavigate: FC<PropsWithChildren> = ({ children }) => {
       domain={domain}
       clientId={clientId}
       authorizationParams={{
+        audience: import.meta.env.VITE_AUTH0_AUDIENCE,
         redirect_uri: window.location.origin,
       }}
       useRefreshTokens

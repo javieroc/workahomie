@@ -5,4 +5,8 @@ export interface Host {
   apartmentType: string;
   rate: number;
   countReviews: number;
+  firstName?: string;
+  lastName?: string;
+  aboutMe?: string;
+  occupation?: string;
 }

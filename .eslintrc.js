@@ -30,6 +30,8 @@ module.exports = {
     'import/prefer-default-export': 0,
     'class-methods-use-this': 0,
     'react/react-in-jsx-scope': 0,
+    'react/jsx-props-no-spreading': 0,
+    'react/require-default-props': 0,
     'import/no-extraneous-dependencies': 0,
     'react/function-component-definition': [
       2,
