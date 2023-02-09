@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Button, Flex, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
 import TryHostingImage from 'src/assets/try-hosting.png';
+import { Link } from 'react-router-dom';
 
 const TryHosting: FC = () => {
   return (
@@ -15,9 +16,11 @@ const TryHosting: FC = () => {
         <VStack align="flex-start" padding="58px">
           <Heading>Try Hosting</Heading>
           <Text>What you give is what you receive</Text>
-          <Button colorScheme="purple" variant="outline">
-            Learn More
-          </Button>
+          <Link to="/try-hosting">
+            <Button colorScheme="purple" variant="outline">
+              Learn More
+            </Button>
+          </Link>
         </VStack>
         <Image
           display={{ base: 'none', md: 'flex' }}

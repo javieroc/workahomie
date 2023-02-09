@@ -19,7 +19,10 @@ export class HostsService {
   ): Promise<Host> {
     const host = new this.HostModel(createHostDto);
     if (profile) {
-      const image = await this.cloudinaryService.uploadImage(profile);
+      const image = await this.cloudinaryService.uploadImage(
+        profile,
+        `profile_${host.userId}`,
+      );
       host.profileImages = [image.secure_url];
     }
     return host.save();
@@ -37,13 +40,31 @@ export class HostsService {
     return host;
   }
 
-  async update(id: string, updateHostDto: UpdateHostDto): Promise<Host> {
-    const host = await this.HostModel.findByIdAndUpdate(id, updateHostDto, {
-      new: true,
-    }).exec();
-    if (!host) {
-      throw new NotFoundException('Host not found!');
+  async findMe(userId: string): Promise<Host> {
+    return this.HostModel.findOne({ userId });
+  }
+
+  async update(
+    { userId, ...updateHostDto }: UpdateHostDto & { userId: string },
+    profile?: Express.Multer.File,
+  ): Promise<Host> {
+    const host = await this.HostModel.findOneAndUpdate(
+      { userId },
+      updateHostDto,
+      {
+        new: true,
+      },
+    ).exec();
+
+    if (profile) {
+      const image = await this.cloudinaryService.uploadImage(
+        profile,
+        `profile_${host.userId}`,
+      );
+      host.profileImages = [image.secure_url];
+      await host.save();
     }
+
     return host;
   }
 

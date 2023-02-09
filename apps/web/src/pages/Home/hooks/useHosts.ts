@@ -1,6 +1,5 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { api } from 'src/api';
-
 import { QUERY_KEYS } from 'src/constants/queryKey';
 import { Host } from 'src/types';
 

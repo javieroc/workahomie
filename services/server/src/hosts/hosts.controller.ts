@@ -10,6 +10,8 @@ import {
   UseInterceptors,
   UploadedFile,
   Req,
+  NotFoundException,
+  BadRequestException,
 } from '@nestjs/common';
 import { JwtGuard } from 'src/authz/jwt.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -26,16 +28,30 @@ export class HostsController {
   @UseGuards(JwtGuard)
   @Post()
   @UseInterceptors(FileInterceptor('profile', { storage: memoryStorage() }))
-  create(
+  async create(
     @Req() req: RequestWithUser,
     @Body() createHostDto: CreateHostDto,
     @UploadedFile() profile: Express.Multer.File,
   ) {
     const userId = req.user.sub.split('|')[1];
+    const host = await this.hostsService.findMe(userId);
+    if (host) {
+      throw new BadRequestException('Host already exists');
+    }
     return this.hostsService.create({ ...createHostDto, userId }, profile);
   }
 
   @UseGuards(JwtGuard)
+  @Get('/me')
+  async findMeAsAHost(@Req() req: RequestWithUser) {
+    const userId = req.user.sub.split('|')[1];
+    const host = await this.hostsService.findMe(userId);
+    if (!host) {
+      throw new NotFoundException('Host not found');
+    }
+    return host;
+  }
+
   @Get()
   findAll() {
     return this.hostsService.findAll();
@@ -47,9 +63,19 @@ export class HostsController {
   }
 
   @UseGuards(JwtGuard)
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateHostDto: UpdateHostDto) {
-    return this.hostsService.update(id, updateHostDto);
+  @Put('/me')
+  @UseInterceptors(FileInterceptor('profile', { storage: memoryStorage() }))
+  async update(
+    @Req() req: RequestWithUser,
+    @Body() updateHostDto: UpdateHostDto,
+    @UploadedFile() profile: Express.Multer.File,
+  ) {
+    const userId = req.user.sub.split('|')[1];
+    const host = await this.hostsService.findMe(userId);
+    if (!host) {
+      throw new NotFoundException('Host not found');
+    }
+    return this.hostsService.update({ ...updateHostDto, userId }, profile);
   }
 
   @UseGuards(JwtGuard)

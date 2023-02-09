@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Auth0ProviderWithNavigate } from './auth0-provider-with-navigate';
 import { AuthenticationGuard } from './components';
-import { BecomeAHost, Home } from './pages';
+import { TryHosting, Home, Profile } from './pages';
 
 const App: FC = () => {
   return (
@@ -10,7 +10,8 @@ const App: FC = () => {
       <Auth0ProviderWithNavigate>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/trying-hosting" element={<AuthenticationGuard component={BecomeAHost} />} />
+          <Route path="/try-hosting" element={<AuthenticationGuard component={TryHosting} />} />
+          <Route path="/profile" element={<AuthenticationGuard component={Profile} />} />
           <Route
             path="*"
             element={
