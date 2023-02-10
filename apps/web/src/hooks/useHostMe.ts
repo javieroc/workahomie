@@ -10,7 +10,7 @@ const getHostMe = async () => {
 
 function useHostMe(options?: UseQueryOptions<Host, unknown, Host>) {
   return useQuery<Host>([QUERY_KEYS.HOSTS, 'me'], () => getHostMe(), {
-    retry: 1,
+    retry: false,
     ...options,
   });
 }
