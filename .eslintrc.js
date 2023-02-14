@@ -33,6 +33,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 0,
     'react/require-default-props': 0,
     'import/no-extraneous-dependencies': 0,
+    'no-nested-ternary': 0,
     'react/function-component-definition': [
       2,
       {

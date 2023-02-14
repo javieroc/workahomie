@@ -1,3 +1,3 @@
 export { Home } from './Home';
-export { Profile } from './Profile';
+export { Host } from './Host';
 export { TryHosting } from './TryHosting';

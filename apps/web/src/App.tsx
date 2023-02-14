@@ -3,14 +3,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { WithAuth0Token } from './api/WithAuth0Token';
 import { Auth0ProviderWithNavigate } from './auth0-provider-with-navigate';
 import { AuthenticationGuard } from './components';
-import { TryHosting, Home, Profile } from './pages';
+import { TryHosting, Home, Host } from './pages';
 
 const MyRoutes: FC = WithAuth0Token(() => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/try-hosting" element={<AuthenticationGuard component={TryHosting} />} />
-      <Route path="/profile" element={<AuthenticationGuard component={Profile} />} />
+      <Route path="/host/*" element={<AuthenticationGuard component={Host} />} />
       <Route
         path="*"
         element={

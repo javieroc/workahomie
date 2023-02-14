@@ -10,8 +10,10 @@ import {
   MenuList,
   Portal,
   Text,
+  VStack,
 } from '@chakra-ui/react';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useNavigate } from 'react-router-dom';
 
 const UserAvatar: FC<{ picture: string }> = ({ picture }) => {
   return (
@@ -27,6 +29,8 @@ const UserAvatar: FC<{ picture: string }> = ({ picture }) => {
 
 const UserMenu: FC = () => {
   const { isAuthenticated, user, logout } = useAuth0();
+  const navigate = useNavigate();
+
   return isAuthenticated ? (
     <Menu>
       <MenuButton
@@ -43,11 +47,11 @@ const UserMenu: FC = () => {
       </MenuButton>
       <Portal>
         <MenuList>
-          <MenuItem>
-            <Text>{user?.email}</Text>
-          </MenuItem>
-          <MenuItem>
-            <Text>{user?.name}</Text>
+          <MenuItem onClick={() => navigate('/host', { replace: true })}>
+            <VStack align="flex-start">
+              <Text>{user?.email}</Text>
+              <Text>{user?.name}</Text>
+            </VStack>
           </MenuItem>
           <MenuDivider />
           <MenuItem onClick={() => logout()}>Sign out</MenuItem>
