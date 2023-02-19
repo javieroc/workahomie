@@ -34,6 +34,7 @@ module.exports = {
     'react/require-default-props': 0,
     'import/no-extraneous-dependencies': 0,
     'no-nested-ternary': 0,
+    'no-underscore-dangle': 0,
     'react/function-component-definition': [
       2,
       {

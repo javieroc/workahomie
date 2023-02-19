@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
-import { Place } from './place.schema';
+import { PlaceDocument } from './place.schema';
 
 export type HostDocument = HydratedDocument<Host>;
 
@@ -25,7 +25,7 @@ export class Host {
   profileImages: string[];
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Place' })
-  place: Place;
+  place?: PlaceDocument;
 }
 
 export const HostSchema = SchemaFactory.createForClass(Host);

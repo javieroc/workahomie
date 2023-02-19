@@ -13,15 +13,15 @@ const NearHostCard: FC<NearHostCardProps> = ({ host }) => {
     <Link to="/#">
       <HStack
         spacing="12px"
-        width="420px"
+        width="360px"
         height="160px"
         alignItems="flex-start"
         justifyContent="flex-start"
       >
         <Image
-          src={host.profileImage}
+          src={host.profileImages[0]}
           borderRadius="md"
-          boxSize="160px"
+          boxSize="140px"
           minWidth="140px"
           height="160px"
           objectFit="cover"
@@ -34,16 +34,15 @@ const NearHostCard: FC<NearHostCardProps> = ({ host }) => {
           padding="8px"
         >
           <VStack align="stretch" spacing="2px">
-            <Heading size="sm">{host.name}</Heading>
-            <Text fontSize="md">{host.apartmentType}</Text>
-            <Text fontSize="md">{host.address}</Text>
+            <Heading size="sm">{`${host.firstName} ${host.lastName}`}</Heading>
+            <Text fontSize="md">{host.occupation}</Text>
           </VStack>
           <HStack align="center">
             <StarIcon w={4} h={4} color="pink.500" />
             <Text fontSize="sm">
-              {host.rate}
+              {host.rate ?? 4.3}
               <Text marginLeft="4px" as="span" color="gray.500">
-                {`(${host.countReviews} Reviews)`}
+                {`(${host.countReviews ?? 10} Reviews)`}
               </Text>
             </Text>
           </HStack>

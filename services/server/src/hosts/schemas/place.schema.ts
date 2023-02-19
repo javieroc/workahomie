@@ -6,7 +6,7 @@ export type PlaceDocument = HydratedDocument<Place>;
 @Schema()
 export class Place {
   @Prop({ required: true })
-  title: string;
+  description: string;
 
   @Prop()
   details: string;

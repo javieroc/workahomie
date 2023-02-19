@@ -1,8 +1,6 @@
 export interface Host {
-  name: string;
+  _id: string;
   profileImages: string[];
-  address: string;
-  apartmentType: string;
   rate: number;
   countReviews: number;
   firstName?: string;
