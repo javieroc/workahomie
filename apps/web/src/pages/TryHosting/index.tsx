@@ -25,7 +25,7 @@ const TryHosting: FC = () => {
           </FormProvider>
         </VStack>
       ) : (
-        <Navigate to="/profile" />
+        <Navigate to="/host/profile" />
       )}
     </Layout>
   );

@@ -3,13 +3,13 @@ import { Heading, VStack } from '@chakra-ui/react';
 import { FormProvider, Loading } from 'src/components';
 import { useHostMe } from 'src/hooks/useHostMe';
 import { Navigate } from 'react-router-dom';
-import { Host } from 'src/types';
-import { FormFields } from 'src/pages/TryHosting/components/FormFields';
-import { useUpdateProfile } from '../hooks/useUpdateProfile';
+import { PlaceFormFields } from '../components/PlaceFormFields';
+import { useUpdatePlace } from '../hooks/useUpdatePlace';
+import { UpdateHostPlaceDto } from '../types';
 
 const MyPlace: FC = () => {
   const { data: hostMe, isLoading } = useHostMe();
-  const { mutate: updateProfile } = useUpdateProfile();
+  const { mutate: updatePlace } = useUpdatePlace();
 
   if (isLoading) {
     return <Loading />;
@@ -19,19 +19,19 @@ const MyPlace: FC = () => {
     return (
       <VStack spacing={8} align="flex-start" padding={4}>
         <VStack align="flex-start">
-          <Heading size="lg">Profile</Heading>
-          <Heading size="md">Update your host information here</Heading>
+          <Heading size="lg">My Place</Heading>
+          <Heading size="md">Update your workspace information here</Heading>
         </VStack>
-        <FormProvider<Host>
-          onSubmit={updateProfile}
+        <FormProvider<UpdateHostPlaceDto>
+          onSubmit={updatePlace}
           defaultValues={{
-            firstName: hostMe.firstName,
-            lastName: hostMe.lastName,
-            occupation: hostMe.occupation,
-            aboutMe: hostMe.aboutMe,
+            address: hostMe.place.address,
+            description: hostMe.place.description,
+            details: hostMe.place.details,
+            facilities: hostMe.place.facilities,
           }}
         >
-          <FormFields profileUrl={hostMe.profileImages[0]} />
+          <PlaceFormFields />
         </FormProvider>
       </VStack>
     );

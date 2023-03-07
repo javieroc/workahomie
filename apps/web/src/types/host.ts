@@ -1,3 +1,5 @@
+import { Place } from './place';
+
 export interface Host {
   _id: string;
   profileImages: string[];
@@ -7,4 +9,5 @@ export interface Host {
   lastName?: string;
   aboutMe?: string;
   occupation?: string;
+  place: Place;
 }

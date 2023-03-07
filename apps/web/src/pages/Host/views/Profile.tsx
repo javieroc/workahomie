@@ -3,9 +3,9 @@ import { Heading, VStack } from '@chakra-ui/react';
 import { FormProvider, Loading } from 'src/components';
 import { useHostMe } from 'src/hooks/useHostMe';
 import { Navigate } from 'react-router-dom';
-import { Host } from 'src/types';
 import { FormFields } from 'src/pages/TryHosting/components/FormFields';
 import { useUpdateProfile } from '../hooks/useUpdateProfile';
+import { UpdateHostDto } from '../types';
 
 const Profile: FC = () => {
   const { data: hostMe, isLoading } = useHostMe();
@@ -22,7 +22,7 @@ const Profile: FC = () => {
           <Heading size="lg">Profile</Heading>
           <Heading size="md">Update your host information here</Heading>
         </VStack>
-        <FormProvider<Host>
+        <FormProvider<UpdateHostDto>
           onSubmit={updateProfile}
           defaultValues={{
             firstName: hostMe.firstName,

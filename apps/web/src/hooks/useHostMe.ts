@@ -11,6 +11,7 @@ const getHostMe = async () => {
 function useHostMe(options?: UseQueryOptions<Host, unknown, Host>) {
   return useQuery<Host>([QUERY_KEYS.HOSTS, 'me'], () => getHostMe(), {
     retry: false,
+    refetchOnWindowFocus: false,
     ...options,
   });
 }

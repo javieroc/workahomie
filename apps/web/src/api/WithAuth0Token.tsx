@@ -9,12 +9,12 @@ function WithAuth0Token<P extends JSX.IntrinsicAttributes>(Component: FC<P>) {
     useMemo(async () => {
       async function setTokenToHeaders() {
         const token = await getAccessTokenSilently();
-        if (token) {
+        if (isAuthenticated && token) {
           setAuthHeader(token);
         }
       }
       await setTokenToHeaders();
-    }, [getAccessTokenSilently]);
+    }, [getAccessTokenSilently, isAuthenticated]);
 
     return <Component {...(props as P)} />;
   }

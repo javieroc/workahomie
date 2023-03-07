@@ -12,14 +12,16 @@ import {
   Req,
   NotFoundException,
   BadRequestException,
+  UploadedFiles,
 } from '@nestjs/common';
 import { JwtGuard } from 'src/authz/jwt.guard';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import { RequestWithUser } from 'src/interfaces/RequestWithUser';
 import { HostsService } from './hosts.service';
 import { CreateHostDto } from './dto/create-host.dto';
 import { UpdateHostDto } from './dto/update-host.dto';
+import { UpdateHostPlaceDto } from './dto/update-host-place.dto';
 
 @Controller('hosts')
 export class HostsController {
@@ -76,6 +78,20 @@ export class HostsController {
       throw new NotFoundException('Host not found');
     }
     return this.hostsService.update({ ...updateHostDto, userId }, profile);
+  }
+
+  @UseGuards(JwtGuard)
+  @Put('/me/place')
+  @UseInterceptors(
+    FilesInterceptor('pictures', 10, { storage: memoryStorage() }),
+  )
+  async updatePlace(
+    @Req() req: RequestWithUser,
+    @Body() updateHostPlaceDto: UpdateHostPlaceDto,
+    @UploadedFiles() pictures: Array<Express.Multer.File>,
+  ) {
+    const userId = req.user.sub.split('|')[1];
+    return this.hostsService.updatePlace({ ...updateHostPlaceDto, userId });
   }
 
   @UseGuards(JwtGuard)

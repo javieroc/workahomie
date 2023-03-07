@@ -5,13 +5,13 @@ export type PlaceDocument = HydratedDocument<Place>;
 
 @Schema()
 export class Place {
-  @Prop({ required: true })
+  @Prop()
   description: string;
 
   @Prop()
   details: string;
 
-  @Prop({ required: true })
+  @Prop()
   address: string;
 
   @Prop([String])

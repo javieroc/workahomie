@@ -5,10 +5,14 @@ import { HostsService } from './hosts.service';
 import { HostsController } from './hosts.controller';
 import { Host, HostSchema } from './schemas/host.schema';
 import { SeedDataCommand } from './command/seed-data';
+import { Place, PlaceSchema } from './schemas/place.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Host.name, schema: HostSchema }]),
+    MongooseModule.forFeature([
+      { name: Host.name, schema: HostSchema },
+      { name: Place.name, schema: PlaceSchema },
+    ]),
     CloudinaryModule,
   ],
   controllers: [HostsController],

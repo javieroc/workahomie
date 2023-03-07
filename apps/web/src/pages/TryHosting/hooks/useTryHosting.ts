@@ -43,7 +43,7 @@ function useTryHosting(
         status: 'success',
       });
       queryClient.invalidateQueries([QUERY_KEYS.HOSTS]);
-      navigate('/profile', { replace: true });
+      navigate('/host/profile', { replace: true });
     },
     ...options,
   });
