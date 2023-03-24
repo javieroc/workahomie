@@ -91,7 +91,10 @@ export class HostsController {
     @UploadedFiles() pictures: Array<Express.Multer.File>,
   ) {
     const userId = req.user.sub.split('|')[1];
-    return this.hostsService.updatePlace({ ...updateHostPlaceDto, userId });
+    return this.hostsService.updatePlace(
+      { ...updateHostPlaceDto, userId },
+      pictures,
+    );
   }
 
   @UseGuards(JwtGuard)

@@ -1,13 +1,16 @@
 import { FC } from 'react';
-import { CheckboxFieldInput, TextFieldInput } from 'src/components';
+import { useFormContext } from 'react-hook-form';
+import { CheckboxFieldInput, FilesUpload, TextFieldInput } from 'src/components';
 
 type FormFieldsProps = {
-  // profileUrl?: string;
+  previewPicturesUrl?: string[];
 };
 
-const PlaceFormFields: FC<FormFieldsProps> = () => {
+const PlaceFormFields: FC<FormFieldsProps> = ({ previewPicturesUrl }) => {
+  const { control } = useFormContext();
   return (
     <>
+      <FilesUpload name="pictures" control={control} urls={previewPicturesUrl} />
       <TextFieldInput
         name="description"
         label="Description/Title"

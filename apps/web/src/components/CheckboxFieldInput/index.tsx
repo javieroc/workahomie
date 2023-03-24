@@ -28,7 +28,10 @@ const CheckboxFieldInput = <T extends FieldValues>({
   options,
   ...rest
 }: CheckboxFieldInputProps<T>) => {
-  const { field, fieldState } = useController({
+  const {
+    field: { ref, ...restFieldProps },
+    fieldState,
+  } = useController({
     name,
     control,
     rules: { required: isRequired },
@@ -39,7 +42,7 @@ const CheckboxFieldInput = <T extends FieldValues>({
       <FormLabel htmlFor={name} fontSize={size ?? 'sm'}>
         {label}
       </FormLabel>
-      <CheckboxGroup {...field}>
+      <CheckboxGroup {...restFieldProps}>
         <VStack align="flex-start">
           {options?.map((option) => (
             <Checkbox key={option.value} value={option.value} size={size ?? 'sm'}>

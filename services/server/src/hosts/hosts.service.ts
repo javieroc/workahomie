@@ -95,6 +95,19 @@ export class HostsService {
       },
     ).exec();
 
+    if (pictures.length) {
+      const promises = pictures.map((picture) =>
+        this.cloudinaryService.uploadImage(
+          picture,
+          `place_${picture.originalname}`,
+        ),
+      );
+      const images = await Promise.all(promises);
+      const pictureUrls = images.map((image) => image.secure_url);
+      place.pictures = [...place.pictures, ...pictureUrls];
+      await place.save();
+    }
+
     return place;
   }
 

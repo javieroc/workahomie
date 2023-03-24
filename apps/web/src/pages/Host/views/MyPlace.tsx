@@ -23,15 +23,18 @@ const MyPlace: FC = () => {
           <Heading size="md">Update your workspace information here</Heading>
         </VStack>
         <FormProvider<UpdateHostPlaceDto>
-          onSubmit={updatePlace}
+          onSubmit={(formValues) => {
+            updatePlace(formValues);
+          }}
           defaultValues={{
             address: hostMe.place.address,
             description: hostMe.place.description,
             details: hostMe.place.details,
             facilities: hostMe.place.facilities,
+            pictures: [new File([''], ''), new File([''], ''), new File([''], '')],
           }}
         >
-          <PlaceFormFields />
+          <PlaceFormFields previewPicturesUrl={hostMe.place.pictures} />
         </FormProvider>
       </VStack>
     );

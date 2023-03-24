@@ -1,6 +1,5 @@
 import { FC } from 'react';
-import { TextFieldInput } from 'src/components';
-import { FileUpload } from 'src/components/FileUpload';
+import { FileUpload, TextFieldInput } from 'src/components';
 
 type FormFieldsProps = {
   profileUrl?: string;

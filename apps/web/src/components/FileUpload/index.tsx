@@ -15,6 +15,7 @@ import { PlusSquareIcon } from '@chakra-ui/icons';
 type FileUploadProps<T extends FieldValues> = FormControlProps &
   UseControllerProps<T> & {
     url?: string;
+    width?: string;
   };
 
 function FileUpload<T extends FieldValues>({
@@ -24,6 +25,7 @@ function FileUpload<T extends FieldValues>({
   size,
   control,
   url,
+  width,
   isRequired,
   ...rest
 }: FileUploadProps<T>) {
@@ -48,9 +50,11 @@ function FileUpload<T extends FieldValues>({
 
   return (
     <FormControl isInvalid={!!fieldState.error} {...rest} marginBottom={4}>
-      <FormLabel htmlFor="writeUpFile" size={size ?? 'sm'}>
-        {label}
-      </FormLabel>
+      {label && (
+        <FormLabel htmlFor="writeUpFile" size={size ?? 'sm'}>
+          {label}
+        </FormLabel>
+      )}
       <InputGroup>
         <input
           type="file"
@@ -65,7 +69,7 @@ function FileUpload<T extends FieldValues>({
           <Image
             src={preview}
             fallbackSrc={`https://via.placeholder.com/150x150?text=${placeholder}`}
-            width="150px"
+            width={width ?? '150px'}
             objectFit="cover"
           />
           <IconButton
