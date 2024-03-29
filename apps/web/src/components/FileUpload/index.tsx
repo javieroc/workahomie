@@ -16,6 +16,7 @@ type FileUploadProps<T extends FieldValues> = FormControlProps &
   UseControllerProps<T> & {
     url?: string;
     width?: string;
+    placeholder?: string;
   };
 
 function FileUpload<T extends FieldValues>({

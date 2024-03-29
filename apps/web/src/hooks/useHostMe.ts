@@ -1,4 +1,4 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { DefaultError, useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { api } from 'src/api';
 import { QUERY_KEYS } from 'src/constants/queryKey';
 import { Host } from 'src/types';
@@ -8,8 +8,10 @@ const getHostMe = async () => {
   return data;
 };
 
-function useHostMe(options?: UseQueryOptions<Host, unknown, Host>) {
-  return useQuery<Host>([QUERY_KEYS.HOSTS, 'me'], () => getHostMe(), {
+function useHostMe(options?: UseQueryOptions<Host, DefaultError, Host>) {
+  return useQuery<Host>({
+    queryKey: [QUERY_KEYS.HOSTS, 'me'],
+    queryFn: getHostMe,
     retry: false,
     refetchOnWindowFocus: false,
     ...options,

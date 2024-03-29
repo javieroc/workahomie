@@ -35,19 +35,20 @@ const putHostPlace = async ({ pictures, ...rest }: UpdateHostPlaceDto): Promise<
 };
 
 function useUpdatePlace(
-  options: UseMutationOptions<void, unknown, UpdateHostPlaceDto, unknown> = {}
+  options: UseMutationOptions<void, unknown, UpdateHostPlaceDto, unknown> = {},
 ): UseMutationResult<void, unknown, UpdateHostPlaceDto, unknown> {
   const queryClient = useQueryClient();
   const notification = useNotification();
 
-  return useMutation((payload: UpdateHostPlaceDto) => putHostPlace(payload), {
+  return useMutation({
+    mutationFn: (payload: UpdateHostPlaceDto) => putHostPlace(payload),
     onSuccess: () => {
       notification({
         title: 'Host Workspace',
         description: 'Workspace data was updated',
         status: 'success',
       });
-      queryClient.invalidateQueries([QUERY_KEYS.HOSTS, 'me']);
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.HOSTS, 'me'] });
     },
     ...options,
   });

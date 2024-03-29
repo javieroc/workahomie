@@ -29,20 +29,21 @@ const postHost = async ({ profile, ...rest }: CreateHostDto): Promise<Host> => {
 };
 
 function useTryHosting(
-  options: UseMutationOptions<Host, unknown, CreateHostDto, unknown> = {}
+  options: UseMutationOptions<Host, unknown, CreateHostDto, unknown> = {},
 ): UseMutationResult<Host, unknown, CreateHostDto, unknown> {
   const queryClient = useQueryClient();
   const notification = useNotification();
   const navigate = useNavigate();
 
-  return useMutation((payload: CreateHostDto) => postHost(payload), {
+  return useMutation({
+    mutationFn: (payload: CreateHostDto) => postHost(payload),
     onSuccess: () => {
       notification({
         title: 'Congrats!',
         description: 'You are a host now!',
         status: 'success',
       });
-      queryClient.invalidateQueries([QUERY_KEYS.HOSTS]);
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.HOSTS] });
       navigate('/host/profile', { replace: true });
     },
     ...options,

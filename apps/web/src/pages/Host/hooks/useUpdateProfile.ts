@@ -28,19 +28,20 @@ const putHost = async ({ profile, ...rest }: UpdateHostDto): Promise<Host> => {
 };
 
 function useUpdateProfile(
-  options: UseMutationOptions<Host, unknown, UpdateHostDto, unknown> = {}
+  options: UseMutationOptions<Host, unknown, UpdateHostDto, unknown> = {},
 ): UseMutationResult<Host, unknown, UpdateHostDto, unknown> {
   const queryClient = useQueryClient();
   const notification = useNotification();
 
-  return useMutation((payload: UpdateHostDto) => putHost(payload), {
+  return useMutation({
+    mutationFn: (payload: UpdateHostDto) => putHost(payload),
     onSuccess: () => {
       notification({
         title: 'Profile',
         description: 'Profile data was updated',
         status: 'success',
       });
-      queryClient.invalidateQueries([QUERY_KEYS.HOSTS, 'me']);
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.HOSTS, 'me'] });
     },
     ...options,
   });

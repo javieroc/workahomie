@@ -8,11 +8,11 @@ const stories: Story[] = Array(20)
   .fill(0)
   .map((_: number, index: number) => ({
     brief: faker.lorem.paragraph(1),
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     image: `https://picsum.photos/id/${index}/600/400`,
-    location: faker.address.city(),
-    title: faker.name.jobTitle(),
-    user: faker.name.fullName(),
+    location: faker.location.city(),
+    title: faker.person.jobTitle(),
+    user: faker.person.fullName(),
   }));
 
 const Home: FC = () => {

@@ -13,6 +13,7 @@ type TextFieldInputProps<T extends FieldValues> = FormControlProps &
   UseControllerProps<T> & {
     withAs?: 'input' | 'textarea';
     type?: React.HTMLInputTypeAttribute;
+    placeholder?: string;
   };
 
 function TextFieldInput<T extends FieldValues>({

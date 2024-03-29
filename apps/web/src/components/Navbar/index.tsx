@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Box, Flex, Heading, HStack, Stack, IconButton, useDisclosure } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { ReactComponent as Logo } from 'src/assets/logo.svg';
+import Logo from 'src/assets/logo.svg?react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom';
 import { Divider } from './Divider';

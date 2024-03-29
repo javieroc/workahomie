@@ -12,9 +12,9 @@ const hosts: Host[] = Array(6)
   .map(() => ({
     _id: faker.database.mongodbObjectId(),
     userId: randomUUID(),
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    occupation: faker.name.jobTitle(),
+    firstName: faker.person.firstName(),
+    lastName: faker.person.lastName(),
+    occupation: faker.person.jobTitle(),
     aboutMe: faker.lorem.paragraph(2),
     profileImages: [faker.image.avatar()],
   }));

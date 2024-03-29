@@ -24,7 +24,7 @@ const Hero: FC = () => {
     >
       <VStack width="400px" alignItems="flex-start" spacing="16px">
         <Heading size="lg" color="gray.800">
-          Looking for a partner?
+          Looking for a Co-Worker?
         </Heading>
         <InputGroup size="lg">
           <Input
