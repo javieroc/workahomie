@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Button, Flex, Heading, Skeleton, VStack, Wrap, WrapItem } from '@chakra-ui/react';
+import { useHosts } from 'src/hooks';
 import { NearHostCard } from '../NearHostCard';
-import { useHosts } from '../../hooks';
 
 const NearHostList: FC = () => {
   const { data: hosts, isLoading } = useHosts();

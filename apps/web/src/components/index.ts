@@ -2,6 +2,7 @@ export { AuthenticationGuard } from './AuthenticationGuard';
 export { FileUpload } from './FileUpload';
 export { FilesUpload } from './FilesUpload';
 export { FormProvider } from './FormProvider';
+export { GooglePlacesAutocompleteField } from './GooglePlacesAutocompleteField';
 export { Layout } from './Layout';
 export { Loading } from './Loading';
 export { TextFieldInput } from './TextFieldInput';

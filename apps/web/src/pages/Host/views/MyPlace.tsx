@@ -24,7 +24,8 @@ const MyPlace: FC = () => {
         </VStack>
         <FormProvider<UpdateHostPlaceDto>
           onSubmit={(formValues) => {
-            updatePlace(formValues);
+            console.log('FORM VALUES', formValues);
+            // updatePlace(formValues);
           }}
           defaultValues={{
             address: hostMe.place.address,

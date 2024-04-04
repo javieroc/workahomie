@@ -1,6 +1,11 @@
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { CheckboxFieldInput, FilesUpload, TextFieldInput } from 'src/components';
+import {
+  CheckboxFieldInput,
+  FilesUpload,
+  GooglePlacesAutocompleteField,
+  TextFieldInput,
+} from 'src/components';
 
 type FormFieldsProps = {
   previewPicturesUrl?: string[];
@@ -25,13 +30,7 @@ const PlaceFormFields: FC<FormFieldsProps> = ({ previewPicturesUrl }) => {
         withAs="textarea"
         size="md"
       />
-      <TextFieldInput
-        name="address"
-        label="Address"
-        placeholder="5th Avenue, Street 123"
-        isRequired
-        size="md"
-      />
+      <GooglePlacesAutocompleteField name="address" label="Address" isRequired size="md" />
       <CheckboxFieldInput
         label="Facilities"
         name="facilities"
