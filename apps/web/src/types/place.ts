@@ -4,5 +4,6 @@ export interface Place {
   description: string;
   details?: string;
   address: string;
+  addressLabel?: string;
   facilities?: string[];
 }

@@ -12,6 +12,11 @@ function useHosts(options?: UseQueryOptions<Host[], DefaultError, Host[]>) {
   return useQuery<Host[]>({
     queryKey: [QUERY_KEYS.HOSTS],
     queryFn: getHosts,
+    select: (data: Host[]) =>
+      data.map((host) => ({
+        ...host,
+        place: { ...host.place, addressLabel: JSON.parse(host.place.address).label },
+      })),
     ...options,
   });
 }

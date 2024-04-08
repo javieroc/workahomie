@@ -82,19 +82,14 @@ export class HostsController {
 
   @UseGuards(JwtGuard)
   @Put('/me/place')
-  @UseInterceptors(
-    FilesInterceptor('pictures', 10, { storage: memoryStorage() }),
-  )
+  @UseInterceptors(FilesInterceptor('pictures', 10, { storage: memoryStorage() }))
   async updatePlace(
     @Req() req: RequestWithUser,
     @Body() updateHostPlaceDto: UpdateHostPlaceDto,
     @UploadedFiles() pictures: Array<Express.Multer.File>,
   ) {
     const userId = req.user.sub.split('|')[1];
-    return this.hostsService.updatePlace(
-      { ...updateHostPlaceDto, userId },
-      pictures,
-    );
+    return this.hostsService.updatePlace({ ...updateHostPlaceDto, userId }, pictures);
   }
 
   @UseGuards(JwtGuard)

@@ -3,8 +3,13 @@ import { CreateHostDto } from '../TryHosting/types';
 
 export type UpdateHostDto = Partial<CreateHostDto>;
 
-export type UpdateHostPlaceDto = Partial<
-  Omit<Place, '_id' | 'pictures'> & {
+export type UpdateHostPlaceFormValues = Partial<
+  Omit<Place, '_id' | 'pictures' | 'address'> & {
     pictures: File[];
+    address: {
+      label: string;
+      // eslint-disable-next-line
+      value: any;
+    };
   }
 >;

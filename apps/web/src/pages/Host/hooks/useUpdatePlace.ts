@@ -7,41 +7,32 @@ import {
 import { QUERY_KEYS } from 'src/constants/queryKey';
 import { api } from 'src/api';
 import { useNotification } from 'src/hooks/useNotification';
-import { UpdateHostPlaceDto } from '../types';
+import { UpdateHostPlaceFormValues } from '../types';
 
-const putHostPlace = async ({ pictures, ...rest }: UpdateHostPlaceDto): Promise<void> => {
-  const payload = Object.keys(rest).reduce((formData, key) => {
-    const fieldData = rest[key as keyof Omit<UpdateHostPlaceDto, 'pictures'>];
-    if (fieldData) {
-      if (Array.isArray(fieldData)) {
-        fieldData.forEach((fieldDataElement) => {
-          formData.append(key, fieldDataElement);
-        });
-      } else {
-        formData.append(key, fieldData);
-      }
-    }
-    return formData;
-  }, new FormData());
-
-  if (pictures) {
-    pictures.forEach((picture) => {
-      payload.append('pictures', picture);
-    });
-  }
-
-  const { data } = await api.put<void>(`/hosts/me/place`, payload);
+const putHostPlace = async ({ address, ...rest }: UpdateHostPlaceFormValues): Promise<void> => {
+  const { data } = await api.put<void>(
+    `/hosts/me/place`,
+    {
+      address: JSON.stringify(address),
+      ...rest,
+    },
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    },
+  );
   return data;
 };
 
 function useUpdatePlace(
-  options: UseMutationOptions<void, unknown, UpdateHostPlaceDto, unknown> = {},
-): UseMutationResult<void, unknown, UpdateHostPlaceDto, unknown> {
+  options: UseMutationOptions<void, unknown, UpdateHostPlaceFormValues, unknown> = {},
+): UseMutationResult<void, unknown, UpdateHostPlaceFormValues, unknown> {
   const queryClient = useQueryClient();
   const notification = useNotification();
 
   return useMutation({
-    mutationFn: (payload: UpdateHostPlaceDto) => putHostPlace(payload),
+    mutationFn: (payload: UpdateHostPlaceFormValues) => putHostPlace(payload),
     onSuccess: () => {
       notification({
         title: 'Host Workspace',

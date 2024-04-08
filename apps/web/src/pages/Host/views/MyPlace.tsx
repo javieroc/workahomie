@@ -5,7 +5,7 @@ import { useHostMe } from 'src/hooks/useHostMe';
 import { Navigate } from 'react-router-dom';
 import { PlaceFormFields } from '../components/PlaceFormFields';
 import { useUpdatePlace } from '../hooks/useUpdatePlace';
-import { UpdateHostPlaceDto } from '../types';
+import { UpdateHostPlaceFormValues } from '../types';
 
 const MyPlace: FC = () => {
   const { data: hostMe, isLoading } = useHostMe();
@@ -22,13 +22,12 @@ const MyPlace: FC = () => {
           <Heading size="lg">My Place</Heading>
           <Heading size="md">Update your workspace information here</Heading>
         </VStack>
-        <FormProvider<UpdateHostPlaceDto>
+        <FormProvider<UpdateHostPlaceFormValues>
           onSubmit={(formValues) => {
-            console.log('FORM VALUES', formValues);
-            // updatePlace(formValues);
+            updatePlace(formValues);
           }}
           defaultValues={{
-            address: hostMe.place.address,
+            address: JSON.parse(hostMe.place.address),
             description: hostMe.place.description,
             details: hostMe.place.details,
             facilities: hostMe.place.facilities,

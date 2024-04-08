@@ -27,10 +27,7 @@ export class HostsService {
     host.place = place;
 
     if (profile) {
-      const image = await this.cloudinaryService.uploadImage(
-        profile,
-        `profile_${host.userId}`,
-      );
+      const image = await this.cloudinaryService.uploadImage(profile, `profile_${host.userId}`);
       host.profileImages = [image.secure_url];
     }
 
@@ -57,19 +54,12 @@ export class HostsService {
     { userId, ...updateHostDto }: UpdateHostDto & { userId: string },
     profile?: Express.Multer.File,
   ): Promise<Host> {
-    const host = await this.HostModel.findOneAndUpdate(
-      { userId },
-      updateHostDto,
-      {
-        new: true,
-      },
-    ).exec();
+    const host = await this.HostModel.findOneAndUpdate({ userId }, updateHostDto, {
+      new: true,
+    }).exec();
 
     if (profile) {
-      const image = await this.cloudinaryService.uploadImage(
-        profile,
-        `profile_${host.userId}`,
-      );
+      const image = await this.cloudinaryService.uploadImage(profile, `profile_${host.userId}`);
       host.profileImages = [image.secure_url];
       await host.save();
     }
@@ -97,10 +87,7 @@ export class HostsService {
 
     if (pictures.length) {
       const promises = pictures.map((picture) =>
-        this.cloudinaryService.uploadImage(
-          picture,
-          `place_${picture.originalname}`,
-        ),
+        this.cloudinaryService.uploadImage(picture, `place_${picture.originalname}`),
       );
       const images = await Promise.all(promises);
       const pictureUrls = images.map((image) => image.secure_url);
