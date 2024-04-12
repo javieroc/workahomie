@@ -38,10 +38,10 @@ const HostCard: FC<HostCardProps> = ({ host }) => {
             <HStack>
               <Heading size="xs">
                 {`${host.firstName} ${host.lastName}`}
-                <Heading size="xs" color="orange.500">{`${host.occupation}`}</Heading>
+                <Heading size="xs" color="orange.500" as="div">{`${host.occupation}`}</Heading>
               </Heading>
             </HStack>
-            <Text fontSize="sm">{host.place.addressLabel}</Text>
+            <Text fontSize="sm">{host.place.addressObj?.label}</Text>
             <Text fontSize="sm">{host.place.details}</Text>
             <Divider width="10%" borderColor="darkgray" />
             <Text fontSize="xs">{host.place.facilities?.join(' - ')}</Text>

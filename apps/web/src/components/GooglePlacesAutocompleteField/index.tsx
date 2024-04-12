@@ -1,5 +1,8 @@
 import { FormControl, FormLabel, FormErrorMessage, FormControlProps } from '@chakra-ui/react';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import GooglePlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-google-places-autocomplete';
 import { FieldValues, useController, UseControllerProps } from 'react-hook-form';
 
 type GooglePlacesAutocompleteFieldProps<T extends FieldValues> = FormControlProps &
@@ -16,11 +19,27 @@ function GooglePlacesAutocompleteField<T extends FieldValues>({
   size,
   ...rest
 }: GooglePlacesAutocompleteFieldProps<T>) {
-  const { field, fieldState } = useController({
+  const {
+    field: { onChange, ...restField },
+    fieldState,
+  } = useController({
     name,
     control,
     rules: { required: isRequired },
   });
+
+  // eslint-disable-next-line
+  const handleOnChange = (place: any) => {
+    if (place) {
+      geocodeByAddress(place.label).then((results) =>
+        getLatLng(results[0]).then(({ lat, lng }) => {
+          onChange({ ...place, lat, lng });
+        }),
+      );
+    } else {
+      onChange(place);
+    }
+  };
 
   return (
     <FormControl isInvalid={!!fieldState.error} {...rest} isRequired={isRequired} marginBottom="4">
@@ -31,7 +50,12 @@ function GooglePlacesAutocompleteField<T extends FieldValues>({
       )}
       <GooglePlacesAutocomplete
         apiKey={import.meta.env.VITE_MAPS_API_KEY}
-        selectProps={{ ...field, isClearable: true, placeholder }}
+        selectProps={{
+          ...restField,
+          onChange: handleOnChange,
+          isClearable: true,
+          placeholder,
+        }}
       />
       <FormErrorMessage>{fieldState.error?.message}</FormErrorMessage>
     </FormControl>

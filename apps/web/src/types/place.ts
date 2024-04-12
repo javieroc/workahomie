@@ -4,6 +4,12 @@ export interface Place {
   description: string;
   details?: string;
   address: string;
-  addressLabel?: string;
+  addressObj?: {
+    label: string;
+    lat: number;
+    lng: number;
+    // eslint-disable-next-line
+    value: any;
+  };
   facilities?: string[];
 }
