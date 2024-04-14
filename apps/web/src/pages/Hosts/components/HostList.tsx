@@ -7,7 +7,7 @@ const HostList: FC = () => {
   const { data: hosts, isLoading } = useHosts();
 
   return (
-    <Wrap spacing="20px" justify="flex-start">
+    <Wrap spacing="8px" justify="flex-start">
       {hosts?.map((host) => (
         <WrapItem key={host._id}>
           <Skeleton isLoaded={!isLoading}>

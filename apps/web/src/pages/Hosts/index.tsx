@@ -1,14 +1,18 @@
-import { Heading } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { FC } from 'react';
 import { Layout } from 'src/components';
-import { HostList, HostMap } from './components';
+import { Actions, HostList, HostMap } from './components';
 
 const Hosts: FC = () => {
   return (
     <Layout>
-      <Heading>Hosts</Heading>
-      <HostList />
-      <HostMap />
+      <Box padding="32px">
+        <Actions />
+        <Flex overflow="hidden">
+          <HostList />
+          <HostMap />
+        </Flex>
+      </Box>
     </Layout>
   );
 };

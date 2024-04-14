@@ -11,27 +11,18 @@ interface HostCardProps {
 const HostCard: FC<HostCardProps> = ({ host }) => {
   return (
     <Link to="/#">
-      <HStack
-        spacing="12px"
-        width="660px"
-        height="220px"
-        padding="16px"
-        alignItems="flex-start"
-        justifyContent="flex-start"
-      >
+      <HStack spacing="12px" padding="16px" alignItems="stretch" wrap="wrap">
         <Image
           src={host?.place?.pictures[0]}
           borderRadius="md"
-          boxSize="140px"
-          minWidth="306px"
+          minWidth={['220px', '240px', '288px']}
           height="188px"
           objectFit="cover"
         />
         <Flex
           direction="column"
           justifyContent="space-between"
-          width="100%"
-          height="100%"
+          width={['220px', '240px', '288px']}
           padding="8px"
         >
           <VStack align="stretch" spacing="2px">
