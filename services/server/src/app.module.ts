@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { HostsModule } from './hosts/hosts.module';
 import { AuthzModule } from './authz/authz.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { SeedDataCommand } from './command/seed-data';
 
 @Module({
   imports: [
@@ -20,6 +21,6 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     CloudinaryModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, SeedDataCommand],
 })
 export class AppModule {}
