@@ -5,6 +5,7 @@ import { HostsService } from './hosts.service';
 import { HostsController } from './hosts.controller';
 import { Host, HostSchema } from './schemas/host.schema';
 import { Place, PlaceSchema } from './schemas/place.schema';
+import { SeedDataCommand } from './command/seed-data';
 
 @Module({
   imports: [
@@ -15,6 +16,6 @@ import { Place, PlaceSchema } from './schemas/place.schema';
     CloudinaryModule,
   ],
   controllers: [HostsController],
-  providers: [HostsService],
+  providers: [HostsService, SeedDataCommand],
 })
 export class HostsModule {}

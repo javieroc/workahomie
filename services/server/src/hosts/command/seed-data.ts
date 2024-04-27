@@ -4,8 +4,8 @@ import { Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Command, CommandRunner } from 'nest-commander';
-import { Host, HostDocument } from '../hosts/schemas/host.schema';
-import { Place, PlaceDocument } from '../hosts/schemas/place.schema';
+import { Host, HostDocument } from '../schemas/host.schema';
+import { Place, PlaceDocument } from '../schemas/place.schema';
 
 @Command({ name: 'seed-data' })
 export class SeedDataCommand extends CommandRunner {
