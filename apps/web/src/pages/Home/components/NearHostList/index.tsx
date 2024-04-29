@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { Button, Flex, Heading, Skeleton, VStack, Wrap, WrapItem } from '@chakra-ui/react';
-import { useHosts } from 'src/hooks';
+import { useHosts, usePagination } from 'src/hooks';
 import { NearHostCard } from '../NearHostCard';
 
 const NearHostList: FC = () => {
-  const { data: hosts, isLoading } = useHosts();
+  const { paginationParams } = usePagination();
+  const { data: hosts, isLoading } = useHosts(paginationParams);
 
   return (
     <VStack align="center" padding={{ base: '16px', lg: '64px' }}>
@@ -15,7 +16,7 @@ const NearHostList: FC = () => {
         </Button>
       </Flex>
       <Wrap spacing="20px" justify="flex-start">
-        {hosts?.map((host) => (
+        {hosts?.data.map((host) => (
           <WrapItem key={host._id}>
             <Skeleton isLoaded={!isLoading}>
               <NearHostCard host={host} />

@@ -27,4 +27,3 @@ For the moment run the app manually
 cp services/server/.env.template services/server/.env
 npm run dev --workspace=web
 ```
-

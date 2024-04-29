@@ -13,11 +13,13 @@ import {
   NotFoundException,
   BadRequestException,
   UploadedFiles,
+  Query,
 } from '@nestjs/common';
 import { JwtGuard } from 'src/authz/jwt.guard';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import { RequestWithUser } from 'src/interfaces/RequestWithUser';
+import { PaginationDto } from 'src/dto/pagination.dto';
 import { HostsService } from './hosts.service';
 import { CreateHostDto } from './dto/create-host.dto';
 import { UpdateHostDto } from './dto/update-host.dto';
@@ -55,8 +57,8 @@ export class HostsController {
   }
 
   @Get()
-  findAll() {
-    return this.hostsService.findAll();
+  findAll(@Query() paginationDto: PaginationDto) {
+    return this.hostsService.findAll(paginationDto);
   }
 
   @Get(':id')

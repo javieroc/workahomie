@@ -2,6 +2,8 @@ import { Model } from 'mongoose';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { PaginationDto } from 'src/dto/pagination.dto';
+import { FindAllResponse } from 'src/dto/response.dto';
 import { CreateHostDto } from './dto/create-host.dto';
 import { UpdateHostDto } from './dto/update-host.dto';
 import { Host, HostDocument } from './schemas/host.schema';
@@ -34,8 +36,14 @@ export class HostsService {
     return host.save();
   }
 
-  findAll(): Promise<Host[]> {
-    return this.HostModel.find().populate('place').exec();
+  async findAll({ limit = 10, offset = 0 }: PaginationDto): Promise<FindAllResponse<Host>> {
+    const total = await this.HostModel.countDocuments().exec();
+    const data = await this.HostModel.find().limit(limit).skip(offset).populate('place').exec();
+
+    return {
+      data,
+      total,
+    };
   }
 
   async findOne(id: string): Promise<Host> {
