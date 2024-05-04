@@ -6,9 +6,9 @@ import { Actions, HostList, HostMap } from './components';
 const Hosts: FC = () => {
   return (
     <Layout>
-      <Box padding="32px">
+      <Box>
         <Actions />
-        <Flex overflow="hidden">
+        <Flex>
           <HostList />
           <HostMap />
         </Flex>

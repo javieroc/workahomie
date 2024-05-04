@@ -6,8 +6,8 @@ import { mapVisibleAtom } from '../store';
 const Actions: FC = () => {
   const [isMapVisible, setShowMap] = useAtom(mapVisibleAtom);
   return (
-    <HStack justifyContent="space-between">
-      <Heading>Hosts</Heading>
+    <HStack justifyContent="space-between" padding="32px" boxShadow="base">
+      <Heading />
       <HStack>
         <Heading size="xs">Show map</Heading>
         <Switch
