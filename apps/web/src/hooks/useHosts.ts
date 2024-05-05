@@ -8,6 +8,14 @@ const getHosts = async () => {
   return data;
 };
 
+const parsingAddress = (address: string) => {
+  try {
+    return JSON.parse(address);
+  } catch (e) {
+    return address;
+  }
+};
+
 function useHosts(options?: UseQueryOptions<Host[], DefaultError, Host[]>) {
   return useQuery<Host[]>({
     queryKey: [QUERY_KEYS.HOSTS],
@@ -15,7 +23,7 @@ function useHosts(options?: UseQueryOptions<Host[], DefaultError, Host[]>) {
     select: (data: Host[]) =>
       data.map((host) => ({
         ...host,
-        place: { ...host.place, addressObj: JSON.parse(host.place.address) },
+        place: { ...host.place, addressObj: parsingAddress(host.place.address) },
       })),
     ...options,
   });
