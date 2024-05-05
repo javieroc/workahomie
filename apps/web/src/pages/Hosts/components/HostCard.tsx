@@ -38,7 +38,9 @@ const HostCard: FC<HostCardProps> = ({ host }) => {
               <Text fontSize="sm" noOfLines={1}>
                 {host.place.addressObj?.label}
               </Text>
-              <Text fontSize="sm">{host.place.details}</Text>
+              <Text fontSize="sm" noOfLines={2}>
+                {host.place.details}
+              </Text>
               <Divider width="10%" borderColor="darkgray" />
               <Text fontSize="xs">{host.place.facilities?.join(' - ')}</Text>
             </VStack>
