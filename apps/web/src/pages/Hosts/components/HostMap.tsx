@@ -29,7 +29,7 @@ const HostMap: FC = () => {
         initial={false}
         onAnimationStart={() => setHidden(false)}
         onAnimationComplete={() => setHidden(!isMapVisible)}
-        animate={{ width: isMapVisible ? 600 : 0 }}
+        animate={{ width: isMapVisible ? 680 : 0 }}
         transition={{ duration: 0.8 }}
         style={{ overflow: 'hidden' }}
       >
@@ -37,7 +37,6 @@ const HostMap: FC = () => {
           <MapContainer
             center={[currentLocation?.latitude, currentLocation?.longitude]}
             zoom={13}
-            // scrollWheelZoom={false}
             style={{ height: '100vh' }}
           >
             <TileLayer

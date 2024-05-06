@@ -1,9 +1,8 @@
-import * as fs from 'node:fs';
-import * as path from 'node:path';
 import { Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Command, CommandRunner } from 'nest-commander';
+import { faker } from '@faker-js/faker';
 import { Host, HostDocument } from '../schemas/host.schema';
 import { Place, PlaceDocument } from '../schemas/place.schema';
 
@@ -19,11 +18,46 @@ export class SeedDataCommand extends CommandRunner {
   }
 
   async run(): Promise<void> {
-    const hosts = JSON.parse(fs.readFileSync(path.join(__dirname, 'hosts.json'), 'utf-8'));
-    const places = JSON.parse(fs.readFileSync(path.join(__dirname, 'places.json'), 'utf-8'));
+    const TOTAL = 10;
+    const hosts: Host[] = Array(TOTAL)
+      .fill(0)
+      .map(() => ({
+        _id: faker.database.mongodbObjectId(),
+        userId: faker.string.uuid(),
+        firstName: faker.person.firstName(),
+        lastName: faker.person.lastName(),
+        occupation: faker.person.jobTitle(),
+        aboutMe: faker.lorem.paragraph(2),
+        profileImages: [faker.image.avatar()],
+      }));
 
-    await this.HostModel.create(hosts);
-    await this.PlaceModel.create(places);
+    const promises = hosts.map(async (hostData) => {
+      const host = new this.HostModel(hostData);
+      const place = new this.PlaceModel({
+        address: faker.location.streetAddress(),
+        description: faker.lorem.lines(1),
+        details: faker.lorem.lines({ min: 2, max: 5 }),
+        facilities: faker.helpers.arrayElements([
+          'wifi',
+          'snacks',
+          'coffee',
+          'showers',
+          'parking',
+          'garden',
+          'kitchen',
+        ]),
+        pictures: [
+          faker.image.urlLoremFlickr({ category: 'work' }),
+          faker.image.urlLoremFlickr({ category: 'job' }),
+          faker.image.urlLoremFlickr({ category: 'office' }),
+          faker.image.urlLoremFlickr({ category: 'place' }),
+        ],
+      });
+      await place.save();
+      host.place = place;
+      return host.save();
+    });
+    await Promise.all(promises);
     this.logger.log('Hosts/Places were created successfully');
   }
 }

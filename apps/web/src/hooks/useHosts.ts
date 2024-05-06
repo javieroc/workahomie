@@ -8,6 +8,14 @@ const getHosts = async (params: PaginationApiParams = {}): Promise<ListResponse<
   return data;
 };
 
+const parsingAddress = (address: string) => {
+  try {
+    return JSON.parse(address);
+  } catch (e) {
+    return address;
+  }
+};
+
 function useHosts(
   { pageIndex, pageSize }: PaginationParams,
   options?: UseQueryOptions<ListResponse<Host>, DefaultError, ListResponse<Host>>,
@@ -19,7 +27,7 @@ function useHosts(
       total,
       data: data.map((host) => ({
         ...host,
-        place: { ...host.place, addressObj: JSON.parse(host.place.address) },
+        place: { ...host.place, addressObj: parsingAddress(host.place.address) },
       })),
     }),
     ...options,
