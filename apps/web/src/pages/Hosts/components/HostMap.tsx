@@ -6,10 +6,12 @@ import { Box, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
 import { mapVisibleAtom } from '../store';
+import { usePagination } from '../hooks';
 
 const HostMap: FC = () => {
   const [currentLocation, setCurrentLocation] = useState<{ latitude: number; longitude: number }>();
-  const { data: hosts } = useHosts();
+  const { paginationParams } = usePagination();
+  const { data: hosts } = useHosts(paginationParams);
   const isMapVisible = useAtomValue(mapVisibleAtom);
   const [hidden, setHidden] = useState(!isMapVisible);
 
@@ -31,7 +33,7 @@ const HostMap: FC = () => {
         onAnimationComplete={() => setHidden(!isMapVisible)}
         animate={{ width: isMapVisible ? 680 : 0 }}
         transition={{ duration: 0.8 }}
-        style={{ overflow: 'hidden' }}
+        style={{ overflow: 'hidden', position: 'sticky', top: 0 }}
       >
         {currentLocation && (
           <MapContainer
@@ -48,7 +50,7 @@ const HostMap: FC = () => {
                 <Text>You are here!</Text>
               </Popup>
             </Marker>
-            {hosts?.map(
+            {hosts?.data.map(
               (host) =>
                 host.place.addressObj?.lat &&
                 host.place.addressObj?.lng && (

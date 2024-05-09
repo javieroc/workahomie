@@ -2,9 +2,11 @@ import { FC } from 'react';
 import { Heading, Skeleton, Stack, Wrap, WrapItem } from '@chakra-ui/react';
 import { useHosts } from 'src/hooks';
 import { HostCard } from './HostCard';
+import { usePagination } from '../hooks';
 
 const HostList: FC = () => {
-  const { data: hosts, isLoading } = useHosts();
+  const { paginationParams } = usePagination();
+  const { data: hosts, isLoading } = useHosts(paginationParams);
 
   return (
     <Stack padding="24px">
@@ -12,7 +14,7 @@ const HostList: FC = () => {
         More than 1000 Hosts
       </Heading>
       <Wrap spacing="32px" justify="flex-start">
-        {hosts?.map((host) => (
+        {hosts?.data.map((host) => (
           <WrapItem key={host._id}>
             <Skeleton isLoaded={!isLoading}>
               <HostCard host={host} />

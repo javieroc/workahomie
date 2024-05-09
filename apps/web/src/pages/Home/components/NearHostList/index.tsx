@@ -1,11 +1,13 @@
 import { FC } from 'react';
 import { Button, Flex, Heading, Skeleton, VStack, Wrap, WrapItem } from '@chakra-ui/react';
-import { useHosts, usePagination } from 'src/hooks';
+import { useHosts } from 'src/hooks';
 import { NearHostCard } from '../NearHostCard';
 
 const NearHostList: FC = () => {
-  const { paginationParams } = usePagination();
-  const { data: hosts, isLoading } = useHosts(paginationParams);
+  const { data: hosts, isLoading } = useHosts({
+    pageIndex: 0,
+    pageSize: 20,
+  });
 
   return (
     <VStack align="center" padding={{ base: '16px', lg: '64px' }}>
