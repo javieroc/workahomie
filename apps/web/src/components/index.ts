@@ -1,9 +1,10 @@
 export { AuthenticationGuard } from './AuthenticationGuard';
+export { CheckboxFieldInput } from './CheckboxFieldInput';
 export { FileUpload } from './FileUpload';
 export { FilesUpload } from './FilesUpload';
 export { FormProvider } from './FormProvider';
 export { GooglePlacesAutocompleteField } from './GooglePlacesAutocompleteField';
 export { Layout } from './Layout';
 export { Loading } from './Loading';
+export { PaginationControl } from './PaginationControl';
 export { TextFieldInput } from './TextFieldInput';
-export { CheckboxFieldInput } from './CheckboxFieldInput';

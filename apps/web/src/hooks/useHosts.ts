@@ -21,7 +21,7 @@ function useHosts(
   options?: UseQueryOptions<ListResponse<Host>, DefaultError, ListResponse<Host>>,
 ) {
   return useQuery<ListResponse<Host>>({
-    queryKey: [QUERY_KEYS.HOSTS],
+    queryKey: [QUERY_KEYS.HOSTS, pageIndex, pageSize],
     queryFn: () => getHosts({ offset: pageIndex * pageSize, limit: pageSize }),
     select: ({ data, total }: ListResponse<Host>) => ({
       total,
