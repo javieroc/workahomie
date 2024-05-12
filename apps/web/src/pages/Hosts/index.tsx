@@ -1,18 +1,15 @@
-import { Box, Flex } from '@chakra-ui/react';
 import { FC } from 'react';
 import { Layout } from 'src/components';
-import { Actions, HostList, HostMap } from './components';
+import { Route, Routes } from 'react-router-dom';
+import { Details, List } from './views';
 
 const Hosts: FC = () => {
   return (
     <Layout>
-      <Box>
-        <Actions />
-        <Flex>
-          <HostList />
-          <HostMap />
-        </Flex>
-      </Box>
+      <Routes>
+        <Route index element={<List />} />
+        <Route path=":hostId" element={<Details />} />
+      </Routes>
     </Layout>
   );
 };

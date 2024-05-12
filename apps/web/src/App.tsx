@@ -9,7 +9,7 @@ const MyRoutes: FC = WithAuth0Token(() => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/hosts" element={<Hosts />} />
+      <Route path="/hosts/*" element={<Hosts />} />
       <Route path="/try-hosting" element={<AuthenticationGuard component={TryHosting} />} />
       <Route path="/host/*" element={<AuthenticationGuard component={Host} />} />
       <Route

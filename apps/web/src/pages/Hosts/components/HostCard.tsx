@@ -20,7 +20,7 @@ interface HostCardProps {
 
 const HostCard: FC<HostCardProps> = ({ host }) => {
   return (
-    <Link to="/#">
+    <Link to={`/hosts/${host._id}`}>
       <Card width={['240px', '360px']} variant="outline">
         <CardBody>
           <Image
