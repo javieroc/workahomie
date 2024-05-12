@@ -21,7 +21,7 @@ const PaginationControl: FC<PaginationControlProps> = ({ total }) => {
   const goPreviousPage = () => setPaginationParams({ pageSize, pageIndex: pageIndex - 1 });
 
   return (
-    <Flex alignItems="center" marginTop="26px" alignSelf="flex-end">
+    <Flex alignItems="center" marginTop="26px" alignSelf="center">
       <Flex>
         <Tooltip label="First Page">
           <IconButton
@@ -30,7 +30,7 @@ const PaginationControl: FC<PaginationControlProps> = ({ total }) => {
             isDisabled={!getCanPreviousPage()}
             icon={<FiChevronsLeft />}
             marginRight="8px"
-            colorScheme="blue"
+            colorScheme="purple"
             size="sm"
           />
         </Tooltip>
@@ -40,7 +40,7 @@ const PaginationControl: FC<PaginationControlProps> = ({ total }) => {
             onClick={() => goPreviousPage()}
             isDisabled={!getCanPreviousPage()}
             icon={<FiChevronLeft />}
-            colorScheme="blue"
+            colorScheme="purple"
             size="sm"
           />
         </Tooltip>
@@ -66,7 +66,7 @@ const PaginationControl: FC<PaginationControlProps> = ({ total }) => {
             onClick={() => goNextPage()}
             isDisabled={!getCanNextPage()}
             icon={<FiChevronRight />}
-            colorScheme="blue"
+            colorScheme="purple"
             size="sm"
           />
         </Tooltip>
@@ -77,7 +77,7 @@ const PaginationControl: FC<PaginationControlProps> = ({ total }) => {
             isDisabled={!getCanNextPage()}
             icon={<FiChevronsRight />}
             marginLeft="8px"
-            colorScheme="blue"
+            colorScheme="purple"
             size="sm"
           />
         </Tooltip>

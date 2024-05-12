@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { Heading, Skeleton, Stack, Wrap, WrapItem } from '@chakra-ui/react';
 import { useHosts } from 'src/hooks';
-import { PaginationControl } from 'src/components';
 import { HostCard } from './HostCard';
 import { usePagination } from '../hooks';
+import { PaginationControl } from './PaginationControl';
 
 const HostList: FC = () => {
   const { paginationParams } = usePagination();
