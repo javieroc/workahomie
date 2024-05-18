@@ -1,7 +1,5 @@
 import { FC } from 'react';
 import {
-  Avatar,
-  Box,
   Button,
   Menu,
   MenuButton,
@@ -14,18 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
-
-const UserAvatar: FC<{ picture: string }> = ({ picture }) => {
-  return (
-    <Box
-      backgroundImage="linear-gradient(to bottom right, #805AD5, #ED8936, #D53F8C)"
-      padding="3px"
-      borderRadius="50%"
-    >
-      <Avatar name="User Avatar" size="md" src={picture} />
-    </Box>
-  );
-};
+import { Avatar } from '../Avatar';
 
 const UserMenu: FC = () => {
   const { isAuthenticated, user, logout } = useAuth0();
@@ -43,7 +30,7 @@ const UserMenu: FC = () => {
         py={2}
         my={2}
       >
-        <UserAvatar picture={user?.picture ?? ''} />
+        <Avatar src={user?.picture ?? ''} size="md" />
       </MenuButton>
       <Portal>
         <MenuList>

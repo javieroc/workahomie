@@ -1,3 +1,12 @@
+export type Facilities =
+  | 'garden'
+  | 'showers'
+  | 'parking'
+  | 'coffee'
+  | 'kitchen'
+  | 'wifi'
+  | 'snacks';
+
 export interface Place {
   _id: string;
   pictures: string[];
@@ -11,5 +20,5 @@ export interface Place {
     // eslint-disable-next-line
     value: any;
   };
-  facilities?: string[];
+  facilities?: Facilities[];
 }
