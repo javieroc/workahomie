@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/react';
 import { PropsWithChildren, ReactElement } from 'react';
 import {
-  DeepPartial,
+  DefaultValues,
   FieldValues,
   FormProvider as FormProviderRhf,
   useForm,
@@ -9,7 +9,7 @@ import {
 
 type FormProviderProps<Payload extends FieldValues> = {
   onSubmit: (formValues: Payload) => void;
-  defaultValues?: DeepPartial<Payload> | undefined;
+  defaultValues?: DefaultValues<Payload> | undefined;
   submitButton?: ReactElement;
 };
 

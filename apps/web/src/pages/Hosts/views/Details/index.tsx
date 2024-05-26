@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { useParams } from 'react-router-dom';
-import { Stack } from '@chakra-ui/react';
+import { Grid, GridItem, Stack } from '@chakra-ui/react';
 import { useHost } from '../../hooks';
 import { HostTitle } from './components/HostTitle';
 import { GridImageGallery } from './components/GridImageGallery';
 import { HostUser } from './components/HostUser';
+import { RequestForm } from './components/RequestForm';
 
 const Details: FC = () => {
   const { hostId } = useParams<{ hostId: string }>();
@@ -16,7 +17,12 @@ const Details: FC = () => {
 
       <GridImageGallery images={host?.place.pictures} />
 
-      {host && <HostUser host={host} />}
+      <Grid templateColumns="repeat(3, 1fr)" gap={4}>
+        <GridItem colSpan={2}>{host && <HostUser host={host} />}</GridItem>
+        <GridItem>
+          <RequestForm />
+        </GridItem>
+      </Grid>
     </Stack>
   );
 };
