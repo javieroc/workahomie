@@ -17,6 +17,8 @@ Either server and web dependencies will be installed due this is a monorepo.
 ```
 cp services/server/.env.template services/server/.env
 docker compose up -d
+
+npm run command seed-data
 ```
 
 ### Web

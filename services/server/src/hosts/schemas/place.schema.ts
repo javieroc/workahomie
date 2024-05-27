@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { Point } from './point.schema';
 
 export type PlaceDocument = HydratedDocument<Place>;
 
@@ -13,6 +14,14 @@ export class Place {
 
   @Prop()
   address: string;
+
+  @Prop({
+    location: {
+      type: Point,
+      index: '2dsphere',
+    },
+  })
+  location: Point;
 
   @Prop([String])
   facilities: string[];

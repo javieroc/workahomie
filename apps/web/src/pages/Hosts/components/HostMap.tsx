@@ -5,6 +5,7 @@ import { useHosts } from 'src/hooks';
 import { Box, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
+import { LatLngTuple } from 'leaflet';
 import { mapVisibleAtom } from '../store';
 import { usePagination } from '../hooks';
 
@@ -52,14 +53,10 @@ const HostMap: FC = () => {
             </Marker>
             {hosts?.data.map(
               (host) =>
-                host.place.addressObj?.lat &&
-                host.place.addressObj?.lng && (
-                  <Marker
-                    key={host._id}
-                    position={[host.place.addressObj?.lat, host.place.addressObj?.lng]}
-                  >
+                host.place.location && (
+                  <Marker key={host._id} position={host.place.location.coordinates as LatLngTuple}>
                     <Popup>
-                      <Text>{host.place.addressObj.label}</Text>
+                      <Text>{host.place?.addressObj?.label}</Text>
                       <Text>{host.place.description}</Text>
                     </Popup>
                   </Marker>

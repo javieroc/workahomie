@@ -18,7 +18,7 @@ export class SeedDataCommand extends CommandRunner {
   }
 
   async run(): Promise<void> {
-    const TOTAL = 10;
+    const TOTAL = 50;
     const hosts: Host[] = Array(TOTAL)
       .fill(0)
       .map(() => ({
@@ -35,6 +35,14 @@ export class SeedDataCommand extends CommandRunner {
       const host = new this.HostModel(hostData);
       const place = new this.PlaceModel({
         address: faker.location.streetAddress(),
+        location: {
+          type: 'Point',
+          coordinates: faker.location.nearbyGPSCoordinate({
+            origin: [53.35014, -6.266155], // Dublin
+            radius: 100,
+            isMetric: true,
+          }),
+        },
         description: faker.lorem.lines(1),
         details: faker.lorem.lines({ min: 2, max: 5 }),
         facilities: faker.helpers.arrayElements([
@@ -51,6 +59,10 @@ export class SeedDataCommand extends CommandRunner {
           faker.image.urlLoremFlickr({ category: 'job' }),
           faker.image.urlLoremFlickr({ category: 'office' }),
           faker.image.urlLoremFlickr({ category: 'place' }),
+          faker.image.urlLoremFlickr({ category: 'art' }),
+          faker.image.urlLoremFlickr({ category: 'office' }),
+          faker.image.urlLoremFlickr({ category: 'place' }),
+          faker.image.urlLoremFlickr({ category: 'art' }),
         ],
       });
       await place.save();

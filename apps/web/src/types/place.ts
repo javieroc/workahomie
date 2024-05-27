@@ -7,12 +7,18 @@ export type Facilities =
   | 'wifi'
   | 'snacks';
 
+export type Point = {
+  type: string;
+  coordinates: number[];
+};
+
 export interface Place {
   _id: string;
   pictures: string[];
   description: string;
   details?: string;
   address: string;
+  location: Point;
   addressObj?: {
     label: string;
     lat: number;
