@@ -6,8 +6,8 @@ import { Box, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
 import { LatLngTuple } from 'leaflet';
-import { mapVisibleAtom } from '../store';
-import { usePagination } from '../hooks';
+import { mapVisibleAtom } from '../../../store';
+import { usePagination } from '../../../hooks';
 
 const HostMap: FC = () => {
   const [currentLocation, setCurrentLocation] = useState<{ latitude: number; longitude: number }>();

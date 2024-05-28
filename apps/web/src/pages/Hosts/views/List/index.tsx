@@ -1,6 +1,6 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { FC } from 'react';
-import { Actions, HostList, HostMap } from '../components';
+import { Actions, HostList, HostMap } from './components';
 
 const List: FC = () => {
   return (

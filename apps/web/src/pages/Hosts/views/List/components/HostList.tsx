@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Heading, Skeleton, Stack, Wrap, WrapItem } from '@chakra-ui/react';
 import { useHosts } from 'src/hooks';
 import { HostCard } from './HostCard';
-import { usePagination } from '../hooks';
+import { usePagination } from '../../../hooks';
 import { PaginationControl } from './PaginationControl';
 
 const HostList: FC = () => {

@@ -88,7 +88,7 @@ export class HostsService {
     const addressObj = JSON.parse(updateHostPlaceDto.address);
     const location = {
       type: 'Point',
-      coordinates: [addressObj.lng, addressObj.lat],
+      coordinates: [addressObj.lat, addressObj.lng],
     };
 
     const place = await this.PlaceModel.findOneAndUpdate(
