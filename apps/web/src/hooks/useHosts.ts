@@ -34,4 +34,4 @@ function useHosts(
   });
 }
 
-export { useHosts };
+export { useHosts, parsingAddress };

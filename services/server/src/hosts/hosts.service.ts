@@ -85,9 +85,15 @@ export class HostsService {
       throw new NotFoundException('Place not found');
     }
 
+    const addressObj = JSON.parse(updateHostPlaceDto.address);
+    const location = {
+      type: 'Point',
+      coordinates: [addressObj.lng, addressObj.lat],
+    };
+
     const place = await this.PlaceModel.findOneAndUpdate(
       { _id: host.place._id },
-      updateHostPlaceDto,
+      { ...updateHostPlaceDto, location },
       {
         new: true,
       },

@@ -27,7 +27,7 @@ const MyPlace: FC = () => {
             updatePlace(formValues);
           }}
           defaultValues={{
-            address: JSON.parse(hostMe.place.address),
+            address: hostMe.place.addressObj,
             description: hostMe.place.description,
             details: hostMe.place.details,
             facilities: hostMe.place.facilities,
