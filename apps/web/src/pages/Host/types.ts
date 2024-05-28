@@ -4,7 +4,7 @@ import { CreateHostDto } from '../TryHosting/types';
 export type UpdateHostDto = Partial<CreateHostDto>;
 
 export type UpdateHostPlaceFormValues = Partial<
-  Omit<Place, '_id' | 'pictures' | 'address'> & {
+  Omit<Place, '_id' | 'pictures' | 'address' | 'location' | 'addressObj'> & {
     pictures: File[];
     address: {
       label: string;

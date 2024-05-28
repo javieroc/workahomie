@@ -9,19 +9,38 @@ import { api } from 'src/api';
 import { useNotification } from 'src/hooks/useNotification';
 import { UpdateHostPlaceFormValues } from '../types';
 
-const putHostPlace = async ({ address, ...rest }: UpdateHostPlaceFormValues): Promise<void> => {
-  const { data } = await api.put<void>(
-    `/hosts/me/place`,
-    {
-      address: JSON.stringify(address),
-      ...rest,
-    },
-    {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    },
-  );
+const putHostPlace = async ({
+  address,
+  pictures,
+  facilities,
+  ...rest
+}: UpdateHostPlaceFormValues): Promise<void> => {
+  const payload = Object.keys(rest).reduce((formData, key) => {
+    const fieldData =
+      rest[key as keyof Omit<UpdateHostPlaceFormValues, 'address' | 'pictures' | 'facilities'>];
+    if (fieldData) {
+      formData.append(key, fieldData);
+    }
+    return formData;
+  }, new FormData());
+
+  if (address) {
+    payload.append('address', JSON.stringify(address));
+  }
+
+  if (pictures?.length) {
+    pictures.forEach((picture) => {
+      payload.append('pictures', picture);
+    });
+  }
+
+  if (facilities?.length) {
+    facilities.forEach((facility) => {
+      payload.append('facilities', facility);
+    });
+  }
+
+  const { data } = await api.putForm<void>(`/hosts/me/place`, payload);
   return data;
 };
 
