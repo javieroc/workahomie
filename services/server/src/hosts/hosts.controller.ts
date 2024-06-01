@@ -61,12 +61,6 @@ export class HostsController {
     return this.hostsService.findAll(queryParamsDto);
   }
 
-  // @Get('/places')
-  // findAllPlaces(@Query() queryParamsDto: SearchParamsDto) {
-  //   console.log('places query', queryParamsDto);
-  //   return this.hostsService.findAllPlaces(queryParamsDto);
-  // }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.hostsService.findOne(id);

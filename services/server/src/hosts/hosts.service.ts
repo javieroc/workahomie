@@ -30,21 +30,6 @@ export class HostsService {
     return host.save();
   }
 
-  // async findAllPlaces({ lat, lng }: SearchParamsDto): Promise<[Place[], number]> {
-  //   const places = await this.PlaceModel.find({
-  //     location: {
-  //       $near: {
-  //         $geometry: {
-  //           type: 'Point',
-  //           coordinates: [lng, lat],
-  //         },
-  //         $maxDistance: 10000,
-  //       },
-  //     },
-  //   }).exec();
-  //   return [places, places.length];
-  // }
-
   async findAll({
     limit = 10,
     offset = 0,
