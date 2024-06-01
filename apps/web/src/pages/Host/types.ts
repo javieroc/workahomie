@@ -1,10 +1,10 @@
-import { Place } from 'src/types/place';
+import { Host } from 'src/types';
 import { CreateHostDto } from '../TryHosting/types';
 
 export type UpdateHostDto = Partial<CreateHostDto>;
 
 export type UpdateHostPlaceFormValues = Partial<
-  Omit<Place, '_id' | 'pictures' | 'address' | 'location' | 'addressObj'> & {
+  Pick<Host, 'placeDescription' | 'placeDetails' | 'facilities'> & {
     pictures: File[];
     address: {
       label: string;

@@ -1,15 +1,7 @@
 import { FC } from 'react';
-import {
-  Button,
-  Heading,
-  Flex,
-  Input,
-  InputGroup,
-  InputRightElement,
-  VStack,
-} from '@chakra-ui/react';
+import { Heading, Flex, VStack } from '@chakra-ui/react';
 import HeroImage from 'src/assets/hero.jpeg';
-import { SearchIcon } from '@chakra-ui/icons';
+import { SearchInput } from '../SearchInput';
 
 const Hero: FC = () => {
   return (
@@ -26,20 +18,7 @@ const Hero: FC = () => {
         <Heading size="lg" color="gray.800">
           Looking for a Co-Worker?
         </Heading>
-        <InputGroup size="lg">
-          <Input
-            placeholder="Where are you going?"
-            backgroundColor="white"
-            borderColor="gray.400"
-            borderRadius="25px"
-            size="lg"
-          />
-          <InputRightElement right="8px">
-            <Button colorScheme="pink" borderRadius="50%" width="40px" height="40px">
-              <SearchIcon />
-            </Button>
-          </InputRightElement>
-        </InputGroup>
+        <SearchInput />
       </VStack>
     </Flex>
   );

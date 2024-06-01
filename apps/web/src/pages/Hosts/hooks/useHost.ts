@@ -22,7 +22,7 @@ function useHost(id: string, options?: UseQueryOptions<Host, DefaultError, Host>
     queryFn: () => getHost(id),
     select: (data) => ({
       ...data,
-      place: { ...data.place, addressObj: parsingAddress(data.place.address) },
+      addressObj: parsingAddress(data.address),
     }),
     ...options,
   });

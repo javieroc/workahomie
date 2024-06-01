@@ -2,10 +2,10 @@ import { IsArray, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateHostPlaceDto {
   @IsNotEmpty()
-  description: string;
+  placeDescription: string;
 
   @IsOptional()
-  details: string;
+  placeDetails: string;
 
   @IsNotEmpty()
   address: string;

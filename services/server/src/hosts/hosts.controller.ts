@@ -19,11 +19,11 @@ import { JwtGuard } from 'src/authz/jwt.guard';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import { RequestWithUser } from 'src/interfaces/RequestWithUser';
-import { PaginationDto } from 'src/dto/pagination.dto';
 import { HostsService } from './hosts.service';
 import { CreateHostDto } from './dto/create-host.dto';
 import { UpdateHostDto } from './dto/update-host.dto';
 import { UpdateHostPlaceDto } from './dto/update-host-place.dto';
+import { SearchParamsDto } from './dto/search-params.dto';
 
 @Controller('hosts')
 export class HostsController {
@@ -57,9 +57,15 @@ export class HostsController {
   }
 
   @Get()
-  findAll(@Query() paginationDto: PaginationDto) {
-    return this.hostsService.findAll(paginationDto);
+  findAll(@Query() queryParamsDto: SearchParamsDto) {
+    return this.hostsService.findAll(queryParamsDto);
   }
+
+  // @Get('/places')
+  // findAllPlaces(@Query() queryParamsDto: SearchParamsDto) {
+  //   console.log('places query', queryParamsDto);
+  //   return this.hostsService.findAllPlaces(queryParamsDto);
+  // }
 
   @Get(':id')
   findOne(@Param('id') id: string) {

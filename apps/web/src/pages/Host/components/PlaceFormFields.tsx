@@ -17,14 +17,14 @@ const PlaceFormFields: FC<FormFieldsProps> = ({ previewPicturesUrl }) => {
     <>
       <FilesUpload name="pictures" control={control} urls={previewPicturesUrl} />
       <TextFieldInput
-        name="description"
+        name="placeDescription"
         label="Description/Title"
         placeholder="Description/Title"
         isRequired
         size="md"
       />
       <TextFieldInput
-        name="details"
+        name="placeDetails"
         label="Description Details"
         placeholder="Write something..."
         withAs="textarea"

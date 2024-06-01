@@ -17,10 +17,7 @@ function useHostMe(options?: UseQueryOptions<Host, DefaultError, Host>) {
     refetchOnWindowFocus: false,
     select: (data: Host) => ({
       ...data,
-      place: {
-        ...data.place,
-        addressObj: parsingAddress(data.place.address),
-      },
+      addressObj: parsingAddress(data.address),
     }),
     ...options,
   });

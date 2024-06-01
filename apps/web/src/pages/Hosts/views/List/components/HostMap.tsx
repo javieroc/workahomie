@@ -1,18 +1,21 @@
 import 'leaflet/dist/leaflet.css';
 import { FC, useEffect, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import { useHosts } from 'src/hooks';
 import { Box, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
 import { LatLngTuple } from 'leaflet';
+import { Host, ListResponse } from 'src/types';
+import { useFilters } from 'src/pages/Hosts/hooks';
 import { mapVisibleAtom } from '../../../store';
-import { usePagination } from '../../../hooks';
 
-const HostMap: FC = () => {
+type HostMapProps = {
+  hosts: ListResponse<Host> | undefined;
+};
+
+const HostMap: FC<HostMapProps> = ({ hosts }) => {
   const [currentLocation, setCurrentLocation] = useState<{ latitude: number; longitude: number }>();
-  const { paginationParams } = usePagination();
-  const { data: hosts } = useHosts(paginationParams);
+  const { filters } = useFilters();
   const isMapVisible = useAtomValue(mapVisibleAtom);
   const [hidden, setHidden] = useState(!isMapVisible);
 
@@ -20,10 +23,12 @@ const HostMap: FC = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
-        setCurrentLocation({ latitude, longitude });
+        const lat = filters.lat ? Number.parseFloat(filters.lat) : latitude;
+        const lng = filters.lng ? Number.parseFloat(filters.lng) : longitude;
+        setCurrentLocation({ latitude: lat, longitude: lng });
       });
     }
-  }, []);
+  }, [filters]);
 
   return (
     <Box>
@@ -38,6 +43,7 @@ const HostMap: FC = () => {
       >
         {currentLocation && (
           <MapContainer
+            key={currentLocation?.latitude.toString()}
             center={[currentLocation?.latitude, currentLocation?.longitude]}
             zoom={13}
             style={{ height: '100vh' }}
@@ -53,11 +59,11 @@ const HostMap: FC = () => {
             </Marker>
             {hosts?.data.map(
               (host) =>
-                host.place.location && (
-                  <Marker key={host._id} position={host.place.location.coordinates as LatLngTuple}>
+                host.location && (
+                  <Marker key={host._id} position={host.location.coordinates as LatLngTuple}>
                     <Popup>
-                      <Text>{host.place?.addressObj?.label}</Text>
-                      <Text>{host.place.description}</Text>
+                      <Text>{host.addressObj?.label}</Text>
+                      <Text>{host.placeDescription}</Text>
                     </Popup>
                   </Marker>
                 ),

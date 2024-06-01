@@ -1,10 +1,10 @@
-export interface FilterParams {
-  [key: string]: string | number;
-}
+// export interface FilterParams {
+//   [key: string]: string | number;
+// }
 
-export interface SearchParams extends FilterParams {
-  searchText: string;
-  sortBy: string;
+export interface FiltersParams {
+  lat?: string;
+  lng?: string;
 }
 
 export interface PaginationParams {

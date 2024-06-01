@@ -27,14 +27,14 @@ const MyPlace: FC = () => {
             updatePlace(formValues);
           }}
           defaultValues={{
-            address: hostMe.place.addressObj,
-            description: hostMe.place.description,
-            details: hostMe.place.details,
-            facilities: hostMe.place.facilities,
+            address: hostMe.addressObj,
+            placeDescription: hostMe.placeDescription,
+            placeDetails: hostMe.placeDetails,
+            facilities: hostMe.facilities,
             pictures: [new File([''], ''), new File([''], ''), new File([''], '')],
           }}
         >
-          <PlaceFormFields previewPicturesUrl={hostMe.place.pictures} />
+          <PlaceFormFields previewPicturesUrl={hostMe.pictures} />
         </FormProvider>
       </VStack>
     );

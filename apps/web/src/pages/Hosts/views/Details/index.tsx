@@ -15,7 +15,7 @@ const Details: FC = () => {
     <Stack padding="46px 120px" spacing={8}>
       {host && <HostTitle host={host} />}
 
-      <GridImageGallery images={host?.place.pictures} />
+      <GridImageGallery images={host?.pictures} />
 
       <Grid templateColumns="repeat(3, 1fr)" gap={4}>
         <GridItem colSpan={2}>{host && <HostUser host={host} />}</GridItem>

@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { HStack, Heading, List, ListIcon, ListItem, Stack, Text } from '@chakra-ui/react';
 import { Avatar } from 'src/components';
-import { Host } from 'src/types';
-import { Facilities } from 'src/types/place';
 import { IconType } from 'react-icons';
 import { FaCoffee, FaShower, FaParking, FaWifi } from 'react-icons/fa';
 import { GiFireFlower } from 'react-icons/gi';
 import { MdKitchen } from 'react-icons/md';
 import { CiFries } from 'react-icons/ci';
+import { Facilities } from 'src/types/host';
+import { Host } from 'src/types';
 
 type HostUserProps = {
   host: Host;
@@ -39,7 +39,7 @@ const HostUser: FC<HostUserProps> = ({ host }) => {
       <Text fontSize="xl">{host?.aboutMe}</Text>
       <Heading size="lg">What this place offer</Heading>
       <List>
-        {host?.place.facilities?.map((facility) => (
+        {host?.facilities?.map((facility) => (
           <ListItem key={facility} fontSize="xl">
             <ListIcon as={IconList[facility]} />
             {facility}

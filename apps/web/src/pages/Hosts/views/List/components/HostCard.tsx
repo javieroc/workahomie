@@ -23,12 +23,7 @@ const HostCard: FC<HostCardProps> = ({ host }) => {
     <Link to={`/hosts/${host._id}`}>
       <Card width={['240px', '360px']} variant="outline">
         <CardBody>
-          <Image
-            src={host?.place?.pictures[0]}
-            boxSize="320px"
-            borderRadius="md"
-            objectFit="cover"
-          />
+          <Image src={host?.pictures[0]} boxSize="320px" borderRadius="md" objectFit="cover" />
           <Stack mt="6" spacing="3">
             <Heading size="xs">
               {`${host.firstName} ${host.lastName}`}
@@ -36,13 +31,13 @@ const HostCard: FC<HostCardProps> = ({ host }) => {
             </Heading>
             <VStack align="stretch" spacing="2px">
               <Text fontSize="sm" noOfLines={1}>
-                {host.place.addressObj?.label}
+                {host.addressObj?.label}
               </Text>
               <Text fontSize="sm" noOfLines={2}>
-                {host.place.details}
+                {host.placeDetails}
               </Text>
               <Divider width="10%" borderColor="darkgray" />
-              <Text fontSize="xs">{host.place.facilities?.join(' - ')}</Text>
+              <Text fontSize="xs">{host.facilities?.join(' - ')}</Text>
             </VStack>
             <HStack align="center" alignSelf="end">
               <StarIcon w={4} h={4} color="pink.500" />

@@ -2,19 +2,17 @@ import { Model } from 'mongoose';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
-import { PaginationDto } from 'src/dto/pagination.dto';
 import { FindAllResponse } from 'src/dto/response.dto';
 import { CreateHostDto } from './dto/create-host.dto';
 import { UpdateHostDto } from './dto/update-host.dto';
 import { Host, HostDocument } from './schemas/host.schema';
 import { UpdateHostPlaceDto } from './dto/update-host-place.dto';
-import { Place, PlaceDocument } from './schemas/place.schema';
+import { SearchParamsDto } from './dto/search-params.dto';
 
 @Injectable()
 export class HostsService {
   constructor(
     @InjectModel(Host.name) private HostModel: Model<HostDocument>,
-    @InjectModel(Place.name) private PlaceModel: Model<PlaceDocument>,
     private readonly cloudinaryService: CloudinaryService,
   ) {}
 
@@ -24,10 +22,6 @@ export class HostsService {
   ): Promise<Host> {
     const host = new this.HostModel(createHostDto);
 
-    const place = new this.PlaceModel();
-    await place.save();
-    host.place = place;
-
     if (profile) {
       const image = await this.cloudinaryService.uploadImage(profile, `profile_${host.userId}`);
       host.profileImages = [image.secure_url];
@@ -36,18 +30,69 @@ export class HostsService {
     return host.save();
   }
 
-  async findAll({ limit = 10, offset = 0 }: PaginationDto): Promise<FindAllResponse<Host>> {
-    const total = await this.HostModel.countDocuments().exec();
-    const data = await this.HostModel.find().limit(limit).skip(offset).populate('place').exec();
+  // async findAllPlaces({ lat, lng }: SearchParamsDto): Promise<[Place[], number]> {
+  //   const places = await this.PlaceModel.find({
+  //     location: {
+  //       $near: {
+  //         $geometry: {
+  //           type: 'Point',
+  //           coordinates: [lng, lat],
+  //         },
+  //         $maxDistance: 10000,
+  //       },
+  //     },
+  //   }).exec();
+  //   return [places, places.length];
+  // }
+
+  async findAll({
+    limit = 10,
+    offset = 0,
+    lat,
+    lng,
+  }: SearchParamsDto): Promise<FindAllResponse<Host>> {
+    const total = await this.HostModel.find({
+      ...(lat && lng
+        ? {
+            location: {
+              $near: {
+                $geometry: {
+                  type: 'Point',
+                  coordinates: [lng, lat],
+                },
+                $maxDistance: 10000,
+              },
+            },
+          }
+        : {}),
+    }).exec();
+    const data = await this.HostModel.find({
+      ...(lat && lng
+        ? {
+            location: {
+              $near: {
+                $geometry: {
+                  type: 'Point',
+                  coordinates: [lng, lat],
+                },
+                $maxDistance: 10000,
+              },
+            },
+          }
+        : {}),
+    })
+      .limit(limit)
+      .skip(offset)
+      .exec();
 
     return {
       data,
-      total,
+      total: total.length,
     };
   }
 
   async findOne(id: string): Promise<Host> {
-    const host = await this.HostModel.findById(id).populate('place');
+    const host = await this.HostModel.findById(id);
     if (!host) {
       throw new NotFoundException('Host not found!');
     }
@@ -55,7 +100,7 @@ export class HostsService {
   }
 
   async findMe(userId: string): Promise<Host> {
-    return this.HostModel.findOne({ userId }).populate('place');
+    return this.HostModel.findOne({ userId });
   }
 
   async update(
@@ -78,21 +123,15 @@ export class HostsService {
   async updatePlace(
     { userId, ...updateHostPlaceDto }: UpdateHostPlaceDto & { userId: string },
     pictures?: Array<Express.Multer.File>,
-  ): Promise<Place> {
-    const host = await this.HostModel.findOne({ userId });
-
-    if (!host.place) {
-      throw new NotFoundException('Place not found');
-    }
-
+  ): Promise<Host> {
     const addressObj = JSON.parse(updateHostPlaceDto.address);
     const location = {
       type: 'Point',
       coordinates: [addressObj.lat, addressObj.lng],
     };
 
-    const place = await this.PlaceModel.findOneAndUpdate(
-      { _id: host.place._id },
+    const host = await this.HostModel.findOneAndUpdate(
+      { userId },
       { ...updateHostPlaceDto, location },
       {
         new: true,
@@ -105,11 +144,11 @@ export class HostsService {
       );
       const images = await Promise.all(promises);
       const pictureUrls = images.map((image) => image.secure_url);
-      place.pictures = [...place.pictures, ...pictureUrls];
-      await place.save();
+      host.pictures = [...host.pictures, ...pictureUrls];
+      await host.save();
     }
 
-    return place;
+    return host;
   }
 
   async remove(id: string) {

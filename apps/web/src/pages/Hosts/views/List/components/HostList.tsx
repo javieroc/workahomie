@@ -1,14 +1,15 @@
 import { FC } from 'react';
 import { Heading, Skeleton, Stack, Wrap, WrapItem } from '@chakra-ui/react';
-import { useHosts } from 'src/hooks';
+import { Host, ListResponse } from 'src/types';
 import { HostCard } from './HostCard';
-import { usePagination } from '../../../hooks';
 import { PaginationControl } from './PaginationControl';
 
-const HostList: FC = () => {
-  const { paginationParams } = usePagination();
-  const { data: hosts, isLoading } = useHosts(paginationParams);
+type HostListProps = {
+  hosts: ListResponse<Host> | undefined;
+  isLoading: boolean;
+};
 
+const HostList: FC<HostListProps> = ({ hosts, isLoading }) => {
   return (
     <Stack padding="24px">
       <Heading size="md" marginBottom="16px">
