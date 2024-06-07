@@ -25,9 +25,6 @@ export class Host {
   @Prop([String])
   profileImages: string[];
 
-  // @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Place' })
-  // place?: PlaceDocument;
-
   @Prop()
   placeDescription: string;
 

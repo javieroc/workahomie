@@ -6,13 +6,13 @@ import { filtersAtom } from '../store';
 const useFilters = () => {
   const [filters, setFilters] = useAtom(filtersAtom);
   const [searchParams] = useSearchParams();
-  const lat = searchParams.get('lat') ?? undefined;
-  const lng = searchParams.get('lng') ?? undefined;
+  const lat = searchParams.get('lat');
+  const lng = searchParams.get('lng');
 
   useEffect(() => {
     setFilters({
-      lat,
-      lng,
+      lat: lat ? Number.parseFloat(lat) : undefined,
+      lng: lng ? Number.parseFloat(lng) : undefined,
     });
   }, [lat, lng, setFilters]);
 

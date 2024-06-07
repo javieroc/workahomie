@@ -3,15 +3,17 @@ import { Box, Flex, Heading, HStack, Stack, IconButton, useDisclosure } from '@c
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import Logo from 'src/assets/logo.svg?react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Divider } from './Divider';
-import { LoginButton } from '../LoginButton';
 import { UserMenu } from './UserMenu';
+import { SearchInput } from './SearchInput';
+import { LoginButton } from '../LoginButton';
 import { LogoutButton } from '../LogoutButton';
 
 const Navbar: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isAuthenticated } = useAuth0();
+  const { pathname } = useLocation();
 
   const links = [
     {
@@ -34,6 +36,7 @@ const Navbar: FC = () => {
         <Link to="/">
           <Logo />
         </Link>
+        {pathname !== '/' && <SearchInput />}
         <IconButton
           size="sm"
           variant="outline"

@@ -23,12 +23,12 @@ const HostMap: FC<HostMapProps> = ({ hosts }) => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
-        const lat = filters.lat ? Number.parseFloat(filters.lat) : latitude;
-        const lng = filters.lng ? Number.parseFloat(filters.lng) : longitude;
+        const lat = filters.lat ?? latitude;
+        const lng = filters.lng ?? longitude;
         setCurrentLocation({ latitude: lat, longitude: lng });
       });
     }
-  }, [filters]);
+  }, [filters.lat, filters.lng]);
 
   return (
     <Box>
@@ -43,7 +43,7 @@ const HostMap: FC<HostMapProps> = ({ hosts }) => {
       >
         {currentLocation && (
           <MapContainer
-            key={currentLocation?.latitude.toString()}
+            key={currentLocation.latitude.toString()}
             center={[currentLocation?.latitude, currentLocation?.longitude]}
             zoom={13}
             style={{ height: '100vh' }}

@@ -3,8 +3,8 @@
 // }
 
 export interface FiltersParams {
-  lat?: string;
-  lng?: string;
+  lat?: number;
+  lng?: number;
 }
 
 export interface PaginationParams {
