@@ -26,7 +26,7 @@ const MyRoutes: FC = WithAuth0Token(() => {
 
 const App: FC = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/workahomie">
       <Auth0ProviderWithNavigate>
         <MyRoutes />
       </Auth0ProviderWithNavigate>
