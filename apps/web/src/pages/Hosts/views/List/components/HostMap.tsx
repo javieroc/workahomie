@@ -4,14 +4,20 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { Box, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
-import { LatLngTuple } from 'leaflet';
+import { Icon, LatLngTuple } from 'leaflet';
 import { Host, ListResponse } from 'src/types';
 import { useFilters } from 'src/pages/Hosts/hooks';
+import IconMarkerImage from 'src/assets/marker-3.png';
 import { mapVisibleAtom } from '../../../store';
 
 type HostMapProps = {
   hosts: ListResponse<Host> | undefined;
 };
+
+const iconMarker = new Icon({
+  iconUrl: IconMarkerImage,
+  iconSize: [40, 40],
+});
 
 const HostMap: FC<HostMapProps> = ({ hosts }) => {
   const [currentLocation, setCurrentLocation] = useState<{ latitude: number; longitude: number }>();
@@ -52,15 +58,14 @@ const HostMap: FC<HostMapProps> = ({ hosts }) => {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={[currentLocation?.latitude, currentLocation?.longitude]}>
-              <Popup>
-                <Text>You are here!</Text>
-              </Popup>
-            </Marker>
             {hosts?.data.map(
               (host) =>
                 host.location && (
-                  <Marker key={host._id} position={host.location.coordinates as LatLngTuple}>
+                  <Marker
+                    key={host._id}
+                    position={host.location.coordinates as LatLngTuple}
+                    icon={iconMarker}
+                  >
                     <Popup>
                       <Text>{host.addressObj?.label}</Text>
                       <Text>{host.placeDescription}</Text>
