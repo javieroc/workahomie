@@ -1,4 +1,4 @@
-import { Auth0Provider } from '@auth0/auth0-react';
+import { Auth0Provider, AppState } from '@auth0/auth0-react';
 import { FC, PropsWithChildren } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,8 +8,8 @@ const Auth0ProviderWithNavigate: FC<PropsWithChildren> = ({ children }) => {
   const domain = import.meta.env.VITE_AUTH0_DOMAIN ?? '';
   const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID ?? '';
 
-  const onRedirectCallback = (appState: any) => {
-    navigate(appState?.returnTo || window.location.pathname);
+  const onRedirectCallback = (appState: AppState | undefined) => {
+    navigate(appState?.returnTo || '/');
   };
 
   return (
@@ -18,7 +18,7 @@ const Auth0ProviderWithNavigate: FC<PropsWithChildren> = ({ children }) => {
       clientId={clientId}
       authorizationParams={{
         audience: import.meta.env.VITE_AUTH0_AUDIENCE,
-        redirect_uri: window.location.origin,
+        redirect_uri: `${window.location.origin}/workahomie/`,
       }}
       useRefreshTokens
       cacheLocation="localstorage"
