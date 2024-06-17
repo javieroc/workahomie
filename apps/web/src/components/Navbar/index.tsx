@@ -32,7 +32,7 @@ const Navbar: FC = () => {
 
   return (
     <Flex direction="column">
-      <Flex color="gray.50" height="80px" align="center" justify="space-between" padding="0px 32px">
+      <Flex height="80px" align="center" justify="space-between" padding="0px 32px">
         <Link to="/">
           <Logo />
         </Link>
