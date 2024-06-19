@@ -13,7 +13,7 @@ const HostList: FC<HostListProps> = ({ hosts, isLoading }) => {
   return (
     <Stack padding="24px">
       <Heading size="md" marginBottom="16px">
-        More than 1000 Hosts
+        List of Hosts
       </Heading>
       <Wrap spacing="32px" justify="flex-start">
         {hosts?.data.map((host) => (
