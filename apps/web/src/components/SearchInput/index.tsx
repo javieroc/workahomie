@@ -1,4 +1,3 @@
-import { createSearchParams, useNavigate } from 'react-router-dom';
 import { SearchIcon } from '@chakra-ui/icons';
 import { IconButton, Stack } from '@chakra-ui/react';
 import { FC, useState } from 'react';
@@ -17,9 +16,13 @@ type Address = {
   };
 };
 
-const SearchInput: FC = () => {
+interface SearchInputProps {
+  size?: 'xl' | 'md';
+  onClick: (search: Address) => void;
+}
+
+const SearchInput: FC<SearchInputProps> = ({ size = 'xl', onClick }) => {
   const [search, setSearch] = useState<Address | undefined>();
-  const navigate = useNavigate();
 
   // eslint-disable-next-line
   const handleOnChange = (place: any) => {
@@ -36,20 +39,12 @@ const SearchInput: FC = () => {
 
   const handleOnClick = () => {
     if (search) {
-      navigate({
-        pathname: 'hosts',
-        search: createSearchParams({
-          search: search.label,
-          lat: search.lat.toString(),
-          lng: search.lng.toString(),
-          place_id: search.value.place_id,
-        }).toString(),
-      });
+      onClick(search);
     }
   };
 
   return (
-    <Stack direction="row" alignItems="center">
+    <Stack direction="row" alignItems="center" width="400px">
       <GooglePlacesAutocomplete
         apiKey={import.meta.env.VITE_MAPS_API_KEY}
         selectProps={{
@@ -60,10 +55,10 @@ const SearchInput: FC = () => {
           styles: {
             input: (provided) => ({
               ...provided,
-              width: '400px',
-              height: '48px',
+              width: size === 'xl' ? '400px' : '360px',
+              height: size === 'xl' ? '48px' : '40px',
               borderRadius: '50px',
-              fontSize: '24px',
+              fontSize: size === 'xl' ? '24px' : '20px',
             }),
             control: (provided) => ({
               ...provided,
@@ -75,7 +70,7 @@ const SearchInput: FC = () => {
             }),
             singleValue: (provided) => ({
               ...provided,
-              fontSize: '24px',
+              fontSize: size === 'xl' ? '24px' : '20px',
             }),
             dropdownIndicator: (provided) => ({
               ...provided,
@@ -87,7 +82,7 @@ const SearchInput: FC = () => {
             }),
             placeholder: (provided) => ({
               ...provided,
-              fontSize: '24px',
+              fontSize: size === 'xl' ? '24px' : '20px',
             }),
           },
         }}
@@ -96,9 +91,9 @@ const SearchInput: FC = () => {
         onClick={handleOnClick}
         colorScheme="pink"
         isRound
-        size="lg"
+        size="md"
         aria-label="Search database"
-        icon={<SearchIcon fontSize="xl" />}
+        icon={<SearchIcon fontSize="md" />}
       />
     </Stack>
   );
