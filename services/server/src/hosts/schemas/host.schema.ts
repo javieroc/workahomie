@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { Point } from './point.schema';
-// import { PlaceDocument } from './place.schema';
 
 export type HostDocument = HydratedDocument<Host>;
 

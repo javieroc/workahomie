@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Button, Flex, Heading, Skeleton, VStack, Wrap, WrapItem } from '@chakra-ui/react';
+import { Heading, Skeleton, VStack, Wrap, WrapItem } from '@chakra-ui/react';
 import { useHosts } from 'src/hooks';
 import { NearHostCard } from '../NearHostCard';
 
@@ -10,14 +10,11 @@ const NearHostList: FC = () => {
   });
 
   return (
-    <VStack align="center" padding={{ base: '16px', lg: '64px' }}>
-      <Flex justifyContent="space-between" alignItems="center" width="100%" marginBottom="16px">
+    <VStack padding={{ base: '16px', lg: '64px' }}>
+      <VStack alignItems="flex-start" w={{ base: '1500px' }} mb="16px">
         <Heading size="lg">Near Hosts</Heading>
-        <Button variant="link" color="orange.500">
-          See All
-        </Button>
-      </Flex>
-      <Wrap spacing="20px" justify="flex-start">
+      </VStack>
+      <Wrap spacing="20px" justify="flex-start" maxW={{ base: '1500px' }}>
         {hosts?.data.map((host) => (
           <WrapItem key={host._id}>
             <Skeleton isLoaded={!isLoading}>

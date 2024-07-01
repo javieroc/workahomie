@@ -3,17 +3,20 @@ import { Box, Flex, Heading, HStack, Stack, IconButton, useDisclosure } from '@c
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import Logo from 'src/assets/logo.svg?react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { useFilters } from 'src/pages/Hosts/hooks';
 import { Divider } from './Divider';
 import { UserMenu } from './UserMenu';
-import { SearchInput } from './SearchInput';
 import { LoginButton } from '../LoginButton';
 import { LogoutButton } from '../LogoutButton';
+import { SearchInput } from '../SearchInput';
 
 const Navbar: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isAuthenticated } = useAuth0();
   const { pathname } = useLocation();
+  const { setFilters } = useFilters();
+  const [, setSearchParams] = useSearchParams();
 
   const links = [
     {
@@ -36,7 +39,20 @@ const Navbar: FC = () => {
         <Link to="/">
           <Logo />
         </Link>
-        {pathname !== '/' && <SearchInput />}
+        {pathname === '/hosts' && (
+          <SearchInput
+            size="md"
+            onClick={(search) => {
+              setFilters({ lat: search.lat, lng: search.lng });
+              setSearchParams({
+                search: search.label,
+                lat: search.lat.toString(),
+                lng: search.lng.toString(),
+                place_id: search.value.place_id,
+              });
+            }}
+          />
+        )}
         <IconButton
           size="sm"
           variant="outline"

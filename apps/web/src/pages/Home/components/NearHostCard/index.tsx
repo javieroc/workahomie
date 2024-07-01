@@ -10,7 +10,7 @@ interface NearHostCardProps {
 
 const NearHostCard: FC<NearHostCardProps> = ({ host }) => {
   return (
-    <Link to="/#">
+    <Link to={`/hosts/${host._id}`}>
       <HStack
         spacing="12px"
         width="360px"

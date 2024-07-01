@@ -8,4 +8,5 @@ export { FormProvider } from './FormProvider';
 export { GooglePlacesAutocompleteField } from './GooglePlacesAutocompleteField';
 export { Layout } from './Layout';
 export { Loading } from './Loading';
+export { SearchInput } from './SearchInput';
 export { TextFieldInput } from './TextFieldInput';

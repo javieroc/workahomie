@@ -20,7 +20,7 @@ const Details: FC = () => {
       <Grid templateColumns="repeat(3, 1fr)" gap={4}>
         <GridItem colSpan={2}>{host && <HostUser host={host} />}</GridItem>
         <GridItem>
-          <RequestForm />
+          <RequestForm hostId={hostId!} />
         </GridItem>
       </Grid>
     </Stack>

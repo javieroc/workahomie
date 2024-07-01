@@ -19,6 +19,8 @@ import { JwtGuard } from 'src/authz/jwt.guard';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import { RequestWithUser } from 'src/interfaces/RequestWithUser';
+import { CreateRequestDto } from 'src/requests/dto/create-request.dto';
+import { RequestsService } from 'src/requests/requests.service';
 import { HostsService } from './hosts.service';
 import { CreateHostDto } from './dto/create-host.dto';
 import { UpdateHostDto } from './dto/update-host.dto';
@@ -27,7 +29,10 @@ import { SearchParamsDto } from './dto/search-params.dto';
 
 @Controller('hosts')
 export class HostsController {
-  constructor(private readonly hostsService: HostsService) {}
+  constructor(
+    private readonly hostsService: HostsService,
+    private readonly requestsService: RequestsService,
+  ) {}
 
   @UseGuards(JwtGuard)
   @Post()
@@ -98,5 +103,17 @@ export class HostsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.hostsService.remove(id);
+  }
+
+  @UseGuards(JwtGuard)
+  @Post(':id/requests')
+  async createRequest(
+    @Req() req: RequestWithUser,
+    @Param('id') id: string,
+    @Body() createHostRequestDto: CreateRequestDto,
+  ) {
+    const userId = req.user.sub.split('|')[1];
+    const host = await this.hostsService.findOne(id);
+    return this.requestsService.create({ ...createHostRequestDto, userId, host });
   }
 }
