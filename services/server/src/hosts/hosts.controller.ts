@@ -106,7 +106,7 @@ export class HostsController {
   }
 
   @UseGuards(JwtGuard)
-  @Post(':id/request')
+  @Post(':id/requests')
   async createRequest(
     @Req() req: RequestWithUser,
     @Param('id') id: string,

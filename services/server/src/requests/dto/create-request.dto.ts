@@ -3,11 +3,11 @@ import { IsDateString, IsNotEmpty, IsOptional } from 'class-validator';
 export class CreateRequestDto {
   @IsNotEmpty()
   @IsDateString()
-  checkIn: Date;
+  checkIn: string;
 
   @IsNotEmpty()
   @IsDateString()
-  checkOut: Date;
+  checkOut: string;
 
   @IsOptional()
   message?: string;
