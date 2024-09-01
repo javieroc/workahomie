@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { Heading, Flex, VStack } from '@chakra-ui/react';
 import HeroImage from 'src/assets/hero.jpeg';
-import { SearchInput } from 'src/components';
+import { OSMSearchInput } from 'src/components/OSMSearchInput';
 
 const Hero: FC = () => {
   const navigate = useNavigate();
@@ -21,15 +21,15 @@ const Hero: FC = () => {
         <Heading size="lg" color="gray.800">
           Looking for a Co-Worker?
         </Heading>
-        <SearchInput
+        <OSMSearchInput
           onClick={(search) => {
             navigate({
               pathname: 'hosts',
               search: createSearchParams({
-                search: search.label,
+                search: search.display_name,
                 lat: search.lat.toString(),
-                lng: search.lng.toString(),
-                place_id: search.value.place_id,
+                lng: search.lon.toString(),
+                place_id: search.place_id,
               }).toString(),
             });
           }}
