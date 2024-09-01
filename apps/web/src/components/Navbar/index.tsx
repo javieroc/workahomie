@@ -9,7 +9,7 @@ import { Divider } from './Divider';
 import { UserMenu } from './UserMenu';
 import { LoginButton } from '../LoginButton';
 import { LogoutButton } from '../LogoutButton';
-import { SearchInput } from '../SearchInput';
+import { OSMSearchInput } from '../OSMSearchInput';
 
 const Navbar: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -40,15 +40,15 @@ const Navbar: FC = () => {
           <Logo />
         </Link>
         {pathname === '/hosts' && (
-          <SearchInput
+          <OSMSearchInput
             size="md"
             onClick={(search) => {
-              setFilters({ lat: search.lat, lng: search.lng });
+              setFilters({ lat: search.lat, lng: search.lon });
               setSearchParams({
-                search: search.label,
+                search: search.display_name,
                 lat: search.lat.toString(),
-                lng: search.lng.toString(),
-                place_id: search.value.place_id,
+                lng: search.lon.toString(),
+                place_id: search.place_id,
               });
             }}
           />

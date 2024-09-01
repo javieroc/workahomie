@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Card, CardBody, Heading } from '@chakra-ui/react';
-import { DateFieldInput, FormProvider, TextFieldInput } from 'src/components';
+import { DateRangeInputField, FormProvider, TextFieldInput } from 'src/components';
 import { useSendRequest } from 'src/pages/Hosts/hooks';
 import { CreateRequestDto } from 'src/pages/Hosts/types';
 import { useNotification } from 'src/hooks/useNotification';
@@ -29,8 +29,13 @@ const RequestForm: FC<RequestFormProps> = ({ hostId }) => {
           Request to Stay
         </Heading>
         <FormProvider<CreateRequestDto> onSubmit={(formValues) => sendRequest(formValues)}>
-          <DateFieldInput label="Check-In" name="checkIn" size="lg" />
-          <DateFieldInput label="Check-Out" name="checkOut" size="lg" />
+          <DateRangeInputField
+            startName="checkIn"
+            startLabel="Check-In"
+            endName="checkOut"
+            endLabel="Check-Out"
+            size="lg"
+          />
           <TextFieldInput
             label="Message"
             name="message"
