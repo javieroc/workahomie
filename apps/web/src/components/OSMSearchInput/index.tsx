@@ -16,7 +16,7 @@ interface OSMSearchInputProps {
   onClick: (search: Address) => void;
 }
 
-const OSMSearchInput: React.FC<OSMSearchInputProps> = ({ onClick, size = 'md' }) => {
+const OSMSearchInput: React.FC<OSMSearchInputProps> = ({ onClick, size }) => {
   const [search, setSearch] = useState<Address | undefined>();
   const [query, setQuery] = useState<string>('');
   const debouncedQuery = useDebounced(query, 300);
@@ -78,25 +78,25 @@ const OSMSearchInput: React.FC<OSMSearchInputProps> = ({ onClick, size = 'md' })
   };
 
   return (
-    <Box position="relative" width="400px">
+    <Box position="relative" width={['300px', '400px']}>
       <Box display="flex" alignItems="center">
         <Input
           value={query}
           onChange={handleInputChange}
           placeholder="Search for a Address"
-          size={size}
-          p="1.5rem"
+          size={size ?? ['sm', 'lg']}
+          p={['1rem', '1.5rem']}
           backgroundColor="white"
         />
         <IconButton
           onClick={handleOnClick}
           colorScheme="pink"
           isRound
-          size={size}
+          size={size ?? ['xs', 'md']}
           position="absolute"
           right="1rem"
           aria-label="Search database"
-          icon={<SearchIcon fontSize="md" />}
+          icon={<SearchIcon fontSize={['xs', 'md']} />}
         />
       </Box>
       {loading && <Spinner size="sm" mt={2} />}

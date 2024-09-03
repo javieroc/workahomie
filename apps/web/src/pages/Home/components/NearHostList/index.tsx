@@ -10,11 +10,11 @@ const NearHostList: FC = () => {
   });
 
   return (
-    <VStack padding={{ base: '16px', lg: '64px' }}>
-      <VStack alignItems="flex-start" w={{ base: '1500px' }} mb="16px">
+    <VStack padding={{ base: '16px', lg: '64px' }} maxW={{ base: '1500px' }}>
+      <VStack alignItems="flex-start" mb="16px" w="100%">
         <Heading size="lg">Near Hosts</Heading>
       </VStack>
-      <Wrap spacing="20px" justify="flex-start" maxW={{ base: '1500px' }}>
+      <Wrap spacing="20px" justify="flex-start">
         {hosts?.data.map((host) => (
           <WrapItem key={host._id}>
             <Skeleton isLoaded={!isLoading}>
