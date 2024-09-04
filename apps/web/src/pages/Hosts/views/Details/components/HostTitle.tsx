@@ -10,10 +10,12 @@ type HostTitleProps = {
 const HostTitle: FC<HostTitleProps> = ({ host }) => {
   return (
     <Stack>
-      <Heading size="xl">{host?.placeDescription}</Heading>
+      <Heading size={['md', 'xl']} noOfLines={1}>
+        {host?.placeDescription}
+      </Heading>
       <HStack align="center">
         <StarIcon w={4} h={4} color="pink.500" />
-        <Text fontSize="xl" color="gray.600">
+        <Text fontSize={['md', 'xl']} color="gray.600">
           {`${host?.rate ?? 4.3} (${host?.countReviews ?? 10} Reviews) - ${host?.addressObj?.label ?? host?.address}`}
         </Text>
       </HStack>

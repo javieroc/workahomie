@@ -35,6 +35,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 0,
     'no-nested-ternary': 0,
     'no-underscore-dangle': 0,
+    'react/no-array-index-key': 0,
     'react/function-component-definition': [
       2,
       {

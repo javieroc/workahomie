@@ -27,20 +27,20 @@ const HostUser: FC<HostUserProps> = ({ host }) => {
   return (
     <Stack>
       <HStack>
-        <Avatar src={host?.profileImages[0]} size="xl" />
+        <Avatar src={host?.profileImages[0]} size={['md', 'xl']} />
         <Stack>
-          <Heading size="lg">{`${host?.firstName} ${host?.lastName}`}</Heading>
-          <Heading size="md" color="orange.500">
+          <Heading size={['sm', 'lg']}>{`${host?.firstName} ${host?.lastName}`}</Heading>
+          <Heading size={['xs', 'md']} color="orange.500">
             {host?.occupation}
           </Heading>
         </Stack>
       </HStack>
-      <Heading size="lg">About Me</Heading>
-      <Text fontSize="xl">{host?.aboutMe}</Text>
-      <Heading size="lg">What this place offer</Heading>
+      <Heading size={['sm', 'lg']}>About Me</Heading>
+      <Text fontSize={['sm', 'xl']}>{host?.aboutMe}</Text>
+      <Heading size={['sm', 'lg']}>What this place offer</Heading>
       <List>
         {host?.facilities?.map((facility) => (
-          <ListItem key={facility} fontSize="xl">
+          <ListItem key={facility} fontSize={['md', 'xl']}>
             <ListIcon as={IconList[facility]} />
             {facility}
           </ListItem>
