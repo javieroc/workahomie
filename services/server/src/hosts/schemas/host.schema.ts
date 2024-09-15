@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 import { Point } from './point.schema';
+import { Review } from './review.schema';
 
 export type HostDocument = HydratedDocument<Host>;
 
@@ -46,6 +47,9 @@ export class Host {
 
   @Prop([String])
   pictures: string[];
+
+  @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Review' }] })
+  reviews: Review[];
 }
 
 export const HostSchema = SchemaFactory.createForClass(Host);
