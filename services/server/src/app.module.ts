@@ -7,6 +7,7 @@ import { HostsModule } from './hosts/hosts.module';
 import { AuthzModule } from './authz/authz.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { RequestsModule } from './requests/requests.module';
+import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { RequestsModule } from './requests/requests.module';
     HostsModule,
     CloudinaryModule,
     RequestsModule,
+    ReviewsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

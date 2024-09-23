@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
+import { HostDocument } from 'src/hosts/schemas/host.schema';
 
 export type ReviewDocument = HydratedDocument<Review>;
 
@@ -9,7 +10,7 @@ export class Review {
   userName: string;
 
   @Prop()
-  userProfile: string;
+  userAvatar: string;
 
   @Prop()
   date: string;
@@ -19,6 +20,9 @@ export class Review {
 
   @Prop()
   rating: number;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Host' })
+  host: HostDocument;
 }
 
 export const ReviewSchema = SchemaFactory.createForClass(Review);
