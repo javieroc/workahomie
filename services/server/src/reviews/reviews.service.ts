@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Schema as MongooseSchema } from 'mongoose';
+import { Model } from 'mongoose';
 import { PaginationDto } from 'src/dto/pagination.dto';
 import { FindAllResponse } from 'src/dto/response.dto';
 import { Host } from 'src/hosts/schemas/host.schema';
@@ -18,11 +18,11 @@ export class ReviewsService {
   }
 
   async findAll(
-    host: MongooseSchema.Types.ObjectId,
+    hostId: string,
     { limit = 10, offset = 0 }: PaginationDto,
   ): Promise<FindAllResponse<Review>> {
     const total = await this.ReviewModel.countDocuments().exec();
-    const data = await this.ReviewModel.find({ host }).limit(limit).skip(offset).exec();
+    const data = await this.ReviewModel.find({ host: hostId }).limit(limit).skip(offset).exec();
 
     return {
       data,

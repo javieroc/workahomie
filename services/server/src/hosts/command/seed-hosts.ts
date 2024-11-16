@@ -5,9 +5,9 @@ import { Command, CommandRunner } from 'nest-commander';
 import { faker } from '@faker-js/faker';
 import { Host, HostDocument } from '../schemas/host.schema';
 
-@Command({ name: 'seed-data' })
-export class SeedDataCommand extends CommandRunner {
-  private readonly logger = new Logger(SeedDataCommand.name);
+@Command({ name: 'seed:hosts' })
+export class SeedHostsCommand extends CommandRunner {
+  private readonly logger = new Logger(SeedHostsCommand.name);
 
   constructor(@InjectModel(Host.name) private HostModel: Model<HostDocument>) {
     super();
@@ -76,7 +76,7 @@ export class SeedDataCommand extends CommandRunner {
           lastName: faker.person.lastName(),
           occupation: faker.person.jobTitle(),
           aboutMe: faker.lorem.paragraph(2),
-          profileImages: [faker.image.avatar()],
+          profileImages: [faker.image.avatarGitHub()],
           address: faker.location.streetAddress(),
           location: {
             type: 'Point',
@@ -111,6 +111,6 @@ export class SeedDataCommand extends CommandRunner {
       return host.save();
     });
     await Promise.all(promises);
-    this.logger.log('Hosts/Places were created successfully');
+    this.logger.log('Hosts seeded successfully.');
   }
 }

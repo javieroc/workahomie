@@ -12,6 +12,7 @@ import { Reviews } from './components/Reviews';
 const Details: FC = () => {
   const { hostId } = useParams<{ hostId: string }>();
   const { data: host } = useHost(hostId!);
+
   const [isLargerThanMD] = useMediaQuery('(min-width: 48em)');
 
   return (
@@ -35,7 +36,7 @@ const Details: FC = () => {
         </GridItem>
       </Grid>
       <Divider />
-      <Reviews />
+      {hostId && <Reviews hostId={hostId} />}
     </Stack>
   );
 };

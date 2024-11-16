@@ -4,16 +4,16 @@ import { Avatar } from 'src/components';
 
 interface ReviewProps {
   userName: string;
-  userPicture: string;
+  userAvatar: string;
   date: string;
   review: string;
 }
 
-const Review: FC<ReviewProps> = ({ date, review, userName, userPicture }) => {
+const Review: FC<ReviewProps> = ({ date, review, userName, userAvatar }) => {
   return (
     <VStack align="flex-start" maxW="460px">
       <HStack>
-        <Avatar src={userPicture} name={userName} />
+        <Avatar src={userAvatar} name={userName} />
         <VStack align="flex-start" spacing={1}>
           <Heading size="sm">{userName}</Heading>
           <Heading size="xs" color="gray.600">
