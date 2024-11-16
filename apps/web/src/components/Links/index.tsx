@@ -9,7 +9,7 @@ const Links: FC = () => {
       wrap="wrap"
       justifyContent="center"
       backgroundColor="gray.200"
-      gridGap="8%"
+      gridGap="10%"
     >
       <VStack>
         <Heading size="sm">About</Heading>

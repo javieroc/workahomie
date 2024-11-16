@@ -18,6 +18,8 @@ Either server and web dependencies will be installed due this is a monorepo.
 cp services/server/.env.template services/server/.env
 docker compose up -d
 
+docker exec -it [container_id] sh
+
 npm run command seed-data
 ```
 
@@ -26,6 +28,6 @@ npm run command seed-data
 For the moment run the app manually
 
 ```
-cp services/server/.env.template services/server/.env
+cp apps/web/.env.template apps/web/.env
 npm run dev --workspace=web
 ```

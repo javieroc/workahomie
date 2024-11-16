@@ -23,9 +23,9 @@ const RequestForm: FC<RequestFormProps> = ({ hostId }) => {
   });
 
   return (
-    <Card variant="elevated">
+    <Card variant="outline" size={['sm', 'lg']}>
       <CardBody>
-        <Heading size="md" marginBottom={8}>
+        <Heading size={['sm', 'md']} marginBottom={8}>
           Request to Stay
         </Heading>
         <FormProvider<CreateRequestDto> onSubmit={(formValues) => sendRequest(formValues)}>
@@ -41,7 +41,7 @@ const RequestForm: FC<RequestFormProps> = ({ hostId }) => {
             name="message"
             withAs="textarea"
             placeholder="Write your message..."
-            size="lg"
+            size={['md', 'lg']}
           />
         </FormProvider>
       </CardBody>

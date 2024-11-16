@@ -21,6 +21,9 @@ import { memoryStorage } from 'multer';
 import { RequestWithUser } from 'src/interfaces/RequestWithUser';
 import { CreateRequestDto } from 'src/requests/dto/create-request.dto';
 import { RequestsService } from 'src/requests/requests.service';
+import { CreateReviewDto } from 'src/reviews/dto/create-review.dto';
+import { ReviewsService } from 'src/reviews/reviews.service';
+import { PaginationDto } from 'src/dto/pagination.dto';
 import { HostsService } from './hosts.service';
 import { CreateHostDto } from './dto/create-host.dto';
 import { UpdateHostDto } from './dto/update-host.dto';
@@ -32,6 +35,7 @@ export class HostsController {
   constructor(
     private readonly hostsService: HostsService,
     private readonly requestsService: RequestsService,
+    private readonly reviewsService: ReviewsService,
   ) {}
 
   @UseGuards(JwtGuard)
@@ -115,5 +119,17 @@ export class HostsController {
     const userId = req.user.sub.split('|')[1];
     const host = await this.hostsService.findOne(id);
     return this.requestsService.create({ ...createHostRequestDto, userId, host });
+  }
+
+  @Get(':id/reviews')
+  async getReviews(@Param('id') id: string, @Query() paginationDto: PaginationDto) {
+    return this.reviewsService.findAll(id, paginationDto);
+  }
+
+  @UseGuards(JwtGuard)
+  @Post(':id/reviews')
+  async createReview(@Param('id') id: string, @Body() createHostReviewDto: CreateReviewDto) {
+    const host = await this.hostsService.findOne(id);
+    return this.reviewsService.create({ ...createHostReviewDto, host });
   }
 }

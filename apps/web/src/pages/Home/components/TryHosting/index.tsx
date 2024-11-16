@@ -13,7 +13,7 @@ const TryHosting: FC = () => {
       padding={{ base: '16px', lg: '64px' }}
     >
       <HStack spacing="24px" align="flex-end" backgroundColor="white" borderRadius="24px">
-        <VStack align="flex-start" padding="58px">
+        <VStack align={['center', 'flex-start']} padding="58px">
           <Heading>Try Hosting</Heading>
           <Text>What you give is what you receive</Text>
           <Link to="/try-hosting">
@@ -23,7 +23,7 @@ const TryHosting: FC = () => {
           </Link>
         </VStack>
         <Image
-          display={{ base: 'none', md: 'flex' }}
+          display={['none', 'flex']}
           src={TryHostingImage}
           alt="Try Hosting"
           width="512px"

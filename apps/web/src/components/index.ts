@@ -7,6 +7,7 @@ export { FileUpload } from './FileUpload';
 export { FilesUpload } from './FilesUpload';
 export { FormProvider } from './FormProvider';
 export { GooglePlacesAutocompleteField } from './GooglePlacesAutocompleteField';
+export { ImageCarousel } from './ImageCarousel';
 export { Layout } from './Layout';
 export { Loading } from './Loading';
 export { SearchInput } from './SearchInput';

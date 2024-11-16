@@ -17,7 +17,7 @@ const Hero: FC = () => {
       alignItems="center"
       justifyContent="center"
     >
-      <VStack width="400px" alignItems="flex-start" spacing="16px">
+      <VStack width="400px" alignItems={['center', 'flex-start']} spacing="16px">
         <Heading size="lg" color="gray.800">
           Looking for a Co-Worker?
         </Heading>

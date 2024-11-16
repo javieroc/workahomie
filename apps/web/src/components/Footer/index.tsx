@@ -4,7 +4,12 @@ import { BsGithub } from 'react-icons/bs';
 
 const Footer: FC = () => {
   return (
-    <Flex padding="20px" backgroundColor="purple.800" justifyContent="flex-end" color="white">
+    <Flex
+      padding="20px"
+      backgroundColor="purple.800"
+      justifyContent={['center', 'flex-end']}
+      color="white"
+    >
       <Heading size="md" marginRight="16px">
         Dev by Dev&Coffee
       </Heading>

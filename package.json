@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "concurrently --kill-others \"npm run start:dev --workspace=server\" \"npm run dev --workspace=web\"",
-    "prepare": "husky install",
+    "prepare": "husky",
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "eslint:fix": "eslint --fix . --ext .js,.jsx,.ts,.tsx"
   },
