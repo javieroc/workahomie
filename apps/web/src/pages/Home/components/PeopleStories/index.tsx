@@ -12,9 +12,7 @@ const PeopleStories: FC<PeopleStoriesProps> = ({ stories }) => {
     <Flex backgroundColor="gray.50" justify="center" padding={{ base: '16px', lg: '64px' }}>
       <VStack maxWidth="1306px" minWidth="200px">
         <Flex alignItems="center" width="100%" marginBottom="16px">
-          <Heading size="lg" fontFamily="Gloria Hallelujah">
-            People Stories
-          </Heading>
+          <Heading size="lg">People Stories</Heading>
         </Flex>
         <Flex
           gridGap="16px"

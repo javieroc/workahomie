@@ -10,7 +10,7 @@ const NearHostList: FC = () => {
   });
 
   return (
-    <VStack padding={{ base: '16px', lg: '64px' }} maxW={{ base: '1500px' }}>
+    <VStack paddingY={{ base: '16px', lg: '64px' }} paddingX={{ base: '16px', lg: '140px' }}>
       <VStack alignItems="flex-start" mb="16px" w="100%">
         <Heading size="lg">Near Hosts</Heading>
       </VStack>

@@ -1,9 +1,18 @@
 import { FC } from 'react';
-import { Box, Flex, Heading, HStack, Stack, IconButton, useDisclosure } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Heading,
+  HStack,
+  Stack,
+  IconButton,
+  useDisclosure,
+  Link,
+} from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import Logo from 'src/assets/logo.svg?react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { Link as ReactRouterLink, useLocation, useSearchParams } from 'react-router-dom';
 import { useFilters } from 'src/pages/Hosts/hooks';
 import { Divider } from './Divider';
 import { UserMenu } from './UserMenu';
@@ -24,21 +33,21 @@ const Navbar: FC = () => {
       to: '#',
     },
     {
-      label: 'Experiences',
+      label: 'Stories',
       to: '#',
     },
     {
       label: 'About Us',
-      to: '#',
+      to: 'https://javieroc.github.io/Dev-Coffee/',
     },
   ];
 
   return (
     <Flex direction="column">
       <Flex height="80px" align="center" justify="space-between" padding="0px 32px">
-        <Link to="/">
+        <ReactRouterLink to="/">
           <Logo />
-        </Link>
+        </ReactRouterLink>
         {pathname === '/hosts' && (
           <OSMSearchInput
             size="md"
@@ -65,9 +74,17 @@ const Navbar: FC = () => {
         <HStack spacing="24px" display={{ base: 'none', md: 'flex' }}>
           <HStack spacing="16px">
             {links.map((link) => (
-              <Heading size="sm" color="orange.500" key={link.label}>
-                {link.label}
-              </Heading>
+              <Link
+                as={ReactRouterLink}
+                key={link.label}
+                to={link.to}
+                target="_blank"
+                _hover={{ textDecoration: 'none' }}
+              >
+                <Heading size="sm" color="orange.500">
+                  {link.label}
+                </Heading>
+              </Link>
             ))}
           </HStack>
           <HStack>{isAuthenticated ? <UserMenu /> : <LoginButton />}</HStack>
