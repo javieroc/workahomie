@@ -12,7 +12,7 @@ export class CloudinaryService {
   ): Promise<UploadApiResponse | UploadApiErrorResponse> {
     return new Promise((resolve, reject) => {
       const upload = v2.uploader.upload_stream(
-        { public_id: image_id, overwrite: true },
+        { public_id: image_id, overwrite: true, folder: 'workahomie' },
         (error, result) => {
           if (error) {
             this.logger.error(`Cannot upload image to Cloudinary ${error}`);
