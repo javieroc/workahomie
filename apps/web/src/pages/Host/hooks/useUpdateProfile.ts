@@ -23,7 +23,7 @@ const putHost = async ({ profile, ...rest }: UpdateHostDto): Promise<Host> => {
     payload.append('profile', profile);
   }
 
-  const { data } = await api.put<Host>(`/hosts/me`, payload);
+  const { data } = await api.putForm<Host>(`/hosts/me`, payload);
   return data;
 };
 
