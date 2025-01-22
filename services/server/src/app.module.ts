@@ -8,6 +8,7 @@ import { AuthzModule } from './authz/authz.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { RequestsModule } from './requests/requests.module';
 import { ReviewsModule } from './reviews/reviews.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ReviewsModule } from './reviews/reviews.module';
     CloudinaryModule,
     RequestsModule,
     ReviewsModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],

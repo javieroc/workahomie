@@ -12,6 +12,8 @@ const HostLayout: FC<PropsWithChildren> = ({ children }) => {
             links={[
               { title: 'Profile', to: '/host/profile' },
               { title: 'My Place', to: '/host/place' },
+              { title: 'Incoming Requests', to: '/host/incoming-requests' },
+              { title: 'Outgoing Requests', to: '/host/outgoing-requests' },
             ]}
           />
         </GridItem>

@@ -8,7 +8,7 @@ type SidebarProps = {
 
 const Sidebar: FC<SidebarProps> = ({ links }) => {
   return (
-    <Box backgroundColor="gray.50" height="100%">
+    <Box borderRightStyle="solid" borderRightWidth="1px" borderRightColor="gray.200" height="100%">
       {links.map((link) => (
         <Link to={link.to} key={link.to}>
           <Flex
@@ -16,7 +16,7 @@ const Sidebar: FC<SidebarProps> = ({ links }) => {
             role="group"
             cursor="pointer"
             _hover={{
-              bg: 'gray.200',
+              bg: 'purple.100',
             }}
           >
             <Heading size="md">{link.title}</Heading>

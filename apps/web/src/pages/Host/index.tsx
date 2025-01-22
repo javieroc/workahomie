@@ -1,5 +1,7 @@
 import { FC } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { IncomingRequests } from './views/IncomingRequests';
+import { OutgoingRequests } from './views/OutgoingRequests';
 import { HostLayout } from './components/HostLayout';
 import { Profile } from './views/Profile';
 import { MyPlace } from './views/MyPlace';
@@ -11,6 +13,8 @@ const Host: FC = () => {
         <Route index element={<Navigate replace to="/host/profile" />} />
         <Route path="profile" element={<Profile />} />
         <Route path="place" element={<MyPlace />} />
+        <Route path="incoming-requests" element={<IncomingRequests />} />
+        <Route path="outgoing-requests" element={<OutgoingRequests />} />
       </Routes>
     </HostLayout>
   );
