@@ -18,7 +18,7 @@ function useReviews(
   options?: UseQueryOptions<ListResponse<Review>, DefaultError, ListResponse<Review>>,
 ) {
   return useQuery<ListResponse<Review>>({
-    queryKey: [QUERY_KEYS.HOSTS, pageIndex, pageSize],
+    queryKey: [QUERY_KEYS.REVIEWS, id, pageIndex, pageSize],
     queryFn: () => getReviews(id, { offset: pageIndex * pageSize, limit: pageSize }),
     ...options,
   });

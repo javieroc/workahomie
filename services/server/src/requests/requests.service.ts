@@ -4,18 +4,29 @@ import { Model } from 'mongoose';
 import { PaginationDto } from 'src/dto/pagination.dto';
 import { FindAllResponse } from 'src/dto/response.dto';
 import { Host } from 'src/hosts/schemas/host.schema';
+import { Message, MessageDocument } from 'src/chat/schemas/message.schema';
 import { CreateRequestDto } from './dto/create-request.dto';
 import { UpdateRequestDto } from './dto/update-request.dto';
 import { Request, RequestDocument } from './schemas/request.schema';
 
 @Injectable()
 export class RequestsService {
-  constructor(@InjectModel(Request.name) private RequestModel: Model<RequestDocument>) {}
+  constructor(
+    @InjectModel(Request.name) private RequestModel: Model<RequestDocument>,
+    @InjectModel(Message.name) private MessageModel: Model<MessageDocument>,
+  ) {}
 
   async create(
     createRequestDto: CreateRequestDto & { userId: string; host: Host },
   ): Promise<Request> {
     const request = new this.RequestModel(createRequestDto);
+    const message = new this.MessageModel({
+      message: createRequestDto.message,
+      userId: createRequestDto.userId,
+      timeSent: new Date(),
+      request,
+    });
+    await message.save();
 
     return request.save();
   }
@@ -25,7 +36,11 @@ export class RequestsService {
     { limit = 10, offset = 0 }: PaginationDto,
   ): Promise<FindAllResponse<Request>> {
     const total = await this.RequestModel.countDocuments().exec();
-    const data = await this.RequestModel.find({ userId }).limit(limit).skip(offset).exec();
+    const data = await this.RequestModel.find({ userId })
+      .populate('host')
+      .limit(limit)
+      .skip(offset)
+      .exec();
 
     return {
       data,

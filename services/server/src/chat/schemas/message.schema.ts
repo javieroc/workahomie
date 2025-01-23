@@ -15,6 +15,9 @@ export class Message {
   @Prop()
   message: string;
 
+  @Prop()
+  timeSent: string;
+
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Request' })
   request: RequestDocument;
 }
