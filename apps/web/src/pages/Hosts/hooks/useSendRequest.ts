@@ -1,6 +1,7 @@
 import { useMutation, UseMutationOptions, UseMutationResult } from '@tanstack/react-query';
 import { api } from 'src/api';
-import { CreateRequestDto, Request } from '../types';
+import { Request } from 'src/types';
+import { CreateRequestDto } from '../types';
 
 const sendHostRequest = async (hostId: string, payload: CreateRequestDto): Promise<Request> => {
   const { data } = await api.post<Request>(`/hosts/${hostId}/requests`, payload);

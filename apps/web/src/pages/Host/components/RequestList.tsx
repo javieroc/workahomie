@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { FC } from 'react';
-import { Request } from 'src/pages/Hosts/types';
+import { Request } from 'src/types';
 import { RequestCard } from './RequestCard';
 
 interface RequestListProps {

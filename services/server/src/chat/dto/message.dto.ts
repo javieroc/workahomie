@@ -9,6 +9,14 @@ export class CreateMessageDto {
   userName?: string;
 
   @IsString()
+  @IsOptional()
+  userEmail?: string;
+
+  @IsString()
+  @IsOptional()
+  userAvatar?: string;
+
+  @IsString()
   message: string;
 
   @IsString()

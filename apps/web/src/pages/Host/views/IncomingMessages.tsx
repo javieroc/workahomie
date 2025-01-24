@@ -1,10 +1,13 @@
 import { FC } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { useHostMe } from 'src/hooks/useHostMe';
 import { Loading } from 'src/components';
 import { ChatBox } from '../components/ChatBox';
+import { useRequest } from '../hooks';
 
 const IncomingMessages: FC = () => {
+  const { requestId } = useParams<{ requestId: string }>();
+  const { data: request } = useRequest(requestId!);
   const { data: hostMe, isLoading } = useHostMe();
 
   if (isLoading) {
@@ -12,7 +15,7 @@ const IncomingMessages: FC = () => {
   }
 
   if (hostMe) {
-    return <ChatBox />;
+    return <ChatBox messages={request?.messages ?? []} />;
   }
 
   return <Navigate to="/try-hosting" />;

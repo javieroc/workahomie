@@ -1,7 +1,7 @@
 import { Flex, Heading, Image, Text } from '@chakra-ui/react';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { Request } from 'src/pages/Hosts/types';
+import { Request } from 'src/types';
 
 interface RequestCardProps {
   request: Request;

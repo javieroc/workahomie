@@ -1,11 +1,10 @@
 import { FC } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { Flex, Heading, VStack } from '@chakra-ui/react';
 import { useHostMe } from 'src/hooks/useHostMe';
 import { Loading } from 'src/components';
-import { useOutgoingRequests } from 'src/pages/Hosts/hooks';
 import { RequestList } from '../components/RequestList';
-import { ChatBox } from '../components/ChatBox';
+import { useOutgoingRequests } from '../hooks';
 
 const OutgoingRequests: FC = () => {
   const { data: hostMe, isLoading } = useHostMe();
@@ -23,7 +22,7 @@ const OutgoingRequests: FC = () => {
         </VStack>
         <Flex gap={4}>
           {outgoingRequests && <RequestList requests={outgoingRequests.data} />}
-          <ChatBox />
+          <Outlet />
         </Flex>
       </VStack>
     );
