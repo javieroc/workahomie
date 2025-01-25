@@ -1,9 +1,9 @@
 export interface Message {
-  userId: string;
-  userName: string;
-  userAvatar: string;
-  userEmail: string;
+  userId?: string;
+  userName?: string;
+  userAvatar?: string;
+  userEmail?: string;
   message: string;
-  timeSent: string;
+  timeSent?: string;
   isSender?: boolean;
 }

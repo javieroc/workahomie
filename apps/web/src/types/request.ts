@@ -6,7 +6,6 @@ export interface Request {
   userId: string;
   checkIn: Date;
   checkOut: Date;
-  message: string;
   status: string;
   host: Host;
   messages: Message[];

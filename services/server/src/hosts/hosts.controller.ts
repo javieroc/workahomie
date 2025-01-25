@@ -14,7 +14,6 @@ import {
   BadRequestException,
   UploadedFiles,
   Query,
-  Headers,
 } from '@nestjs/common';
 import { JwtGuard } from 'src/authz/jwt.guard';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
@@ -115,12 +114,11 @@ export class HostsController {
   async createRequest(
     @Req() req: RequestWithUser,
     @Param('id') id: string,
-    @Headers('authorization') authorization: string,
     @Body() createHostRequestDto: CreateRequestDto,
   ) {
     const userId = req.user.sub.split('|')[1];
     const host = await this.hostsService.findOne(id);
-    return this.requestsService.create({ userId, host, authorization, ...createHostRequestDto });
+    return this.requestsService.create({ userId, host, ...createHostRequestDto });
   }
 
   @Get(':id/reviews')

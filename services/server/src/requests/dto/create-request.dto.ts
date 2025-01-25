@@ -1,4 +1,4 @@
-import { IsDateString, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateRequestDto {
   @IsNotEmpty()
@@ -11,4 +11,20 @@ export class CreateRequestDto {
 
   @IsOptional()
   message?: string;
+
+  @IsString()
+  @IsOptional()
+  userId?: string;
+
+  @IsString()
+  @IsOptional()
+  userName?: string;
+
+  @IsString()
+  @IsOptional()
+  userEmail?: string;
+
+  @IsString()
+  @IsOptional()
+  userAvatar?: string;
 }
