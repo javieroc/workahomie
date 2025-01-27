@@ -1,13 +1,14 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Heading, Skeleton, VStack, Wrap, WrapItem } from '@chakra-ui/react';
 import { useHosts } from 'src/hooks';
+import { Pagination } from 'src/components/Pagination';
 import { NearHostCard } from '../NearHostCard';
 
 const NearHostList: FC = () => {
-  const { data: hosts, isLoading } = useHosts({
-    pageIndex: 0,
-    pageSize: 20,
-  });
+  const pageSize = 20;
+  const [pageIndex, setPageIndex] = useState(0);
+  const { data: hosts, isLoading } = useHosts({ pageIndex, pageSize });
+  const totalPages = hosts?.total ? Math.ceil(hosts.total / pageSize) : 0;
 
   return (
     <VStack paddingY={{ base: '16px', lg: '64px' }} paddingX={{ base: '16px', lg: '140px' }}>
@@ -23,6 +24,7 @@ const NearHostList: FC = () => {
           </WrapItem>
         ))}
       </Wrap>
+      <Pagination currentPage={pageIndex} totalPages={totalPages} onPageChange={setPageIndex} />
     </VStack>
   );
 };
