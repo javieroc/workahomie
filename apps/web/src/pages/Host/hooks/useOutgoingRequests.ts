@@ -4,7 +4,7 @@ import { QUERY_KEYS } from 'src/constants/queryKey';
 import { ListResponse, PaginationApiParams, PaginationParams, Request } from 'src/types';
 
 const getRequests = async (params: PaginationApiParams = {}): Promise<ListResponse<Request>> => {
-  const { data } = await api.get<ListResponse<Request>>('/requests', { params });
+  const { data } = await api.get<ListResponse<Request>>('/requests/outgoing', { params });
   return data;
 };
 

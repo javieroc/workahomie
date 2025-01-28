@@ -38,11 +38,11 @@ export class RequestsService {
     return request.save();
   }
 
-  async findAll(
+  async findAllOutgoing(
     userId: string,
     { limit = 10, offset = 0 }: PaginationDto,
   ): Promise<FindAllResponse<Request>> {
-    const total = await this.RequestModel.countDocuments().exec();
+    const total = await this.RequestModel.countDocuments({ userId }).exec();
     const data = await this.RequestModel.find({ userId })
       .populate('host')
       .limit(limit)
@@ -51,6 +51,29 @@ export class RequestsService {
 
     return {
       data,
+      total,
+    };
+  }
+
+  async findAllIncoming(
+    userId: string,
+    { limit = 10, offset = 0 }: PaginationDto,
+  ): Promise<FindAllResponse<Request>> {
+    const data = await this.RequestModel.find()
+      .populate({
+        path: 'host',
+        match: { userId },
+      })
+
+      .limit(limit)
+      .skip(offset)
+      .exec();
+
+    const filteredData = data.filter((item) => item.host != null);
+    const total = filteredData.length;
+
+    return {
+      data: filteredData,
       total,
     };
   }

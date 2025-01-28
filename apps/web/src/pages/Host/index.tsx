@@ -5,7 +5,7 @@ import { OutgoingRequests } from './views/OutgoingRequests';
 import { HostLayout } from './components/HostLayout';
 import { Profile } from './views/Profile';
 import { MyPlace } from './views/MyPlace';
-import { IncomingMessages } from './views/IncomingMessages';
+import { Messages } from './views/Messages';
 
 const Host: FC = () => {
   return (
@@ -15,9 +15,11 @@ const Host: FC = () => {
         <Route path="profile" element={<Profile />} />
         <Route path="place" element={<MyPlace />} />
         <Route path="incoming-requests" element={<IncomingRequests />}>
-          <Route path=":requestId" element={<IncomingMessages />} />
+          <Route path=":requestId" element={<Messages />} />
         </Route>
-        <Route path="outgoing-requests" element={<OutgoingRequests />} />
+        <Route path="outgoing-requests" element={<OutgoingRequests />}>
+          <Route path=":requestId" element={<Messages />} />
+        </Route>
       </Routes>
     </HostLayout>
   );

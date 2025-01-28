@@ -5,7 +5,7 @@ import { Loading } from 'src/components';
 import { ChatBox } from '../components/ChatBox';
 import { useRequest } from '../hooks';
 
-const IncomingMessages: FC = () => {
+const Messages: FC = () => {
   const { requestId } = useParams<{ requestId: string }>();
   const { data: request } = useRequest(requestId!);
   const { data: hostMe, isLoading } = useHostMe();
@@ -21,4 +21,4 @@ const IncomingMessages: FC = () => {
   return <Navigate to="/try-hosting" />;
 };
 
-export { IncomingMessages };
+export { Messages };

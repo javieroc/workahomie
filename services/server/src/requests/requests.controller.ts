@@ -10,10 +10,17 @@ export class RequestsController {
   constructor(private readonly requestsService: RequestsService) {}
 
   @UseGuards(JwtGuard)
-  @Get()
-  findAll(@Req() req: RequestWithUser, @Query() queryParamsDto: PaginationDto) {
+  @Get('outgoing')
+  findAllOutgoing(@Req() req: RequestWithUser, @Query() queryParamsDto: PaginationDto) {
     const userId = req.user.sub.split('|')[1];
-    return this.requestsService.findAll(userId, queryParamsDto);
+    return this.requestsService.findAllOutgoing(userId, queryParamsDto);
+  }
+
+  @UseGuards(JwtGuard)
+  @Get('incoming')
+  findAllIncoming(@Req() req: RequestWithUser, @Query() queryParamsDto: PaginationDto) {
+    const userId = req.user.sub.split('|')[1];
+    return this.requestsService.findAllIncoming(userId, queryParamsDto);
   }
 
   @UseGuards(JwtGuard)
