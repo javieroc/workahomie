@@ -23,7 +23,7 @@ export class RequestsService {
     userName,
     ...createRequestDto
   }: CreateRequestDto & { userId: string; host: Host }): Promise<Request> {
-    const request = new this.RequestModel(createRequestDto);
+    const request = new this.RequestModel({ ...createRequestDto, userAvatar, userEmail, userName });
     const message = new this.MessageModel({
       message: text,
       timeSent: new Date(),

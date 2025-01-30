@@ -11,6 +11,15 @@ export class Request {
   userId: string;
 
   @Prop()
+  userName: string;
+
+  @Prop()
+  userEmail: string;
+
+  @Prop()
+  userAvatar: string;
+
+  @Prop()
   checkIn: Date;
 
   @Prop()

@@ -5,9 +5,13 @@ import { Request } from 'src/types';
 
 interface RequestCardProps {
   request: Request;
+  isIncoming?: boolean;
 }
 
-const RequestCard: FC<RequestCardProps> = ({ request }) => {
+const RequestCard: FC<RequestCardProps> = ({ request, isIncoming = false }) => {
+  const userAvatar =
+    (isIncoming ? request.userAvatar : request.host?.profileImages[0]) ??
+    'https://ui-avatars.com/api/?name=John+Doe';
   return (
     <Link to={`/host/incoming-requests/${request._id}`}>
       <Flex
@@ -19,7 +23,7 @@ const RequestCard: FC<RequestCardProps> = ({ request }) => {
           borderRadius="full"
           boxSize="50px"
           objectFit="cover"
-          src={request.host?.profileImages[0] ?? 'https://ui-avatars.com/api/?name=John+Doe'}
+          src={userAvatar}
           alt="Outgoing Request"
         />
         <Flex flexDirection="column" justifyContent="center">

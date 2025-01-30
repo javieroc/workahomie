@@ -21,7 +21,7 @@ const IncomingRequests: FC = () => {
           <Heading size="md">Incoming Requests</Heading>
         </VStack>
         <Flex gap={4}>
-          {incomingRequests && <RequestList requests={incomingRequests.data} />}
+          {incomingRequests && <RequestList requests={incomingRequests.data} isIncoming />}
           <Outlet />
         </Flex>
       </VStack>
