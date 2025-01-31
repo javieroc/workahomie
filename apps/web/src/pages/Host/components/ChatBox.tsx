@@ -5,7 +5,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { FiSend } from 'react-icons/fi';
 import { io, Socket } from 'socket.io-client';
 import { useAuth0 } from '@auth0/auth0-react';
-import { ChatMessage } from './ChatMessage';
+import { Messages } from './Messages';
 
 const socket: Socket = io('http://localhost:8000');
 
@@ -52,7 +52,7 @@ const ChatBox: FC<ChatBoxProps> = ({ initialMessages, requestId }) => {
 
   return (
     <Flex flex={1} flexDirection="column" gap={4} padding={4} justify="space-between">
-      {messages?.map((message, index) => <ChatMessage key={index} message={message} />)}
+      <Messages messages={messages} />
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSend)}>
           <HStack spacing={0} borderWidth="1px" borderRadius="md" overflow="hidden">

@@ -12,7 +12,6 @@ const Sidebar: FC<SidebarProps> = ({ links }) => {
     <Box
       borderRight="1px solid"
       borderColor="gray.200"
-      height="100vh"
       width={['60px', '60px', '200px']}
       transition="width 0.3s ease"
     >
