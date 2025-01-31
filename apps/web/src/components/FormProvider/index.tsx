@@ -26,7 +26,12 @@ const FormProvider = <Payload extends FieldValues>({
 
   return (
     <FormProviderRhf {...methods}>
-      <form onSubmit={handleSubmit((formValues) => onSubmit(formValues))}>
+      <form
+        onSubmit={handleSubmit((formValues) => {
+          onSubmit(formValues);
+          methods.reset();
+        })}
+      >
         {children}
         {submitButton || (
           <Button color="white" colorScheme="purple" type="submit">

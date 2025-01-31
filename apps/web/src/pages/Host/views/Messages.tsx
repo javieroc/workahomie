@@ -15,7 +15,7 @@ const Messages: FC = () => {
   }
 
   if (hostMe) {
-    return <ChatBox initialMessages={request?.messages ?? []} />;
+    return <ChatBox initialMessages={request?.messages ?? []} requestId={requestId!} />;
   }
 
   return <Navigate to="/try-hosting" />;

@@ -4,11 +4,16 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useHostMe } from 'src/hooks/useHostMe';
 import { Loading } from 'src/components';
 import { RequestList } from '../components/RequestList';
-import { useIncomingRequests } from '../hooks';
+import { useIncomingRequests, useOutgoingRequests } from '../hooks';
 
-const IncomingRequests: FC = () => {
+interface RequestProps {
+  isIncoming?: boolean;
+}
+
+const Request: FC<RequestProps> = ({ isIncoming = false }) => {
   const { data: hostMe, isLoading } = useHostMe();
-  const { data: incomingRequests } = useIncomingRequests({ pageIndex: 0, pageSize: 50 });
+  const useRequest = isIncoming ? useIncomingRequests : useOutgoingRequests;
+  const { data: requests } = useRequest({ pageIndex: 0, pageSize: 50 });
 
   if (isLoading) {
     return <Loading />;
@@ -18,10 +23,10 @@ const IncomingRequests: FC = () => {
     return (
       <VStack spacing={8} align="flex-start" padding={4}>
         <VStack align="flex-start">
-          <Heading size="md">Incoming Requests</Heading>
+          <Heading size="md">{`${isIncoming ? 'Incoming' : 'Outgoing'} Requests`}</Heading>
         </VStack>
-        <Flex gap={4}>
-          {incomingRequests && <RequestList requests={incomingRequests.data} isIncoming />}
+        <Flex gap={4} flexWrap="wrap" width="100%">
+          {requests && <RequestList requests={requests.data} isIncoming={isIncoming} />}
           <Outlet />
         </Flex>
       </VStack>
@@ -31,4 +36,4 @@ const IncomingRequests: FC = () => {
   return <Navigate to="/try-hosting" />;
 };
 
-export { IncomingRequests };
+export { Request };

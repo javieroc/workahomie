@@ -10,7 +10,7 @@ interface RequestListProps {
 
 const RequestList: FC<RequestListProps> = ({ requests, isIncoming = false }) => {
   return (
-    <Flex flexDirection="column" gap={2}>
+    <Flex flexDirection="column" gap={2} maxW="400px">
       {requests.map((request) => (
         <RequestCard key={request._id} request={request} isIncoming={isIncoming} />
       ))}

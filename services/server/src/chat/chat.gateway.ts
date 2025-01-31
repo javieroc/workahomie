@@ -8,7 +8,7 @@ import {
 import { Logger } from '@nestjs/common';
 import { Server } from 'socket.io';
 import { CreateMessageDto } from './dto/message.dto';
-// import { Message } from './schemas/message.schema';
+import { ChatService } from './chat.service';
 
 @WebSocketGateway({
   cors: {
@@ -19,6 +19,8 @@ export class ChatGateway {
   @WebSocketServer()
   server: Server;
 
+  constructor(private readonly chatService: ChatService) {}
+
   private logger = new Logger('ChatGateway');
 
   @SubscribeMessage('send_message')
@@ -28,6 +30,7 @@ export class ChatGateway {
     // @ConnectedSocket() client: Socket,
   ): Promise<CreateMessageDto> {
     this.logger.log(payload);
+    await this.chatService.create(payload);
     this.server.emit('new_message', payload);
     return payload;
   }

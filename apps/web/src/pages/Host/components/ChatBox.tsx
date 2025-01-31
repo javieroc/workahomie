@@ -10,21 +10,23 @@ import { ChatMessage } from './ChatMessage';
 const socket: Socket = io('http://localhost:8000');
 
 interface ChatBoxProps {
+  requestId: string;
   initialMessages: Message[];
 }
 
-const ChatBox: FC<ChatBoxProps> = ({ initialMessages }) => {
+const ChatBox: FC<ChatBoxProps> = ({ initialMessages, requestId }) => {
   const { user } = useAuth0();
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const methods = useForm<{ message: string }>();
 
   const handleSend = (data: { message: string }) => {
-    const newMessage: Message = {
+    const newMessage: Message & { requestId: string } = {
       message: data.message,
       userId: user?.sub?.split('|')[1],
       userEmail: user?.email,
       userName: user?.name,
       userAvatar: user?.picture,
+      requestId,
     };
 
     socket.emit('send_message', newMessage);
@@ -49,7 +51,7 @@ const ChatBox: FC<ChatBoxProps> = ({ initialMessages }) => {
   });
 
   return (
-    <Flex flexDirection="column" gap={4} padding={4} justify="space-between">
+    <Flex flex={1} flexDirection="column" gap={4} padding={4} justify="space-between">
       {messages?.map((message, index) => <ChatMessage key={index} message={message} />)}
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSend)}>

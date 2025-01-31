@@ -21,4 +21,7 @@ export class CreateMessageDto {
 
   @IsString()
   timeSent: string;
+
+  @IsString()
+  requestId: string;
 }

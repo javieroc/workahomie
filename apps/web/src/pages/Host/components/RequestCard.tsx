@@ -1,6 +1,6 @@
 import { Flex, Heading, Image, Text } from '@chakra-ui/react';
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Request } from 'src/types';
 
 interface RequestCardProps {
@@ -9,15 +9,18 @@ interface RequestCardProps {
 }
 
 const RequestCard: FC<RequestCardProps> = ({ request, isIncoming = false }) => {
+  const { requestId } = useParams<{ requestId: string }>();
+
   const userAvatar =
     (isIncoming ? request.userAvatar : request.host?.profileImages[0]) ??
     'https://ui-avatars.com/api/?name=John+Doe';
   return (
-    <Link to={`/host/incoming-requests/${request._id}`}>
+    <Link to={`/host/${isIncoming ? 'incoming-requests' : 'outgoing-requests'}/${request._id}`}>
       <Flex
         gap={4}
         _hover={{ backgroundColor: 'purple.100', cursor: 'pointer', borderRadius: 8 }}
         padding={4}
+        backgroundColor={request._id === requestId ? 'purple.100' : 'inherit'}
       >
         <Image
           borderRadius="full"
