@@ -8,7 +8,7 @@ import { Sidebar } from './Sidebar';
 const HostLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Layout>
-      <Flex height="90vh">
+      <Flex>
         <Sidebar
           links={[
             { title: 'Profile', to: '/host/profile', icon: FaRegUserCircle },

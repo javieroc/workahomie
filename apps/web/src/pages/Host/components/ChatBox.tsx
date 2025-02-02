@@ -51,7 +51,15 @@ const ChatBox: FC<ChatBoxProps> = ({ initialMessages, requestId }) => {
   });
 
   return (
-    <Flex flex={1} flexDirection="column" gap={4} padding={4} justify="space-between">
+    <Flex
+      height="80vh"
+      position="relative"
+      flex={1}
+      flexDirection="column"
+      gap={4}
+      padding={4}
+      justify="space-between"
+    >
       <Messages messages={messages} />
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSend)}>

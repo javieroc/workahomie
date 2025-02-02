@@ -81,7 +81,6 @@ export class RequestsService {
   async findOne(id: string): Promise<Request> {
     const request = await this.RequestModel.findById(id).populate({
       path: 'messages',
-      // options: { sort: { timeSent: 1 } },
     });
     if (!request) {
       throw new NotFoundException('Request not found!');

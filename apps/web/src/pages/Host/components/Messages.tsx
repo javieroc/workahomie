@@ -16,9 +16,10 @@ const Messages: FC<ChatBoxProps> = ({ messages }) => {
       padding={4}
       justify="space-between"
       overflowY="scroll"
-      height="80vh"
     >
-      {messages?.map((message, index) => <ChatMessage key={index} message={message} />)}
+      <Flex flexDirection="column">
+        {messages?.map((message, index) => <ChatMessage key={index} message={message} />)}
+      </Flex>
     </Flex>
   );
 };
