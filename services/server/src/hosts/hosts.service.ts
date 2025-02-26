@@ -110,9 +110,10 @@ export class HostsService {
     pictures?: Array<Express.Multer.File>,
   ): Promise<Host> {
     const addressObj = JSON.parse(updateHostPlaceDto.address);
+
     const location = {
       type: 'Point',
-      coordinates: [addressObj.lat, addressObj.lng],
+      coordinates: [Number.parseFloat(addressObj.lat), Number.parseFloat(addressObj.lon)],
     };
 
     const host = await this.HostModel.findOneAndUpdate(

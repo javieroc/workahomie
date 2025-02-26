@@ -27,12 +27,7 @@ export interface Host {
   placeDetails?: string;
   address: string;
   location: Point;
-  addressObj?: {
-    label: string;
-    lat: number;
-    lng: number;
-    // eslint-disable-next-line
-    value: any;
-  };
+  // eslint-disable-next-line
+  addressObj?: any;
   facilities?: Facilities[];
 }

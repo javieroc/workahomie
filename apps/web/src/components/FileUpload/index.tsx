@@ -69,7 +69,7 @@ function FileUpload<T extends FieldValues>({
         <VStack onClick={() => inputRef?.current?.click()} cursor="pointer">
           <Image
             src={preview}
-            fallbackSrc={`https://via.placeholder.com/150x150?text=${placeholder}`}
+            fallbackSrc={`https://placehold.co/150x150?text=${placeholder}`}
             width={width ?? '150px'}
             objectFit="cover"
           />

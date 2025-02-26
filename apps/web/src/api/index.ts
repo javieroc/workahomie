@@ -4,15 +4,15 @@ const baseURL = `${import.meta.env.VITE_API_URL}`;
 
 const api = axios.create({
   baseURL,
-  transformRequest: [
-    (data) => {
-      if (data && typeof data === 'object') {
-        const transformedData = JSON.stringify(data);
-        return transformedData;
-      }
-      return data;
-    },
-  ],
+  // transformRequest: [
+  //   (data) => {
+  //     if (data && typeof data === 'object') {
+  //       const transformedData = JSON.stringify(data);
+  //       return transformedData;
+  //     }
+  //     return data;
+  //   },
+  // ],
 });
 
 api.defaults.headers.common['Content-Type'] = 'application/json';

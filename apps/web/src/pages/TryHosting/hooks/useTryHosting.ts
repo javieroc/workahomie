@@ -24,7 +24,7 @@ const postHost = async ({ profile, ...rest }: CreateHostDto): Promise<Host> => {
     payload.append('profile', profile);
   }
 
-  const { data } = await api.post<Host>(`/hosts`, payload);
+  const { data } = await api.postForm<Host>(`/hosts`, payload);
   return data;
 };
 

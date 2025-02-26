@@ -19,8 +19,8 @@ const Profile: FC = () => {
     return (
       <VStack spacing={8} align="flex-start" padding={4}>
         <VStack align="flex-start">
-          <Heading size="lg">Profile</Heading>
-          <Heading size="md">Update your host information here</Heading>
+          <Heading size="md">Profile</Heading>
+          <Heading size="sm">Update your host information here</Heading>
         </VStack>
         <FormProvider<UpdateHostDto>
           onSubmit={updateProfile}

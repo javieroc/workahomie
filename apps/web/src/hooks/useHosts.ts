@@ -31,21 +31,25 @@ function useHosts(
 ) {
   return useQuery<ListResponse<Host>>({
     queryKey: [QUERY_KEYS.HOSTS, pageIndex, pageSize, filtersParams],
-    queryFn: () => getHosts({ offset: pageIndex * pageSize, limit: pageSize, ...filtersParams }),
-    select: useCallback(
-      ({ data, total }: ListResponse<Host>) => ({
-        total,
-        data: data.map((host) => ({
-          ...host,
-          addressObj: parsingAddress(host.address),
-          location: {
-            type: host.location.type,
-            coordinates: host.location.coordinates.reverse(),
-          },
-        })),
-      }),
-      [],
-    ),
+    queryFn: () => {
+      const offset = pageIndex * pageSize;
+      return getHosts({ offset, limit: pageSize, ...filtersParams });
+    },
+    select: useCallback(({ data, total }: ListResponse<Host>) => {
+      const transformedData = data.map((host) => ({
+        ...host,
+        ...(host.address ? { addressObj: parsingAddress(host.address) } : {}),
+        ...(host.location
+          ? {
+              location: {
+                type: host.location.type,
+                coordinates: [...host.location.coordinates].reverse(),
+              },
+            }
+          : {}),
+      }));
+      return { total, data: transformedData };
+    }, []),
     ...options,
   });
 }

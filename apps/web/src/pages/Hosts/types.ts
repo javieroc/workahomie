@@ -1,16 +1,7 @@
-import { Host } from 'src/types';
+import { Host, Message, Request } from 'src/types';
 
-export interface Request {
-  _id: string;
-  userId: string;
-  checkIn: Date;
-  checkOut: Date;
-  message: string;
-  status: string;
-  host: Host;
-}
-
-export type CreateRequestDto = Pick<Request, 'checkIn' | 'checkOut' | 'message'>;
+export type CreateRequestDto = Pick<Request, 'checkIn' | 'checkOut'> &
+  Pick<Message, 'message' | 'userId' | 'userAvatar' | 'userEmail' | 'userName'>;
 
 export interface Review {
   _id: string;

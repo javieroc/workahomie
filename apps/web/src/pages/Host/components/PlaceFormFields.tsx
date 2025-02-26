@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form';
 import {
   CheckboxFieldInput,
   FilesUpload,
-  GooglePlacesAutocompleteField,
+  OSMPlacesAutocompleteField,
   TextFieldInput,
 } from 'src/components';
 
@@ -30,7 +30,7 @@ const PlaceFormFields: FC<FormFieldsProps> = ({ previewPicturesUrl }) => {
         withAs="textarea"
         size="md"
       />
-      <GooglePlacesAutocompleteField name="address" label="Address" isRequired size="md" />
+      <OSMPlacesAutocompleteField name="address" label="Address" isRequired size="md" />
       <CheckboxFieldInput
         label="Facilities"
         name="facilities"

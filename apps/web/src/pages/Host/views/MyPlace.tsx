@@ -19,8 +19,8 @@ const MyPlace: FC = () => {
     return (
       <VStack spacing={8} align="flex-start" padding={4}>
         <VStack align="flex-start">
-          <Heading size="lg">My Place</Heading>
-          <Heading size="md">Update your workspace information here</Heading>
+          <Heading size="md">My Place</Heading>
+          <Heading size="sm">Update your workspace information here</Heading>
         </VStack>
         <FormProvider<UpdateHostPlaceFormValues>
           onSubmit={(formValues) => {

@@ -118,7 +118,7 @@ export class HostsController {
   ) {
     const userId = req.user.sub.split('|')[1];
     const host = await this.hostsService.findOne(id);
-    return this.requestsService.create({ ...createHostRequestDto, userId, host });
+    return this.requestsService.create({ userId, host, ...createHostRequestDto });
   }
 
   @Get(':id/reviews')

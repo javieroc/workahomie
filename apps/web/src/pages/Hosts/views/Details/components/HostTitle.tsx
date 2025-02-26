@@ -16,7 +16,7 @@ const HostTitle: FC<HostTitleProps> = ({ host }) => {
       <HStack align="center">
         <StarIcon w={4} h={4} color="pink.500" />
         <Text fontSize={['md', 'xl']} color="gray.600">
-          {`${host?.rate ?? 4.3} (${host?.countReviews ?? 10} Reviews) - ${host?.addressObj?.label ?? host?.address}`}
+          {`${host?.rate ?? 4.3} (${host?.countReviews ?? 10} Reviews) - ${host?.addressObj?.display_name ?? host?.address}`}
         </Text>
       </HStack>
     </Stack>

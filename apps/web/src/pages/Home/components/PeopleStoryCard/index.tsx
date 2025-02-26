@@ -20,7 +20,7 @@ const PeopleStoryCard: FC<PeopleStoryCardProps> = ({ story }) => {
       <Heading size="xs" marginTop="0px !important">
         {story.location}
       </Heading>
-      <Text fontFamily="Gloria Hallelujah" noOfLines={4} fontSize="sm">
+      <Text noOfLines={4} fontSize="sm">
         {story.brief}
       </Text>
     </VStack>
