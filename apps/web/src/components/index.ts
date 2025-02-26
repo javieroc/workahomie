@@ -10,5 +10,6 @@ export { GooglePlacesAutocompleteField } from './GooglePlacesAutocompleteField';
 export { ImageCarousel } from './ImageCarousel';
 export { Layout } from './Layout';
 export { Loading } from './Loading';
+export { OSMPlacesAutocompleteField } from './OSMPlacesAutocompleteField';
 export { SearchInput } from './SearchInput';
 export { TextFieldInput } from './TextFieldInput';

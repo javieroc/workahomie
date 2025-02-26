@@ -23,7 +23,7 @@ const RequestForm: FC<RequestFormProps> = ({ hostId }) => {
   });
 
   return (
-    <Card variant="outline" size={['sm', 'lg']}>
+    <Card variant="outline" size={['sm', 'lg']} width="100%">
       <CardBody>
         <Heading size={['sm', 'md']} marginBottom={8}>
           Request to Stay
