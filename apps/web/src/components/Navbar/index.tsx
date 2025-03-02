@@ -30,7 +30,7 @@ const Navbar: FC = () => {
   const links = [
     {
       label: 'How It Works',
-      to: '#',
+      to: '/how-it-works',
     },
     {
       label: 'Stories',
