@@ -11,7 +11,13 @@ const LogoutButton: FC = () => {
       variant="outline"
       size="sm"
       borderRadius="50px"
-      onClick={() => logout()}
+      onClick={() =>
+        logout({
+          logoutParams: {
+            returnTo: `${window.location.origin}/workahomie/`,
+          },
+        })
+      }
     >
       Sign out
     </Button>
