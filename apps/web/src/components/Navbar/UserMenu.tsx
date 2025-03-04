@@ -41,7 +41,17 @@ const UserMenu: FC = () => {
             </VStack>
           </MenuItem>
           <MenuDivider />
-          <MenuItem onClick={() => logout()}>Sign out</MenuItem>
+          <MenuItem
+            onClick={() =>
+              logout({
+                logoutParams: {
+                  returnTo: `${window.location.origin}/workahomie/`,
+                },
+              })
+            }
+          >
+            Sign out
+          </MenuItem>
         </MenuList>
       </Portal>
     </Menu>
