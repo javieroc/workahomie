@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
+import { PaginationDto } from 'src/dto/pagination.dto';
 import { Wishlist, WishlistDocument } from './schemas/wishlist.schema';
 import { AddToWishlistDto } from './dto/add-to-wishlist.dto';
 import { RemoveFromWishlistDto } from './dto/remove-from-wishlist.dto';
@@ -12,6 +13,46 @@ export class WishlistsService {
   async getWishlist(userId: string): Promise<Types.ObjectId[]> {
     const wishlist = await this.wishlistModel.findOne({ userId });
     return wishlist ? wishlist.hostIds : [];
+  }
+
+  async getWishlistFull(userId: string, { offset = 0, limit = 10 }: PaginationDto) {
+    const result = await this.wishlistModel.aggregate([
+      { $match: { userId } },
+      { $project: { hostIds: 1 } },
+      { $unwind: '$hostIds' },
+      { $skip: offset },
+      { $limit: limit },
+      {
+        $lookup: {
+          from: 'hosts',
+          localField: 'hostIds',
+          foreignField: '_id',
+          as: 'host',
+        },
+      },
+      { $unwind: '$host' },
+      {
+        $replaceRoot: { newRoot: '$host' },
+      },
+      {
+        $project: {
+          firstName: 1,
+          lastName: 1,
+          occupation: 1,
+          profileImages: 1,
+          rate: 1,
+          countReviews: 1,
+        },
+      },
+    ]);
+
+    const wishlist = await this.wishlistModel.findOne({ userId }, { hostIds: 1 });
+    const total = wishlist?.hostIds.length ?? 0;
+
+    return {
+      data: result,
+      total,
+    };
   }
 
   async addToWishlist({ userId, hostId }: AddToWishlistDto & { userId: string }): Promise<void> {

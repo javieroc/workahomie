@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Delete, Body, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, Req, UseGuards, Query } from '@nestjs/common';
 import { RequestWithUser } from 'src/interfaces/RequestWithUser';
 import { JwtGuard } from 'src/authz/jwt.guard';
+import { PaginationDto } from 'src/dto/pagination.dto';
 import { AddToWishlistDto } from './dto/add-to-wishlist.dto';
 import { RemoveFromWishlistDto } from './dto/remove-from-wishlist.dto';
 import { WishlistsService } from './wishlists.service';
@@ -14,6 +15,12 @@ export class WishlistsController {
   async getWishlist(@Req() req: RequestWithUser) {
     const userId = req.user.sub.split('|')[1];
     return this.wishlistService.getWishlist(userId);
+  }
+
+  @Get('full')
+  async getWishlistHosts(@Req() req: RequestWithUser, @Query() queryParamsDto: PaginationDto) {
+    const userId = req.user.sub.split('|')[1];
+    return this.wishlistService.getWishlistFull(userId, queryParamsDto);
   }
 
   @Post('add')
