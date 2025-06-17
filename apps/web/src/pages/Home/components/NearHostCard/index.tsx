@@ -1,14 +1,18 @@
-import { FC } from 'react';
-import { Link } from 'react-router-dom';
-import { Flex, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
+import { Box, Flex, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { StarIcon } from '@chakra-ui/icons';
+import { Link } from 'react-router-dom';
+import { FC } from 'react';
 import { Host } from 'src/types';
+import { LikeButton } from 'src/components/LikeButton';
 
 interface NearHostCardProps {
   host: Host;
+  initialLiked?: boolean;
 }
 
-const NearHostCard: FC<NearHostCardProps> = ({ host }) => {
+const NearHostCard: FC<NearHostCardProps> = ({ host, initialLiked }) => {
+  const { isAuthenticated } = useAuth0();
   return (
     <Link to={`/hosts/${host._id}`}>
       <HStack
@@ -18,14 +22,17 @@ const NearHostCard: FC<NearHostCardProps> = ({ host }) => {
         alignItems="flex-start"
         justifyContent="flex-start"
       >
-        <Image
-          src={host.profileImages[0]}
-          borderRadius="md"
-          boxSize="140px"
-          minWidth="140px"
-          height="160px"
-          objectFit="cover"
-        />
+        <Box position="relative">
+          <Image
+            src={host.profileImages[0]}
+            borderRadius="md"
+            boxSize="140px"
+            minWidth="140px"
+            height="160px"
+            objectFit="cover"
+          />
+          {isAuthenticated && <LikeButton hostId={host._id} initialLiked={initialLiked} />}
+        </Box>
         <Flex
           direction="column"
           justifyContent="space-between"

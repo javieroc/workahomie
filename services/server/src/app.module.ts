@@ -9,6 +9,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { RequestsModule } from './requests/requests.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { ChatModule } from './chat/chat.module';
+import { WishlistsModule } from './wishlists/wishlists.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ChatModule } from './chat/chat.module';
     RequestsModule,
     ReviewsModule,
     ChatModule,
+    WishlistsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
