@@ -4,6 +4,7 @@ import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
 import { RequestsModule } from 'src/requests/requests.module';
 import { ReviewsModule } from 'src/reviews/reviews.module';
 import { Review, ReviewSchema } from 'src/reviews/entities/review.schema';
+import { WishlistsModule } from 'src/wishlists/wishlists.module';
 import { HostsService } from './hosts.service';
 import { HostsController } from './hosts.controller';
 import { Host, HostSchema } from './schemas/host.schema';
@@ -19,6 +20,7 @@ import { SeedReviewsCommand } from './command/seed-reviews';
     CloudinaryModule,
     RequestsModule,
     ReviewsModule,
+    WishlistsModule,
   ],
   controllers: [HostsController],
   providers: [HostsService, SeedHostsCommand, SeedReviewsCommand],

@@ -3,6 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { FindAllResponse } from 'src/dto/response.dto';
+import { WishlistsService } from 'src/wishlists/wishlists.service';
 import { CreateHostDto } from './dto/create-host.dto';
 import { UpdateHostDto } from './dto/update-host.dto';
 import { Host, HostDocument } from './schemas/host.schema';
@@ -14,6 +15,7 @@ export class HostsService {
   constructor(
     @InjectModel(Host.name) private HostModel: Model<HostDocument>,
     private readonly cloudinaryService: CloudinaryService,
+    private readonly wishlistsService: WishlistsService,
   ) {}
 
   async create(
@@ -68,7 +70,7 @@ export class HostsService {
     })
       .limit(limit)
       .skip(offset)
-      .exec();
+      .lean();
 
     return {
       data,

@@ -24,6 +24,7 @@ import { RequestsService } from 'src/requests/requests.service';
 import { CreateReviewDto } from 'src/reviews/dto/create-review.dto';
 import { ReviewsService } from 'src/reviews/reviews.service';
 import { PaginationDto } from 'src/dto/pagination.dto';
+import { WishlistsService } from 'src/wishlists/wishlists.service';
 import { HostsService } from './hosts.service';
 import { CreateHostDto } from './dto/create-host.dto';
 import { UpdateHostDto } from './dto/update-host.dto';
@@ -36,6 +37,7 @@ export class HostsController {
     private readonly hostsService: HostsService,
     private readonly requestsService: RequestsService,
     private readonly reviewsService: ReviewsService,
+    private readonly wishlistsService: WishlistsService,
   ) {}
 
   @UseGuards(JwtGuard)
@@ -68,6 +70,21 @@ export class HostsController {
   @Get()
   findAll(@Query() queryParamsDto: SearchParamsDto) {
     return this.hostsService.findAll(queryParamsDto);
+  }
+
+  @UseGuards(JwtGuard)
+  @Get('/wishlisted')
+  async findAllWishlisted(@Req() req: RequestWithUser, @Query() queryParamsDto: SearchParamsDto) {
+    const userId = req.user.sub.split('|')[1];
+    const response = await this.hostsService.findAll(queryParamsDto);
+    const wishlistedHostIds = await this.wishlistsService.getWishlist(userId);
+    return {
+      data: response.data.map((host) => ({
+        ...host,
+        isWishlisted: wishlistedHostIds.includes(host._id),
+      })),
+      total: response.total,
+    };
   }
 
   @Get(':id')

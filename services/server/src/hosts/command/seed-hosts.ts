@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Command, CommandRunner } from 'nest-commander';
 import { faker } from '@faker-js/faker';
 import { Host, HostDocument } from '../schemas/host.schema';
@@ -70,7 +70,7 @@ export class SeedHostsCommand extends CommandRunner {
           })
           .reverse();
         return {
-          _id: faker.database.mongodbObjectId(),
+          _id: new Types.ObjectId(faker.database.mongodbObjectId()),
           userId: faker.string.uuid(),
           firstName: faker.person.firstName(),
           lastName: faker.person.lastName(),

@@ -8,5 +8,6 @@ import { Wishlist, WishlistSchema } from './schemas/wishlist.schema';
   imports: [MongooseModule.forFeature([{ name: Wishlist.name, schema: WishlistSchema }])],
   controllers: [WishlistsController],
   providers: [WishlistsService],
+  exports: [WishlistsService],
 })
 export class WishlistsModule {}
