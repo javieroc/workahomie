@@ -1,11 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 import { Point } from './point.schema';
 
 export type HostDocument = HydratedDocument<Host>;
 
 @Schema()
 export class Host {
+  _id: Types.ObjectId;
+
   @Prop()
   userId: string;
 
@@ -46,6 +48,8 @@ export class Host {
 
   @Prop([String])
   pictures: string[];
+
+  isWishlisted?: boolean;
 }
 
 export const HostSchema = SchemaFactory.createForClass(Host);
