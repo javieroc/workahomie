@@ -12,4 +12,7 @@ export class CreateHostDto {
 
   @IsOptional()
   aboutMe?: string;
+
+  @IsNotEmpty()
+  phone: string;
 }

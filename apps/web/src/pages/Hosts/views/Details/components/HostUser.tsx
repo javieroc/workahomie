@@ -1,8 +1,18 @@
 import { FC } from 'react';
-import { HStack, Heading, List, ListIcon, ListItem, Stack, Text } from '@chakra-ui/react';
+import {
+  HStack,
+  Heading,
+  List,
+  ListIcon,
+  ListItem,
+  Stack,
+  Text,
+  Link,
+  Icon,
+} from '@chakra-ui/react';
 import { Avatar } from 'src/components';
 import { IconType } from 'react-icons';
-import { FaCoffee, FaShower, FaParking, FaWifi } from 'react-icons/fa';
+import { FaCoffee, FaShower, FaParking, FaWifi, FaWhatsapp } from 'react-icons/fa';
 import { GiFireFlower } from 'react-icons/gi';
 import { MdKitchen } from 'react-icons/md';
 import { CiFries } from 'react-icons/ci';
@@ -29,7 +39,18 @@ const HostUser: FC<HostUserProps> = ({ host }) => {
       <HStack>
         <Avatar src={host?.profileImages[0]} size={['md', 'xl']} />
         <Stack>
-          <Heading size={['sm', 'lg']}>{`${host?.firstName} ${host?.lastName}`}</Heading>
+          <HStack spacing={4}>
+            <Heading size={['sm', 'lg']}>{`${host?.firstName} ${host?.lastName}`}</Heading>
+            <Link
+              href={`https://wa.me/${host?.phone}`}
+              target="_blank"
+              display="flex"
+              alignItems="center"
+            >
+              <Icon as={FaWhatsapp} boxSize={[3, 4]} />
+              <Heading size={['xs', 'sm']}>{host?.phone}</Heading>
+            </Link>
+          </HStack>
           <Heading size={['xs', 'md']} color="orange.500">
             {host?.occupation}
           </Heading>

@@ -1,7 +1,10 @@
 import { Host } from 'src/types';
-import { CreateHostDto } from '../TryHosting/types';
 
-export type UpdateHostDto = Partial<CreateHostDto>;
+export type UpdateHostDto = Partial<
+  Pick<Host, 'firstName' | 'lastName' | 'aboutMe' | 'occupation' | 'phone'>
+> & {
+  profile?: File;
+};
 
 export type UpdateHostPlaceFormValues = Partial<
   Pick<Host, 'placeDescription' | 'placeDetails' | 'facilities'> & {

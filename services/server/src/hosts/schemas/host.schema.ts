@@ -23,6 +23,9 @@ export class Host {
   @Prop()
   aboutMe: string;
 
+  @Prop()
+  phone: string;
+
   @Prop([String])
   profileImages: string[];
 

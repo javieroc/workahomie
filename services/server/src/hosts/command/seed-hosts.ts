@@ -64,7 +64,7 @@ export class SeedHostsCommand extends CommandRunner {
         const origin = faker.helpers.arrayElement(CITIES_ORIGINS);
         const coordinates = faker.location
           .nearbyGPSCoordinate({
-            origin: [origin.lat, origin.lng], // Dublin
+            origin: [origin.lat, origin.lng],
             radius: 10,
             isMetric: true,
           })
@@ -76,6 +76,7 @@ export class SeedHostsCommand extends CommandRunner {
           lastName: faker.person.lastName(),
           occupation: faker.person.jobTitle(),
           aboutMe: faker.lorem.paragraph(2),
+          phone: faker.phone.number({ style: 'international' }),
           profileImages: [faker.image.avatarGitHub()],
           address: faker.location.streetAddress(),
           location: {
