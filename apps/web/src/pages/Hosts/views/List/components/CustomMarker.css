@@ -1,0 +1,39 @@
+.custom-marker-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.custom-marker-container {
+  background-color: white !important;
+  padding: 8px !important;
+  border-radius: 4px !important;
+  min-width: 150px !important;
+  white-space: nowrap !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.custom-marker-content {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.custom-marker-name {
+  font-weight: bold !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.custom-marker-occupation {
+  font-size: 0.875rem !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.custom-marker-content svg {
+  margin-right: 8px !important;
+  width: 20px;
+  height: 20px;
+  color: #8558D1;
+}
