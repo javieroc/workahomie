@@ -18,6 +18,7 @@ import { MdKitchen } from 'react-icons/md';
 import { CiFries } from 'react-icons/ci';
 import { Facilities } from 'src/types/host';
 import { Host } from 'src/types';
+import { OCCUPATIONS } from 'src/constants/occupations';
 
 type HostUserProps = {
   host: Host;
@@ -34,6 +35,8 @@ const IconList: Record<Facilities, IconType> = {
 };
 
 const HostUser: FC<HostUserProps> = ({ host }) => {
+  const occupation = OCCUPATIONS.find((o) => o.name === host?.occupation);
+
   return (
     <Stack>
       <HStack>
@@ -51,9 +54,17 @@ const HostUser: FC<HostUserProps> = ({ host }) => {
               <Heading size={['xs', 'sm']}>{host?.phone}</Heading>
             </Link>
           </HStack>
-          <Heading size={['xs', 'md']} color="orange.500">
-            {host?.occupation}
-          </Heading>
+          <HStack>
+            {occupation && <Icon as={occupation.icon} />}
+            <Heading size={['xs', 'md']} color="orange.500">
+              {host?.occupation}
+            </Heading>
+            {host?.occupation === 'Others' && (
+              <Heading size={['xs', 'md']} color="orange.500">
+                {host?.occupationDescription}
+              </Heading>
+            )}
+          </HStack>
         </Stack>
       </HStack>
       <Heading size={['sm', 'lg']}>About Me</Heading>

@@ -21,6 +21,9 @@ export class Host {
   occupation: string;
 
   @Prop()
+  occupationDescription?: string;
+
+  @Prop()
   aboutMe: string;
 
   @Prop()

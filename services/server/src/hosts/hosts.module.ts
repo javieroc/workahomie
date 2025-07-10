@@ -11,6 +11,7 @@ import { Host, HostSchema } from './schemas/host.schema';
 import { SeedHostsCommand } from './command/seed-hosts';
 import { SeedReviewsCommand } from './command/seed-reviews';
 import { UpdatePhonesCommand } from './command/update-phones';
+import { UpdateOccupationsCommand } from './command/update-occupations';
 
 @Module({
   imports: [
@@ -24,6 +25,12 @@ import { UpdatePhonesCommand } from './command/update-phones';
     WishlistsModule,
   ],
   controllers: [HostsController],
-  providers: [HostsService, SeedHostsCommand, SeedReviewsCommand, UpdatePhonesCommand],
+  providers: [
+    HostsService,
+    SeedHostsCommand,
+    SeedReviewsCommand,
+    UpdatePhonesCommand,
+    UpdateOccupationsCommand,
+  ],
 })
 export class HostsModule {}

@@ -1,7 +1,10 @@
 import { Host } from 'src/types';
 
 export type UpdateHostDto = Partial<
-  Pick<Host, 'firstName' | 'lastName' | 'aboutMe' | 'occupation' | 'phone'>
+  Pick<
+    Host,
+    'firstName' | 'lastName' | 'aboutMe' | 'occupation' | 'occupationDescription' | 'phone'
+  >
 > & {
   profile?: File;
 };
