@@ -21,6 +21,8 @@ export interface Host {
   lastName?: string;
   aboutMe?: string;
   occupation?: string;
+  occupationDescription?: string;
+  phone?: string;
 
   pictures: string[];
   placeDescription: string;

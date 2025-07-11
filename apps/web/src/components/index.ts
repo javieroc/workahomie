@@ -11,5 +11,7 @@ export { ImageCarousel } from './ImageCarousel';
 export { Layout } from './Layout';
 export { Loading } from './Loading';
 export { OSMPlacesAutocompleteField } from './OSMPlacesAutocompleteField';
+export { PhoneFieldInput } from './PhoneFieldInput';
+export { SelectFieldInput } from './SelectFieldInput';
 export { SearchInput } from './SearchInput';
 export { TextFieldInput } from './TextFieldInput';

@@ -21,7 +21,13 @@ export class Host {
   occupation: string;
 
   @Prop()
+  occupationDescription?: string;
+
+  @Prop()
   aboutMe: string;
+
+  @Prop()
+  phone: string;
 
   @Prop([String])
   profileImages: string[];

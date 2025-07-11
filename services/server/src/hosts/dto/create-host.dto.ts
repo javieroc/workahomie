@@ -11,5 +11,11 @@ export class CreateHostDto {
   occupation: string;
 
   @IsOptional()
+  occupationDescription?: string;
+
+  @IsOptional()
   aboutMe?: string;
+
+  @IsNotEmpty()
+  phone: string;
 }

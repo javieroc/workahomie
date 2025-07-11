@@ -29,6 +29,8 @@ const Profile: FC = () => {
             lastName: hostMe.lastName,
             occupation: hostMe.occupation,
             aboutMe: hostMe.aboutMe,
+            phone: hostMe.phone,
+            occupationDescription: hostMe.occupationDescription,
           }}
         >
           <FormFields profileUrl={hostMe.profileImages[0]} />

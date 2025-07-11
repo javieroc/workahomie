@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/react';
-import { PropsWithChildren, ReactElement } from 'react';
+import { PropsWithChildren, ReactElement, useEffect } from 'react';
 import {
   DefaultValues,
   FieldValues,
@@ -22,14 +22,19 @@ const FormProvider = <Payload extends FieldValues>({
   const methods = useForm<Payload>({
     defaultValues,
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, reset } = methods;
+
+  useEffect(() => {
+    if (defaultValues) {
+      reset(defaultValues);
+    }
+  }, [defaultValues, reset]);
 
   return (
     <FormProviderRhf {...methods}>
       <form
         onSubmit={handleSubmit((formValues) => {
           onSubmit(formValues);
-          methods.reset();
         })}
       >
         {children}
