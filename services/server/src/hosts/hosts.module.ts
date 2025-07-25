@@ -12,6 +12,7 @@ import { SeedHostsCommand } from './command/seed-hosts';
 import { SeedReviewsCommand } from './command/seed-reviews';
 import { UpdatePhonesCommand } from './command/update-phones';
 import { UpdateOccupationsCommand } from './command/update-occupations';
+import { UpdatePicturesCommand } from './command/update-pictures';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { UpdateOccupationsCommand } from './command/update-occupations';
     SeedReviewsCommand,
     UpdatePhonesCommand,
     UpdateOccupationsCommand,
+    UpdatePicturesCommand,
   ],
 })
 export class HostsModule {}

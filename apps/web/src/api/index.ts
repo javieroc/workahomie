@@ -1,29 +1,35 @@
-import axios from 'axios';
+import { GetTokenSilentlyOptions } from '@auth0/auth0-react';
+import axios, { InternalAxiosRequestConfig } from 'axios';
 
 const baseURL = `${import.meta.env.VITE_API_URL}`;
 
 const api = axios.create({
   baseURL,
-  // transformRequest: [
-  //   (data) => {
-  //     if (data && typeof data === 'object') {
-  //       const transformedData = JSON.stringify(data);
-  //       return transformedData;
-  //     }
-  //     return data;
-  //   },
-  // ],
 });
 
 api.defaults.headers.common['Content-Type'] = 'application/json';
 api.defaults.headers.common.Accept = 'application/json';
 
-const setAuthHeader = (token: string): void => {
-  api.defaults.headers.common.Authorization = `Bearer ${token}`;
+type GetAccessTokenSilentlyFn = (options?: GetTokenSilentlyOptions) => Promise<string>;
+
+export const setupInterceptors = (getAccessTokenSilently: GetAccessTokenSilentlyFn) => {
+  api.interceptors.request.use(
+    async (config: InternalAxiosRequestConfig): Promise<InternalAxiosRequestConfig> => {
+      try {
+        const token = await getAccessTokenSilently();
+        if (token) {
+          // eslint-disable-next-line no-param-reassign
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+      } catch (error) {
+        console.error('Error getting access token', error);
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    },
+  );
 };
 
-const removeAuthHeader = (): void => {
-  delete api.defaults.headers.common.Authorization;
-};
-
-export { api, baseURL, setAuthHeader, removeAuthHeader };
+export { api, baseURL };
