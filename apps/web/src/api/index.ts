@@ -11,8 +11,25 @@ api.defaults.headers.common['Content-Type'] = 'application/json';
 api.defaults.headers.common.Accept = 'application/json';
 
 type GetAccessTokenSilentlyFn = (options?: GetTokenSilentlyOptions) => Promise<string>;
+type LogoutFn = () => void;
 
-export const setupInterceptors = (getAccessTokenSilently: GetAccessTokenSilentlyFn) => {
+interface Auth0Error {
+  error: string;
+}
+
+function isAuth0Error(error: unknown): error is Auth0Error {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    'error' in error &&
+    typeof (error as { error: unknown }).error === 'string'
+  );
+}
+
+export const setupInterceptors = (
+  getAccessTokenSilently: GetAccessTokenSilentlyFn,
+  logout: LogoutFn,
+) => {
   api.interceptors.request.use(
     async (config: InternalAxiosRequestConfig): Promise<InternalAxiosRequestConfig> => {
       try {
@@ -22,6 +39,9 @@ export const setupInterceptors = (getAccessTokenSilently: GetAccessTokenSilently
           config.headers.Authorization = `Bearer ${token}`;
         }
       } catch (error) {
+        if (isAuth0Error(error) && error.error === 'login_required') {
+          logout();
+        }
         console.error('Error getting access token', error);
       }
       return config;
