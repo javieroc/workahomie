@@ -4,15 +4,17 @@ import { Loading } from 'src/components';
 import { setupInterceptors } from '.';
 
 const Auth0ProviderWithInterceptor: FC<PropsWithChildren> = ({ children }) => {
-  const { getAccessTokenSilently, isLoading } = useAuth0();
+  const { getAccessTokenSilently, isLoading, logout } = useAuth0();
   const interceptorsSetup = useRef(false);
 
   useEffect(() => {
     if (!isLoading && !interceptorsSetup.current) {
-      setupInterceptors(getAccessTokenSilently);
+      setupInterceptors(getAccessTokenSilently, () =>
+        logout({ logoutParams: { returnTo: `${window.location.origin}/workahomie/` } }),
+      );
       interceptorsSetup.current = true;
     }
-  }, [isLoading, getAccessTokenSilently]);
+  }, [isLoading, getAccessTokenSilently, logout]);
 
   if (isLoading) {
     return <Loading />;
