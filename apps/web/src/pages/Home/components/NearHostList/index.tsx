@@ -26,17 +26,24 @@ const NearHostList: FC = () => {
         <Heading size="lg">Near Hosts</Heading>
       </VStack>
       <Wrap spacing="20px" justify="flex-start">
-        {hosts?.data.map((host) => (
-          <WrapItem key={host._id}>
-            <Skeleton isLoaded={!isLoading}>
-              {!isLoadingWishlist && (
-                <NearHostCard host={host} initialLiked={wishlistedHostIds.includes(host._id)} />
-              )}
-            </Skeleton>
-          </WrapItem>
-        ))}
+        {isLoading
+          ? Array.from({ length: 8 }).map((_, index) => (
+              <WrapItem key={index}>
+                <Skeleton borderRadius="md" height="160px" width="360px" />
+              </WrapItem>
+            ))
+          : hosts?.data.map((host) => (
+              <WrapItem key={host._id}>
+                <NearHostCard
+                  host={host}
+                  initialLiked={!isLoadingWishlist && wishlistedHostIds.includes(host._id)}
+                />
+              </WrapItem>
+            ))}
       </Wrap>
-      <Pagination currentPage={pageIndex} totalPages={totalPages} onPageChange={setPageIndex} />
+      {totalPages > 0 && (
+        <Pagination currentPage={pageIndex} totalPages={totalPages} onPageChange={setPageIndex} />
+      )}
     </VStack>
   );
 };
