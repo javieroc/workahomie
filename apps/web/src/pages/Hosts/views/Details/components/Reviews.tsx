@@ -1,4 +1,4 @@
-import { Flex, Heading, VStack } from '@chakra-ui/react';
+import { Flex, Heading, SkeletonText, VStack } from '@chakra-ui/react';
 import { FC } from 'react';
 import { usePagination, useReviews } from 'src/pages/Hosts/hooks';
 import { Review } from './Review';
@@ -9,14 +9,18 @@ interface ReviewsProps {
 
 const Reviews: FC<ReviewsProps> = ({ hostId }) => {
   const { paginationParams } = usePagination();
-  const { data: response } = useReviews(hostId, paginationParams);
+  const { data: response, isLoading } = useReviews(hostId, paginationParams);
 
   return (
     <VStack align="flex-start">
       <Heading size="lg">Reviews</Heading>
-      <Flex wrap="wrap" gap={8}>
-        {response?.data?.map((review) => <Review key={review._id} {...review} />)}
-      </Flex>
+      {isLoading ? (
+        <SkeletonText mt="4" noOfLines={4} spacing="4" skeletonHeight="2" />
+      ) : (
+        <Flex wrap="wrap" gap={8}>
+          {response?.data?.map((review) => <Review key={review._id} {...review} />)}
+        </Flex>
+      )}
     </VStack>
   );
 };

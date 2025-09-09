@@ -9,6 +9,7 @@ import {
   Text,
   Link,
   Icon,
+  SkeletonText,
 } from '@chakra-ui/react';
 import { Avatar } from 'src/components';
 import { IconType } from 'react-icons';
@@ -21,7 +22,8 @@ import { Host } from 'src/types';
 import { OCCUPATIONS } from 'src/constants/occupations';
 
 type HostUserProps = {
-  host: Host;
+  host?: Host;
+  isLoading: boolean;
 };
 
 const IconList: Record<Facilities, IconType> = {
@@ -34,8 +36,12 @@ const IconList: Record<Facilities, IconType> = {
   wifi: FaWifi,
 };
 
-const HostUser: FC<HostUserProps> = ({ host }) => {
+const HostUser: FC<HostUserProps> = ({ host, isLoading }) => {
   const occupation = OCCUPATIONS.find((o) => o.name === host?.occupation);
+
+  if (isLoading) {
+    return <SkeletonText mt="4" noOfLines={10} spacing="4" skeletonHeight="2" />;
+  }
 
   return (
     <Stack>

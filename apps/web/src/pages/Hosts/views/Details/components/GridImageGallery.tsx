@@ -1,11 +1,16 @@
-import { Grid, GridItem, Image } from '@chakra-ui/react';
+import { Grid, GridItem, Image, Skeleton } from '@chakra-ui/react';
 import { FC } from 'react';
 
 type GridImageGalleryProps = {
   images?: string[];
+  isLoading: boolean;
 };
 
-const GridImageGallery: FC<GridImageGalleryProps> = ({ images }) => {
+const GridImageGallery: FC<GridImageGalleryProps> = ({ images, isLoading }) => {
+  if (isLoading) {
+    return <Skeleton height="500px" width="100%" />;
+  }
+
   return (
     <Grid h="500px" templateRows="repeat(2, 1fr)" templateColumns="repeat(4, 1fr)" gap={4}>
       {images?.slice(0, 5).map((pic, index) => (

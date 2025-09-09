@@ -11,7 +11,7 @@ import { Reviews } from './components/Reviews';
 
 const Details: FC = () => {
   const { hostId } = useParams<{ hostId: string }>();
-  const { data: host } = useHost(hostId!);
+  const { data: host, isLoading } = useHost(hostId!);
 
   const [isLargerThanMD] = useMediaQuery('(min-width: 62em)');
 
@@ -24,8 +24,8 @@ const Details: FC = () => {
       pr={['16px', '46px', '120px']}
       spacing={8}
     >
-      {host && <HostTitle host={host} />}
-      {displayGallery && <GridImageGallery images={host?.pictures} />}
+      <HostTitle host={host} isLoading={isLoading} />
+      {displayGallery && <GridImageGallery images={host?.pictures} isLoading={isLoading} />}
       {!displayGallery && <ImageCarousel images={host?.pictures ?? []} />}
       <Grid
         templateColumns={[
@@ -36,7 +36,9 @@ const Details: FC = () => {
         ]}
         gap={4}
       >
-        <GridItem colSpan={[1, 1, 1, 2]}>{host && <HostUser host={host} />}</GridItem>
+        <GridItem colSpan={[1, 1, 1, 2]}>
+          <HostUser host={host} isLoading={isLoading} />
+        </GridItem>
         <GridItem>
           <RequestForm hostId={hostId!} />
         </GridItem>
