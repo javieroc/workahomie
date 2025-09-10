@@ -34,7 +34,7 @@ npm run dev --workspace=web
 
 ## TODOs
 
-- [ ] Fix: how it works redirect
+- [x] Fix: Nav bar "how it works" link
 - [ ] Fix: wishlist request on home screen
 - [ ] Fix: Change About Us redirect on home screen
 - [ ] Fix: search input icon, looks odd

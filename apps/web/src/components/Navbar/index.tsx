@@ -73,19 +73,24 @@ const Navbar: FC = () => {
         />
         <HStack spacing="24px" display={{ base: 'none', md: 'flex' }}>
           <HStack spacing="16px">
-            {links.map((link) => (
-              <Link
-                as={ReactRouterLink}
-                key={link.label}
-                to={link.to}
-                target="_blank"
-                _hover={{ textDecoration: 'none' }}
-              >
-                <Heading size="sm" color="orange.500">
-                  {link.label}
-                </Heading>
-              </Link>
-            ))}
+            {links.map((link) => {
+              const isExternal = link.to.startsWith('http');
+
+              return (
+                <Link
+                  as={ReactRouterLink}
+                  key={link.label}
+                  to={link.to}
+                  target={isExternal ? '_blank' : undefined}
+                  rel={isExternal ? 'noopener noreferrer' : undefined}
+                  _hover={{ textDecoration: 'none' }}
+                >
+                  <Heading size="sm" color="orange.500">
+                    {link.label}
+                  </Heading>
+                </Link>
+              );
+            })}
           </HStack>
           <HStack>{isAuthenticated ? <UserMenu /> : <LoginButton />}</HStack>
         </HStack>
@@ -93,11 +98,24 @@ const Navbar: FC = () => {
       {isOpen && (
         <Box padding={4} display={{ md: 'none' }}>
           <Stack as="nav" spacing={4} alignItems="center">
-            {links.map((link) => (
-              <Heading size="sm" color="orange.500" key={link.label}>
-                {link.label}
-              </Heading>
-            ))}
+            {links.map((link) => {
+              const isExternal = link.to.startsWith('http');
+
+              return (
+                <Link
+                  as={ReactRouterLink}
+                  key={link.label}
+                  to={link.to}
+                  target={isExternal ? '_blank' : undefined}
+                  rel={isExternal ? 'noopener noreferrer' : undefined}
+                  _hover={{ textDecoration: 'none' }}
+                >
+                  <Heading size="sm" color="orange.500">
+                    {link.label}
+                  </Heading>
+                </Link>
+              );
+            })}
             {isAuthenticated && <LogoutButton />}
           </Stack>
         </Box>
