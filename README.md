@@ -36,7 +36,7 @@ npm run dev --workspace=web
 
 - [x] Fix: Nav bar "how it works" link
 - [ ] Fix: wishlist request on home screen
-- [ ] Fix: Change About Us redirect on home screen
+- [x] Fix: Change About Us redirect on home screen
 - [ ] Fix: search input icon, looks odd
 - [ ] Feat: hosts filters
 - [ ] Feat: Custom map popup, display host card

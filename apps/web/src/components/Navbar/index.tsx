@@ -36,10 +36,6 @@ const Navbar: FC = () => {
       label: 'Stories',
       to: '#',
     },
-    {
-      label: 'About Us',
-      to: 'https://javieroc.github.io/Dev-Coffee/',
-    },
   ];
 
   return (
