@@ -31,3 +31,17 @@ For the moment run the app manually
 cp apps/web/.env.template apps/web/.env
 npm run dev --workspace=web
 ```
+
+## TODOs
+
+- [x] Fix: Nav bar "how it works" link
+- [ ] Fix: wishlist request on home screen
+- [x] Fix: Change About Us redirect on home screen
+- [ ] Fix: search input icon, looks odd
+- [ ] Feat: hosts filters
+- [ ] Feat: Custom map popup, display host card
+- [ ] Feat: multi channel chat
+- [ ] Fix: my place form when edit
+- [ ] Chore: Review Login flow again
+- [ ] Chore: Improve map visibility
+- [ ] Feat: wire reviews
