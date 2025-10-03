@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { faker } from '@faker-js/faker';
 import { Layout } from 'src/components';
 import { Story } from 'src/types';
-import { Hero, NearHostList, PeopleStories, TryHosting } from './components';
+import { AppBanner, Hero, NearHostList, PeopleStories, TryHosting } from './components';
 
 const stories: Story[] = Array(20)
   .fill(0)
@@ -19,6 +19,7 @@ const Home: FC = () => {
   return (
     <Layout>
       <Hero />
+      <AppBanner />
       <NearHostList />
       <TryHosting />
       <PeopleStories stories={stories} />
