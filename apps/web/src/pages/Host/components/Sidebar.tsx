@@ -12,8 +12,9 @@ const Sidebar: FC<SidebarProps> = ({ links }) => {
     <Box
       borderRight="1px solid"
       borderColor="gray.200"
-      width={['60px', '60px', '200px']}
+      width={['60px', '60px', '300px']}
       transition="width 0.3s ease"
+      minH="calc(100vh - 80px)"
     >
       {links.map((link) => (
         <Link to={link.to} key={link.to}>
@@ -26,7 +27,7 @@ const Sidebar: FC<SidebarProps> = ({ links }) => {
             _hover={{ bg: 'purple.100' }}
             gap={[0, 3]}
           >
-            <Icon as={link.icon} boxSize={6} />
+            <Icon as={link.icon} boxSize={5} />
             <Heading size="md" display={['none', 'none', 'block']}>
               {link.title}
             </Heading>

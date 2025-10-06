@@ -10,7 +10,10 @@ const getRequests = async (params: PaginationApiParams = {}): Promise<ListRespon
 
 function useIncomingRequests(
   { pageIndex, pageSize }: PaginationParams,
-  options?: UseQueryOptions<ListResponse<Request>, DefaultError, ListResponse<Request>>,
+  options?: Omit<
+    UseQueryOptions<ListResponse<Request>, DefaultError, ListResponse<Request>>,
+    'queryKey' | 'queryFn'
+  >,
 ) {
   return useQuery<ListResponse<Request>>({
     queryKey: [QUERY_KEYS.REQUESTS, 'INCOMING', pageIndex, pageSize],

@@ -87,6 +87,17 @@ const Navbar: FC = () => {
                 </Link>
               );
             })}
+            {isAuthenticated && (
+              <Link
+                as={ReactRouterLink}
+                to="/host/outgoing-requests"
+                _hover={{ textDecoration: 'none' }}
+              >
+                <Heading size="sm" color="orange.500">
+                  My Requests
+                </Heading>
+              </Link>
+            )}
           </HStack>
           <HStack>{isAuthenticated ? <UserMenu /> : <LoginButton />}</HStack>
         </HStack>
@@ -112,6 +123,17 @@ const Navbar: FC = () => {
                 </Link>
               );
             })}
+            {isAuthenticated && (
+              <Link
+                as={ReactRouterLink}
+                to="/host/outgoing-requests"
+                _hover={{ textDecoration: 'none' }}
+              >
+                <Heading size="sm" color="orange.500">
+                  My Requests
+                </Heading>
+              </Link>
+            )}
             {isAuthenticated && <LogoutButton />}
           </Stack>
         </Box>
