@@ -9,7 +9,9 @@ const getHostMe = async () => {
   return data;
 };
 
-function useHostMe(options?: UseQueryOptions<Host, DefaultError, Host>) {
+function useHostMe(
+  options?: Omit<UseQueryOptions<Host, DefaultError, Host>, 'queryKey' | 'queryFn'>,
+) {
   return useQuery<Host>({
     queryKey: [QUERY_KEYS.HOSTS, 'me'],
     queryFn: getHostMe,

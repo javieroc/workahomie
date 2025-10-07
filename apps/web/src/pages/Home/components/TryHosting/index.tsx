@@ -7,7 +7,7 @@ const TryHosting: FC = () => {
   return (
     <Flex
       width="100%"
-      backgroundColor="gray.200"
+      backgroundColor="gray.100"
       align="center"
       justifyContent="center"
       padding={{ base: '16px', lg: '64px' }}
