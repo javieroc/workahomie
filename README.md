@@ -38,7 +38,7 @@ npm run dev --workspace=web
 - [ ] Fix: wishlist request on home screen
 - [x] Fix: Move my requests to the navbar
 - [x] Fix: Change About Us redirect on home screen
-- [ ] Fix: search input icon, looks odd
+- [x] Fix: search input icon, looks odd
 - [ ] Feat: hosts filters
 - [ ] Feat: Custom map popup, display host card
 - [ ] Feat: multi channel chat

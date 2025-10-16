@@ -17,8 +17,8 @@ const Hero: FC = () => {
       alignItems="center"
       justifyContent="center"
     >
-      <VStack width="400px" alignItems={['center', 'flex-start']} spacing="16px">
-        <Heading size="lg" color="gray.800">
+      <VStack alignItems="center" spacing="16px">
+        <Heading size="xl" color="gray.800" textAlign="center">
           Looking for a Co-Worker?
         </Heading>
         <OSMSearchInput
