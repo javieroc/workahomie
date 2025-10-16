@@ -10,9 +10,18 @@ const getHost = async (id: string): Promise<Host> => {
 
 const parsingAddress = (address: string) => {
   try {
-    return JSON.parse(address);
-  } catch (e) {
-    return address;
+    const parsed = JSON.parse(address);
+
+    if (parsed.display_name) {
+      return parsed;
+    }
+
+    return {
+      ...parsed,
+      display_name: parsed.address || parsed.name || '',
+    };
+  } catch {
+    return { display_name: address };
   }
 };
 
