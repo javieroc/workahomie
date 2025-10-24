@@ -1,10 +1,12 @@
-// export interface FilterParams {
-//   [key: string]: string | number;
-// }
+import { Facility } from 'src/constants/facilities';
+import { Occupation } from 'src/constants/occupations';
 
 export interface FiltersParams {
   lat?: number;
   lng?: number;
+  occupations?: Occupation[];
+  facilities?: Facility[];
+  rate?: number;
 }
 
 export interface PaginationParams {

@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 import { FiltersParams } from 'src/types';
 
-export const mapVisibleAtom = atom(true);
+export const mapVisibleAtom = atom(false);
 
 export const paginationParamsAtom = atom({
   pageIndex: 0,

@@ -1,11 +1,5 @@
-export type Facilities =
-  | 'garden'
-  | 'showers'
-  | 'parking'
-  | 'coffee'
-  | 'kitchen'
-  | 'wifi'
-  | 'snacks';
+import { Facility } from 'src/constants/facilities';
+import { Occupation } from 'src/constants/occupations';
 
 export type Point = {
   type: string;
@@ -20,7 +14,7 @@ export interface Host {
   firstName?: string;
   lastName?: string;
   aboutMe?: string;
-  occupation?: string;
+  occupation?: Occupation;
   occupationDescription?: string;
   phone?: string;
 
@@ -31,5 +25,5 @@ export interface Host {
   location: Point;
   // eslint-disable-next-line
   addressObj?: any;
-  facilities?: Facilities[];
+  facilities?: Facility[];
 }

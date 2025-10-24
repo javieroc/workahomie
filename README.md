@@ -39,10 +39,11 @@ npm run dev --workspace=web
 - [x] Fix: Move my requests to the navbar
 - [x] Fix: Change About Us redirect on home screen
 - [x] Fix: search input icon, looks odd
-- [ ] Feat: hosts filters
+- [x] Feat: hosts filters
+- [ ] Feat: wire reviews
+- [ ] Feat: calculate rate based on reviews
 - [ ] Feat: Custom map popup, display host card
 - [ ] Feat: multi channel chat
 - [ ] Fix: my place form when edit
 - [ ] Chore: Review Login flow again
 - [ ] Chore: Improve map visibility
-- [ ] Feat: wire reviews
