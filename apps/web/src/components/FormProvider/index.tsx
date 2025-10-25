@@ -11,6 +11,8 @@ type FormProviderProps<Payload extends FieldValues> = {
   onSubmit: (formValues: Payload) => void;
   defaultValues?: DefaultValues<Payload> | undefined;
   submitButton?: ReactElement;
+  submitButtonText?: string;
+  isSubmitting?: boolean;
 };
 
 const FormProvider = <Payload extends FieldValues>({
@@ -18,6 +20,8 @@ const FormProvider = <Payload extends FieldValues>({
   defaultValues,
   children,
   submitButton,
+  submitButtonText,
+  isSubmitting,
 }: PropsWithChildren<FormProviderProps<Payload>>) => {
   const methods = useForm<Payload>({
     defaultValues,
@@ -39,8 +43,8 @@ const FormProvider = <Payload extends FieldValues>({
       >
         {children}
         {submitButton || (
-          <Button color="white" colorScheme="purple" type="submit">
-            Save
+          <Button color="white" colorScheme="purple" type="submit" isLoading={isSubmitting}>
+            {submitButtonText || 'Save'}
           </Button>
         )}
       </form>

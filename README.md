@@ -40,7 +40,7 @@ npm run dev --workspace=web
 - [x] Fix: Change About Us redirect on home screen
 - [x] Fix: search input icon, looks odd
 - [x] Feat: hosts filters
-- [ ] Feat: wire reviews
+- [x] Feat: wire reviews
 - [ ] Feat: calculate rate based on reviews
 - [ ] Feat: Custom map popup, display host card
 - [ ] Feat: multi channel chat

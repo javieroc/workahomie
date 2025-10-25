@@ -3,6 +3,14 @@ import { Host, Message, Request } from 'src/types';
 export type CreateRequestDto = Pick<Request, 'checkIn' | 'checkOut'> &
   Pick<Message, 'message' | 'userId' | 'userAvatar' | 'userEmail' | 'userName'>;
 
+export interface CreateReviewDto {
+  review: string;
+  rating: number;
+  userName: string;
+  userAvatar: string;
+  date: string;
+}
+
 export interface Review {
   _id: string;
   userName: string;
