@@ -17,16 +17,16 @@ import { FaCoffee, FaShower, FaParking, FaWifi, FaWhatsapp } from 'react-icons/f
 import { GiFireFlower } from 'react-icons/gi';
 import { MdKitchen } from 'react-icons/md';
 import { CiFries } from 'react-icons/ci';
-import { Facilities } from 'src/types/host';
 import { Host } from 'src/types';
 import { OCCUPATIONS } from 'src/constants/occupations';
+import { Facility } from 'src/constants/facilities';
 
 type HostUserProps = {
   host?: Host;
   isLoading: boolean;
 };
 
-const IconList: Record<Facilities, IconType> = {
+const IconList: Record<Facility, IconType> = {
   coffee: FaCoffee,
   garden: GiFireFlower,
   kitchen: MdKitchen,
