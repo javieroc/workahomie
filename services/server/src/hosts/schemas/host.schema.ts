@@ -55,6 +55,12 @@ export class Host {
   @Prop([String])
   pictures: string[];
 
+  @Prop({ default: 0 })
+  rate: number;
+
+  @Prop({ default: 0 })
+  countReviews: number;
+
   isWishlisted?: boolean;
 }
 

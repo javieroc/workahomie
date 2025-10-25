@@ -41,7 +41,7 @@ npm run dev --workspace=web
 - [x] Fix: search input icon, looks odd
 - [x] Feat: hosts filters
 - [x] Feat: wire reviews
-- [ ] Feat: calculate rate based on reviews
+- [x] Feat: calculate rate based on reviews
 - [ ] Feat: Custom map popup, display host card
 - [ ] Feat: multi channel chat
 - [ ] Fix: my place form when edit
