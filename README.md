@@ -35,14 +35,15 @@ npm run dev --workspace=web
 ## TODOs
 
 - [x] Fix: Nav bar "how it works" link
-- [ ] Fix: wishlist request on home screen
 - [x] Fix: Move my requests to the navbar
 - [x] Fix: Change About Us redirect on home screen
 - [x] Fix: search input icon, looks odd
 - [x] Feat: hosts filters
 - [x] Feat: wire reviews
 - [x] Feat: calculate rate based on reviews
+- [ ] Fix: Refresh in github pages redirect to 404
 - [ ] Feat: Custom map popup, display host card
+- [ ] Fix: wishlist request on home screen
 - [ ] Feat: multi channel chat
 - [ ] Fix: my place form when edit
 - [ ] Chore: Review Login flow again
