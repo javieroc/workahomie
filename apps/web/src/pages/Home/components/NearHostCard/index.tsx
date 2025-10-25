@@ -45,13 +45,21 @@ const NearHostCard: FC<NearHostCardProps> = ({ host, initialLiked }) => {
             <Text fontSize="md">{host.occupation}</Text>
           </VStack>
           <HStack align="center">
-            <StarIcon w={4} h={4} color="pink.500" />
-            <Text fontSize="sm">
-              {host.rate ?? 4.3}
-              <Text marginLeft="4px" as="span" color="gray.500">
-                {`(${host.countReviews ?? 10} Reviews)`}
+            {host.countReviews > 0 ? (
+              <>
+                <StarIcon w={4} h={4} color="pink.500" />
+                <Text fontSize="sm">
+                  {host.rate?.toFixed(1)}
+                  <Text marginLeft="4px" as="span" color="gray.500">
+                    {`(${host.countReviews} Reviews)`}
+                  </Text>
+                </Text>
+              </>
+            ) : (
+              <Text fontSize="sm" color="gray.500">
+                No reviews yet
               </Text>
-            </Text>
+            )}
           </HStack>
         </Flex>
       </HStack>

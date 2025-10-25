@@ -104,6 +104,8 @@ export class SeedHostsCommand extends CommandRunner {
             faker.image.urlLoremFlickr({ category: 'place' }),
             faker.image.urlLoremFlickr({ category: 'art' }),
           ],
+          rate: 0,
+          countReviews: 0,
         };
       });
 

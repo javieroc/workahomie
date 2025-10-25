@@ -18,15 +18,17 @@ export class ReviewsService {
     const review = new this.ReviewModel(createReviewDto);
     await review.save();
 
-    const hostReviews = await this.ReviewModel.find({ host: createReviewDto.host._id }).exec();
-    const totalRating = hostReviews.reduce((sum, r) => sum + r.rating, 0);
-    const newAverageRating = totalRating / hostReviews.length;
+    const stats = await this.ReviewModel.aggregate([
+      { $match: { host: createReviewDto.host._id } },
+      { $group: { _id: '$host', avgRating: { $avg: '$rating' }, count: { $sum: 1 } } },
+    ]);
 
-    await this.HostModel.findByIdAndUpdate(
-      createReviewDto.host._id,
-      { rate: newAverageRating, countReviews: hostReviews.length },
-      { new: true },
-    ).exec();
+    if (stats.length > 0) {
+      await this.HostModel.findByIdAndUpdate(createReviewDto.host._id, {
+        rate: stats[0].avgRating,
+        countReviews: stats[0].count,
+      });
+    }
 
     return review;
   }
