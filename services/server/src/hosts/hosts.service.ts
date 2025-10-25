@@ -1,9 +1,8 @@
-import { Model } from 'mongoose';
+import { Model, RootFilterQuery } from 'mongoose';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { FindAllResponse } from 'src/dto/response.dto';
-import { WishlistsService } from 'src/wishlists/wishlists.service';
 import { CreateHostDto } from './dto/create-host.dto';
 import { UpdateHostDto } from './dto/update-host.dto';
 import { Host, HostDocument } from './schemas/host.schema';
@@ -15,7 +14,6 @@ export class HostsService {
   constructor(
     @InjectModel(Host.name) private HostModel: Model<HostDocument>,
     private readonly cloudinaryService: CloudinaryService,
-    private readonly wishlistsService: WishlistsService,
   ) {}
 
   async create(
@@ -37,44 +35,51 @@ export class HostsService {
     offset = 0,
     lat,
     lng,
+    occupations,
+    facilities,
+    rate,
   }: SearchParamsDto): Promise<FindAllResponse<Host>> {
-    const total = await this.HostModel.find({
-      ...(lat && lng
-        ? {
-            location: {
-              $near: {
-                $geometry: {
-                  type: 'Point',
-                  coordinates: [lng, lat],
-                },
-                $maxDistance: 10000,
-              },
-            },
-          }
-        : {}),
-    }).exec();
-    const data = await this.HostModel.find({
-      ...(lat && lng
-        ? {
-            location: {
-              $near: {
-                $geometry: {
-                  type: 'Point',
-                  coordinates: [lng, lat],
-                },
-                $maxDistance: 10000,
-              },
-            },
-          }
-        : {}),
-    })
-      .limit(limit)
-      .skip(offset)
-      .lean();
+    const findFilter: RootFilterQuery<Host> = {};
+    const countFilter: RootFilterQuery<Host> = {};
+
+    if (lat && lng) {
+      findFilter.location = {
+        $near: {
+          $geometry: {
+            type: 'Point',
+            coordinates: [lng, lat],
+          },
+          $maxDistance: 10000,
+        },
+      };
+      countFilter.location = {
+        $geoWithin: {
+          $centerSphere: [[lng, lat], 10000 / 6378100],
+        },
+      };
+    }
+
+    if (occupations) {
+      findFilter.occupation = { $in: occupations };
+      countFilter.occupation = { $in: occupations };
+    }
+
+    if (facilities) {
+      findFilter.facilities = { $all: facilities };
+      countFilter.facilities = { $all: facilities };
+    }
+
+    if (rate) {
+      findFilter.rate = { $gte: rate };
+      countFilter.rate = { $gte: rate };
+    }
+
+    const total = await this.HostModel.countDocuments(countFilter).exec();
+    const data = await this.HostModel.find(findFilter).limit(limit).skip(offset).lean();
 
     return {
       data,
-      total: total.length,
+      total,
     };
   }
 

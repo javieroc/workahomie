@@ -1,4 +1,5 @@
-import { Heading, HStack, Text, VStack } from '@chakra-ui/react';
+import { Heading, HStack, Text, VStack, Flex } from '@chakra-ui/react';
+import { StarIcon } from '@chakra-ui/icons';
 import { FC } from 'react';
 import { Avatar } from 'src/components';
 
@@ -7,9 +8,10 @@ interface ReviewProps {
   userAvatar: string;
   date: string;
   review: string;
+  rating: number;
 }
 
-const Review: FC<ReviewProps> = ({ date, review, userName, userAvatar }) => {
+const Review: FC<ReviewProps> = ({ date, review, userName, userAvatar, rating }) => {
   return (
     <VStack align="flex-start" maxW="460px">
       <HStack>
@@ -24,6 +26,13 @@ const Review: FC<ReviewProps> = ({ date, review, userName, userAvatar }) => {
       <Text noOfLines={4} fontSize="sm">
         {review}
       </Text>
+      <Flex width="100%" justifyContent="flex-end" mt={2} alignItems="center">
+        {Array(5)
+          .fill('')
+          .map((_, i) => (
+            <StarIcon key={i} color={i < rating ? '#D53F8C' : 'gray.300'} boxSize={3} />
+          ))}
+      </Flex>
     </VStack>
   );
 };

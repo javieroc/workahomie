@@ -29,37 +29,39 @@ import {
   FaQuestionCircle,
 } from 'react-icons/fa';
 
-export type Occupation = {
+export type OccupationItem = {
   name: string;
   icon: IconType;
 };
 
-export const OCCUPATIONS: Occupation[] = [
-  { name: 'Accountant', icon: FaCalculator },
-  { name: 'Architect', icon: FaDraftingCompass },
-  { name: 'Artist', icon: FaPaintBrush },
-  { name: 'Business Analyst', icon: FaLightbulb },
-  { name: 'Consultant', icon: FaUserTie },
-  { name: 'Data Scientist', icon: FaDatabase },
-  { name: 'Doctor', icon: FaHeartbeat },
-  { name: 'Engineer', icon: FaCogs },
-  { name: 'Environmental Scientist', icon: FaLeaf },
-  { name: 'Filmmaker', icon: FaFilm },
-  { name: 'Graphic Designer', icon: FaPalette },
-  { name: 'Illustrator', icon: FaPencilRuler },
-  { name: 'Lawyer', icon: FaBalanceScale },
-  { name: 'Marketing Specialist', icon: FaChartLine },
-  { name: 'Musician', icon: FaMusic },
-  { name: 'Photographer', icon: FaCameraRetro },
-  { name: 'Product Manager', icon: FaTasks },
-  { name: 'Project Manager', icon: FaProjectDiagram },
-  { name: 'Sales Representative', icon: FaHandshake },
-  { name: 'Scientist', icon: FaFlask },
-  { name: 'Software Developer', icon: FaCode },
-  { name: 'Teacher/Tutor', icon: FaChalkboardTeacher },
-  { name: 'UI/UX Designer', icon: FaObjectGroup },
-  { name: 'Videographer', icon: FaVideo },
-  { name: 'Virtual Assistant', icon: FaBriefcase },
-  { name: 'Writer', icon: FaPen },
-  { name: 'Others', icon: FaQuestionCircle },
+export const OCCUPATIONS: OccupationItem[] = [
+  { name: 'accountant', icon: FaCalculator },
+  { name: 'architect', icon: FaDraftingCompass },
+  { name: 'artist', icon: FaPaintBrush },
+  { name: 'business analyst', icon: FaLightbulb },
+  { name: 'consultant', icon: FaUserTie },
+  { name: 'data scientist', icon: FaDatabase },
+  { name: 'doctor', icon: FaHeartbeat },
+  { name: 'engineer', icon: FaCogs },
+  { name: 'environmental scientist', icon: FaLeaf },
+  { name: 'filmmaker', icon: FaFilm },
+  { name: 'graphic designer', icon: FaPalette },
+  { name: 'illustrator', icon: FaPencilRuler },
+  { name: 'lawyer', icon: FaBalanceScale },
+  { name: 'marketing specialist', icon: FaChartLine },
+  { name: 'musician', icon: FaMusic },
+  { name: 'photographer', icon: FaCameraRetro },
+  { name: 'product manager', icon: FaTasks },
+  { name: 'project manager', icon: FaProjectDiagram },
+  { name: 'sales representative', icon: FaHandshake },
+  { name: 'scientist', icon: FaFlask },
+  { name: 'software developer', icon: FaCode },
+  { name: 'teacher/tutor', icon: FaChalkboardTeacher },
+  { name: 'ui/ux designer', icon: FaObjectGroup },
+  { name: 'videographer', icon: FaVideo },
+  { name: 'virtual assistant', icon: FaBriefcase },
+  { name: 'writer', icon: FaPen },
+  { name: 'others', icon: FaQuestionCircle },
 ];
+
+export type Occupation = (typeof OCCUPATIONS)[number]['name'];

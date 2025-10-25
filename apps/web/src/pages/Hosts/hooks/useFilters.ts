@@ -10,10 +10,11 @@ const useFilters = () => {
   const lng = searchParams.get('lng');
 
   useEffect(() => {
-    setFilters({
+    setFilters((prev) => ({
+      ...prev,
       lat: lat ? Number.parseFloat(lat) : undefined,
       lng: lng ? Number.parseFloat(lng) : undefined,
-    });
+    }));
   }, [lat, lng, setFilters]);
 
   return { filters, setFilters };
