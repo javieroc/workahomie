@@ -1,0 +1,71 @@
+.popup-container {
+  width: 280px;
+  padding-top: 12px;
+  font-family: 'system-ui', sans-serif;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.host-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.host-name {
+  color: #0A0A0A;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 2px 0;
+}
+
+.host-occupation {
+  color: #0A0A0A;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  text-transform: capitalize;
+  padding: 2px 0;
+}
+
+.occupation-icon {
+  font-size: 16px;
+  padding-right: 2px;
+  color: #805AD5;
+}
+
+.host-address {
+  font-size: 14px;
+  color: #0A0A0A;
+  padding: 2px 0;
+}
+
+.host-phone {
+  font-size: 14px;
+  color: #0A0A0A;
+  padding: 2px 0;
+}
+
+.host-rating {
+  display: flex;
+  align-items: center;
+  align-self: self-end;
+  font-size: 14px;
+  padding: 2px 0;
+}
+
+.host-rating-value {
+  margin-left: 4px;
+  font-weight: bold;
+}
+
+.host-rating-count {
+  margin-left: 4px;
+  color: #779;
+}
+

@@ -8,6 +8,7 @@ import { Host, ListResponse } from 'src/types';
 import { useFilters } from 'src/pages/Hosts/hooks';
 import { mapVisibleAtom } from '../../../store';
 import { CustomMarker } from './CustomMarker';
+import { MapResizer } from './MapResizer';
 
 type HostMapProps = {
   hosts: ListResponse<Host> | undefined;
@@ -48,6 +49,7 @@ const HostMap: FC<HostMapProps> = ({ hosts }) => {
             zoom={13}
             style={{ height: '100vh' }}
           >
+            <MapResizer isMapVisible={isMapVisible} />
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

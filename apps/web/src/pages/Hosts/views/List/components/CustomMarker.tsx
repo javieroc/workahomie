@@ -4,8 +4,9 @@ import { Marker, Popup } from 'react-leaflet';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Host } from 'src/types';
 import { OCCUPATIONS } from 'src/constants/occupations';
-import { Icon, Text } from '@chakra-ui/react';
+import { Icon } from '@chakra-ui/react';
 import './CustomMarker.css';
+import { HostPopupCard } from './HostPopupCard';
 
 interface CustomMarkerProps {
   host: Host;
@@ -32,8 +33,7 @@ const CustomMarker: FC<CustomMarkerProps> = ({ host }) => {
   return (
     <Marker position={host.location.coordinates as [number, number]} icon={customMarkerIcon}>
       <Popup>
-        <Text>{host.addressObj?.label}</Text>
-        <Text>{host.placeDescription}</Text>
+        <HostPopupCard host={host} />
       </Popup>
     </Marker>
   );
