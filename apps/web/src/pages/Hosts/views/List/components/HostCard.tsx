@@ -42,7 +42,7 @@ const HostCard: FC<HostCardProps> = ({ host }) => {
             <HStack align="center" alignSelf="end">
               <StarIcon w={4} h={4} color="pink.500" />
               <Text fontSize="sm">
-                {host.rate ?? 4.3}
+                {host.rate?.toFixed(1)}
                 <Text marginLeft="4px" as="span" color="gray.500">
                   {`(${host.countReviews ?? 10} Reviews)`}
                 </Text>
