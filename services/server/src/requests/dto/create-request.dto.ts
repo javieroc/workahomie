@@ -1,4 +1,10 @@
-import { IsDateString, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsOptional, IsString, IsEnum } from 'class-validator';
+
+export enum RequestStatus {
+  PENDING = 'pending',
+  ACCEPTED = 'accepted',
+  DECLINED = 'declined',
+}
 
 export class CreateRequestDto {
   @IsNotEmpty()
@@ -27,4 +33,8 @@ export class CreateRequestDto {
   @IsString()
   @IsOptional()
   userAvatar?: string;
+
+  @IsEnum(RequestStatus)
+  @IsOptional()
+  status?: RequestStatus;
 }

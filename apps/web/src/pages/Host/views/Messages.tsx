@@ -1,24 +1,21 @@
 import { FC } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
-import { useHostMe } from 'src/hooks/useHostMe';
-import { Loading } from 'src/components';
+import { useParams } from 'react-router-dom';
+import { Host } from 'src/types';
 import { ChatBox } from '../components/ChatBox';
 import { useRequest } from '../hooks';
+import { WithHostMe } from '../HOCs/WithHostMe';
 
-const Messages: FC = () => {
+interface MessagesWithHostProps {
+  host: Host;
+}
+
+const MessagesWithHost: FC<MessagesWithHostProps> = () => {
   const { requestId } = useParams<{ requestId: string }>();
   const { data: request } = useRequest(requestId!);
-  const { data: hostMe, isLoading } = useHostMe();
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (hostMe) {
-    return <ChatBox initialMessages={request?.messages ?? []} requestId={requestId!} />;
-  }
-
-  return <Navigate to="/try-hosting" />;
+  return <ChatBox initialMessages={request?.messages ?? []} requestId={requestId!} />;
 };
+
+const Messages = WithHostMe(MessagesWithHost);
 
 export { Messages };

@@ -25,7 +25,7 @@ export class Request {
   @Prop()
   checkOut: Date;
 
-  @Prop()
+  @Prop({ default: 'pending' })
   status: string;
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Host' })

@@ -89,7 +89,7 @@ export class RequestsService {
   }
 
   async update(id: string, updateRequestDto: UpdateRequestDto): Promise<Request> {
-    const request = await this.RequestModel.findOneAndUpdate({ id }, updateRequestDto, {
+    const request = await this.RequestModel.findOneAndUpdate({ _id: id }, updateRequestDto, {
       new: true,
     }).exec();
 
