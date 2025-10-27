@@ -39,7 +39,9 @@ const HostPopupCard: FC<HostPopupCardProps> = ({ host }) => {
           {occupation && <Icon as={occupation.icon} className={styles['occupation-icon']} />}
           <h2>{host.occupation}</h2>
         </div>
-        <h2 className={styles['host-address']}>{host.address}</h2>
+        <h2 className={styles['host-address']}>
+          {host?.addressObj?.display_name ?? host?.address}
+        </h2>
         {host.phone && <h2 className={styles['host-phone']}>{host.phone}</h2>}
         <div className={styles['host-rating']}>
           <Icon as={StarIcon} color="yellow.400" />
