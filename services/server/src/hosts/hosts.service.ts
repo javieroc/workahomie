@@ -120,7 +120,7 @@ export class HostsService {
 
     const location = {
       type: 'Point',
-      coordinates: [Number.parseFloat(addressObj.lat), Number.parseFloat(addressObj.lon)],
+      coordinates: [Number.parseFloat(addressObj.lon), Number.parseFloat(addressObj.lat)],
     };
 
     const host = await this.HostModel.findOneAndUpdate(
