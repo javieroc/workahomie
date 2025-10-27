@@ -1,5 +1,5 @@
 import { GetTokenSilentlyOptions } from '@auth0/auth0-react';
-import axios, { InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 const baseURL = `${import.meta.env.VITE_API_URL}`;
 
@@ -47,6 +47,25 @@ export const setupInterceptors = (
       return config;
     },
     (error) => {
+      return Promise.reject(error);
+    },
+  );
+
+  api.interceptors.response.use(
+    (response: AxiosResponse) => response,
+    async (error: AxiosError) => {
+      const status = error.response?.status;
+
+      if (status === 404) {
+        const mockResponse: AxiosResponse = {
+          ...error.response!,
+          status: 200,
+          statusText: 'OK',
+          data: null,
+        };
+        return Promise.resolve(mockResponse);
+      }
+
       return Promise.reject(error);
     },
   );

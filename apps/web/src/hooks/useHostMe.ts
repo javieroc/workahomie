@@ -17,6 +17,7 @@ function useHostMe(
     queryFn: getHostMe,
     retry: false,
     refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 5, // 5 minutes
     select: (data: Host) => ({
       ...data,
       addressObj: parsingAddress(data.address),
