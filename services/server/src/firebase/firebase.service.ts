@@ -48,8 +48,19 @@ export class FirebaseService {
       this.logger.debug(
         `Notifications sent: ${response.successCount}, failed: ${response.failureCount}`,
       );
+
+      response.responses.forEach((res, index) => {
+        if (res.success) {
+          this.logger.debug(`✅ Sent to token: ${tokens[index]}`);
+        } else {
+          this.logger.error(
+            `❌ Failed for token: ${tokens[index]} — ${res.error?.code} | ${res.error?.message}`,
+          );
+        }
+      });
     } catch (error) {
-      this.logger.error(`Failed to send notifications to ${userId}: ${error.message}`);
+      this.logger.error(`🔥 Messaging failed globally for ${userId}: ${error.message}`);
+      this.logger.error(error.stack);
     }
   }
 }
