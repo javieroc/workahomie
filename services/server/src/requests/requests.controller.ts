@@ -1,4 +1,15 @@
-import { Controller, Get, Body, Param, Delete, UseGuards, Query, Put, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Body,
+  Param,
+  Delete,
+  UseGuards,
+  Query,
+  Put,
+  Req,
+  HttpCode,
+} from '@nestjs/common';
 import { JwtGuard } from 'src/authz/jwt.guard';
 import { RequestWithUser } from 'src/interfaces/RequestWithUser';
 import { PaginationDto } from 'src/dto/pagination.dto';
@@ -27,9 +38,10 @@ export class RequestsController {
     return this.requestsService.findOne(id);
   }
 
+  @HttpCode(204)
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateRequestDto: UpdateRequestDto) {
-    return this.requestsService.update(id, updateRequestDto);
+    await this.requestsService.update(id, updateRequestDto);
   }
 
   @Delete(':id')
