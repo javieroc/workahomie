@@ -47,5 +47,5 @@ npm run dev --workspace=web
 - [ ] Fix: my place form when edit
 - [ ] Chore: Review Login flow again
 - [ ] Chore: Change BrowserRouter by HashRouter
-- [ ] Feat: multi channel chat
+- [x] Feat: multi channel chat
 - [ ] Chore: Improve map visibility
