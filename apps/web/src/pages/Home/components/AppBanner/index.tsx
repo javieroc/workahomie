@@ -37,7 +37,7 @@ const AppBanner: FC = () => {
           <Flex justify={{ base: 'center', lg: 'flex-start' }}>
             <Button
               as="a"
-              href="https://github.com/javieroc/workahomie-android-app/releases/download/1.0.0/app-release.apk"
+              href="https://github.com/javieroc/workahomie-android-app/releases/latest/download/app-release.apk"
               size="lg"
               colorScheme="purple"
               leftIcon={<Image src={PlayStoreIcon} alt="Play Store" boxSize={6} />}
