@@ -133,7 +133,10 @@ export class HostsService {
 
     if (pictures.length) {
       const promises = pictures.map((picture) =>
-        this.cloudinaryService.uploadImage(picture, `place_${picture.originalname}`),
+        this.cloudinaryService.uploadImage(
+          picture,
+          `place_${host.userId}_${Date.now()}_${picture.originalname}`,
+        ),
       );
       const images = await Promise.all(promises);
       const pictureUrls = images.map((image) => image.secure_url);
