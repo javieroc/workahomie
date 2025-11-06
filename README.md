@@ -43,9 +43,9 @@ npm run dev --workspace=web
 - [x] Feat: calculate rate based on reviews
 - [x] Fix: Refresh in github pages redirect to 404
 - [x] Feat: Custom map popup, display host card
-- [ ] Fix: wishlist request on home screen
-- [ ] Fix: my place form when edit
-- [ ] Chore: Review Login flow again
-- [ ] Chore: Change BrowserRouter by HashRouter
 - [x] Feat: multi channel chat
+- [ ] Fix: my place form when edit, place pictures
+- [ ] Fix: wishlist request on home screen
+- [ ] Chore: Change BrowserRouter by HashRouter
+- [ ] Chore: Review Login flow again
 - [ ] Chore: Improve map visibility

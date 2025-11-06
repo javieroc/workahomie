@@ -1,17 +1,22 @@
 import { FC } from 'react';
-import { Image } from '@chakra-ui/react';
-import BannerImage from 'src/assets/banner.png';
+import { Box } from '@chakra-ui/react';
+import BannerImage from 'src/assets/banner.jpg';
 
 const Banner: FC = () => {
   return (
-    <Image
-      backgroundImage={`url(${BannerImage})`}
+    <Box
       width="100%"
-      height={{ base: '200px', md: '300px' }}
+      height={{ base: '260px', sm: '340px', md: '460px', lg: '560px' }}
+      backgroundImage={`url(${BannerImage})`}
       backgroundSize="cover"
-      backgroundPosition="bottom"
-      alignItems="center"
-      justifyContent="center"
+      backgroundRepeat="no-repeat"
+      backgroundPosition={{
+        base: 'center 60%',
+        sm: 'center 65%',
+        md: 'center 70%',
+        lg: 'center 75%',
+      }}
+      borderRadius="xl"
     />
   );
 };
