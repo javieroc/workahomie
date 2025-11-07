@@ -29,7 +29,7 @@ const MyPlaceWithHost: FC<MyPlaceWithHostProps> = ({ host }) => {
           placeDescription: host.placeDescription,
           placeDetails: host.placeDetails,
           facilities: host.facilities,
-          pictures: [new File([''], ''), new File([''], ''), new File([''], '')],
+          pictures: host.pictures.map(() => new File([''], '')),
         }}
       >
         <PlaceFormFields previewPicturesUrl={host.pictures} />

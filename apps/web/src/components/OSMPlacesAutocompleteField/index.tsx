@@ -44,6 +44,8 @@ function OSMPlacesAutocompleteField<T extends FieldValues>({
     rules: { required: isRequired },
   });
 
+  const initialValue = useRef(value?.display_name || '');
+
   const [query, setQuery] = useState(value?.display_name || '');
   const [suggestions, setSuggestions] = useState<Address[]>([]);
   const [loading, setLoading] = useState(false);
@@ -51,6 +53,10 @@ function OSMPlacesAutocompleteField<T extends FieldValues>({
   const isSelecting = useRef(false);
 
   useEffect(() => {
+    const shouldSearch = query !== initialValue.current;
+
+    if (!shouldSearch) return;
+
     if (isSelecting.current) {
       isSelecting.current = false;
       return;
@@ -84,13 +90,15 @@ function OSMPlacesAutocompleteField<T extends FieldValues>({
     };
 
     fetchSuggestions();
-  }, [debouncedQuery]);
+  }, [debouncedQuery, query]);
 
   const handleSelect = (suggestion: Address) => {
     isSelecting.current = true;
     setQuery(suggestion.display_name);
     setSuggestions([]);
     onChange(suggestion);
+
+    initialValue.current = suggestion.display_name;
   };
 
   return (
