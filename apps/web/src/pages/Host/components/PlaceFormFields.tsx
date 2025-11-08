@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { useFormContext } from 'react-hook-form';
 import {
   CheckboxFieldInput,
   FilesUpload,
@@ -7,15 +6,10 @@ import {
   TextFieldInput,
 } from 'src/components';
 
-type FormFieldsProps = {
-  previewPicturesUrl?: string[];
-};
-
-const PlaceFormFields: FC<FormFieldsProps> = ({ previewPicturesUrl }) => {
-  const { control } = useFormContext();
+const PlaceFormFields: FC = () => {
   return (
     <>
-      <FilesUpload name="pictures" control={control} urls={previewPicturesUrl} />
+      <FilesUpload />
       <TextFieldInput
         name="placeDescription"
         label="Description/Title"
