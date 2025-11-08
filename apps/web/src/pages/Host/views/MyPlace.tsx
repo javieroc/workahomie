@@ -29,10 +29,13 @@ const MyPlaceWithHost: FC<MyPlaceWithHostProps> = ({ host }) => {
           placeDescription: host.placeDescription,
           placeDetails: host.placeDetails,
           facilities: host.facilities,
-          pictures: [new File([''], ''), new File([''], ''), new File([''], '')],
+          pictures: {
+            existing: host.pictures.map((url) => ({ url })),
+            new: [],
+          },
         }}
       >
-        <PlaceFormFields previewPicturesUrl={host.pictures} />
+        <PlaceFormFields />
       </FormProvider>
     </VStack>
   );

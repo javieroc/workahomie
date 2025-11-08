@@ -24,4 +24,47 @@ export class CloudinaryService {
       Readable.from(file.buffer).pipe(upload);
     });
   }
+
+  async deleteImage(imagePath: string): Promise<void> {
+    try {
+      const publicId = this.extractPublicId(imagePath);
+
+      if (!publicId) {
+        this.logger.warn(`Could not extract Cloudinary public_id from: ${imagePath}`);
+        return;
+      }
+
+      await v2.uploader.destroy(publicId);
+      this.logger.log(`Deleted Cloudinary image: ${publicId}`);
+    } catch (error) {
+      this.logger.error(`Cannot delete Cloudinary image: ${error}`);
+    }
+  }
+
+  private extractPublicId(path: string): string {
+    // If already looks like a public_id (no http, no extension)
+    if (!path.startsWith('http')) {
+      return path;
+    }
+
+    try {
+      // Remove query parameters if present
+      const cleanUrl = path.split('?')[0];
+
+      // Get the part after /upload/
+      const parts = cleanUrl.split('/upload/');
+
+      if (parts.length < 2) return '';
+
+      // Extract everything after /upload/
+      const publicPath = parts[1];
+
+      // Remove the file extension (.jpg, .png, etc)
+      const withoutExtension = publicPath.replace(/\.[^/.]+$/, '');
+
+      return withoutExtension;
+    } catch {
+      return '';
+    }
+  }
 }

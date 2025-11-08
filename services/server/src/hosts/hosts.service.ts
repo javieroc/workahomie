@@ -113,8 +113,12 @@ export class HostsService {
   }
 
   async updatePlace(
-    { userId, ...updateHostPlaceDto }: UpdateHostPlaceDto & { userId: string },
-    pictures?: Array<Express.Multer.File>,
+    {
+      userId,
+      existingPictures = [],
+      ...updateHostPlaceDto
+    }: UpdateHostPlaceDto & { userId: string },
+    pictures: Array<Express.Multer.File> = [],
   ): Promise<Host> {
     const addressObj = JSON.parse(updateHostPlaceDto.address);
 
@@ -123,26 +127,39 @@ export class HostsService {
       coordinates: [Number.parseFloat(addressObj.lon), Number.parseFloat(addressObj.lat)],
     };
 
-    const host = await this.HostModel.findOneAndUpdate(
-      { userId },
-      { ...updateHostPlaceDto, location },
-      {
-        new: true,
-      },
-    ).exec();
+    let existing: string[] = [];
+    if (typeof existingPictures === 'string') {
+      existing = JSON.parse(existingPictures);
+    } else {
+      existing = existingPictures;
+    }
 
-    if (pictures.length) {
-      const promises = pictures.map((picture) =>
-        this.cloudinaryService.uploadImage(
-          picture,
-          `place_${host.userId}_${Date.now()}_${picture.originalname}`,
+    let newUploadedUrls: string[] = [];
+
+    if (pictures?.length > 0) {
+      const uploaded = await Promise.all(
+        pictures.map((picture) =>
+          this.cloudinaryService.uploadImage(
+            picture,
+            `place_${userId}_${Date.now()}_${picture.originalname}`,
+          ),
         ),
       );
-      const images = await Promise.all(promises);
-      const pictureUrls = images.map((image) => image.secure_url);
-      host.pictures = [...host.pictures, ...pictureUrls];
-      await host.save();
+
+      newUploadedUrls = uploaded.map((img) => img.secure_url);
     }
+
+    const finalPictures = [...existing, ...newUploadedUrls];
+
+    const host = await this.HostModel.findOneAndUpdate(
+      { userId },
+      {
+        ...updateHostPlaceDto,
+        location,
+        pictures: finalPictures,
+      },
+      { new: true },
+    ).exec();
 
     return host;
   }

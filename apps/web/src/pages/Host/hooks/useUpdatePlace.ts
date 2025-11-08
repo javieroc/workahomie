@@ -15,28 +15,30 @@ const putHostPlace = async ({
   facilities,
   ...rest
 }: UpdateHostPlaceFormValues): Promise<void> => {
-  const payload = Object.keys(rest).reduce((formData, key) => {
-    const fieldData =
-      rest[key as keyof Omit<UpdateHostPlaceFormValues, 'address' | 'pictures' | 'facilities'>];
-    if (fieldData) {
-      formData.append(key, fieldData);
+  const payload = new FormData();
+
+  Object.entries(rest).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      payload.append(key, value as any);
     }
-    return formData;
-  }, new FormData());
+  });
 
   if (address) {
     payload.append('address', JSON.stringify(address));
   }
 
-  if (pictures?.length) {
-    pictures.forEach((picture) => {
-      payload.append('pictures', picture);
-    });
+  if (facilities?.length) {
+    facilities.forEach((f) => payload.append('facilities', f));
   }
 
-  if (facilities?.length) {
-    facilities.forEach((facility) => {
-      payload.append('facilities', facility);
+  if (pictures?.new?.length) {
+    pictures.new.forEach((file) => payload.append('pictures', file));
+  }
+
+  if (pictures?.existing?.length) {
+    pictures.existing.forEach((p) => {
+      payload.append('existingPictures', p.url);
     });
   }
 
@@ -58,6 +60,7 @@ function useUpdatePlace(
         description: 'Workspace data was updated',
         status: 'success',
       });
+
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.HOSTS, 'me'] });
     },
     ...options,

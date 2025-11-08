@@ -9,10 +9,14 @@ export type UpdateHostDto = Partial<
   profile?: File;
 };
 
-export type UpdateHostPlaceFormValues = Partial<
-  Pick<Host, 'placeDescription' | 'placeDetails' | 'facilities'> & {
-    pictures: File[];
-    // eslint-disable-next-line
-    address: any;
-  }
->;
+export type UpdateHostPlaceFormValues = {
+  placeDescription?: string;
+  placeDetails?: string;
+  facilities?: string[];
+  // eslint-disable-next-line
+  address?: any;
+  pictures: {
+    existing: { url: string }[];
+    new: File[];
+  };
+};
