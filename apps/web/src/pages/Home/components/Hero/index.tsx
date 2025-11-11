@@ -17,9 +17,18 @@ const Hero: FC = () => {
       alignItems="center"
       justifyContent="center"
     >
-      <VStack alignItems="center" spacing="16px">
+      <VStack
+        alignItems="center"
+        spacing="16px"
+        backgroundColor="rgba(255,255,255,0.5)"
+        padding="24px"
+        borderRadius="lg"
+      >
         <Heading size="xl" color="gray.800" textAlign="center">
-          Looking for a Co-Worker?
+          Work Together, From Home.
+        </Heading>
+        <Heading size="md" color="gray.800" textAlign="center">
+          Find or share a free workspace in your community.
         </Heading>
         <OSMSearchInput
           onClick={(search) => {
