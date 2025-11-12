@@ -15,7 +15,10 @@ const TryHosting: FC = () => {
       <HStack spacing="24px" align="flex-end" backgroundColor="white" borderRadius="24px">
         <VStack align={['center', 'flex-start']} padding="58px">
           <Heading>Try Hosting</Heading>
-          <Text>What you give is what you receive</Text>
+          <Text fontSize="xl">
+            Share your space and spark new connections. Build your network by hosting fellow
+            professionals for free.
+          </Text>
           <Link to="/try-hosting">
             <Button colorScheme="purple" variant="outline">
               Learn More

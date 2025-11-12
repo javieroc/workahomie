@@ -16,7 +16,6 @@ const Banner: FC = () => {
         md: 'center 70%',
         lg: 'center 75%',
       }}
-      borderRadius="xl"
     />
   );
 };
