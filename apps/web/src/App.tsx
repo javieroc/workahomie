@@ -7,7 +7,7 @@ import { Auth0ProviderWithInterceptor } from './api/Auth0ProviderWithInterceptor
 
 const App: FC = () => {
   return (
-    <BrowserRouter basename="/workahomie/">
+    <BrowserRouter>
       <Auth0ProviderWithNavigate>
         <Auth0ProviderWithInterceptor>
           <Routes>
