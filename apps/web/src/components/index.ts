@@ -3,6 +3,8 @@ export { Avatar } from './Avatar';
 export { CheckboxFieldInput } from './CheckboxFieldInput';
 export { DateFieldInput } from './DateFieldInput';
 export { DateRangeInputField } from './DateRangeFieldInput';
+export { DonationButton } from './DonationButton';
+export { DonationToastHandler } from './DonationToastHandler';
 export { FileUpload } from './FileUpload';
 export { FilesUpload } from './FilesUpload';
 export { FormProvider } from './FormProvider';

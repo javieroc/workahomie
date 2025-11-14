@@ -1,4 +1,5 @@
 export { useDebounced } from './useDebounced';
+export { useDonate } from './useDonate';
 export { useHostMe } from './useHostMe';
 export { useHosts } from './useHosts';
 export { useLikeHost } from './useLikeHost';

@@ -19,6 +19,7 @@ import { UserMenu } from './UserMenu';
 import { LoginButton } from '../LoginButton';
 import { LogoutButton } from '../LogoutButton';
 import { OSMSearchInput } from '../OSMSearchInput';
+import { DonationButton } from '../DonationButton';
 
 const Navbar: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -87,6 +88,7 @@ const Navbar: FC = () => {
                 </Link>
               );
             })}
+
             {isAuthenticated && (
               <Link
                 as={ReactRouterLink}
@@ -98,6 +100,8 @@ const Navbar: FC = () => {
                 </Heading>
               </Link>
             )}
+
+            <DonationButton />
           </HStack>
           <HStack>{isAuthenticated ? <UserMenu /> : <LoginButton />}</HStack>
         </HStack>
