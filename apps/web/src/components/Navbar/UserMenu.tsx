@@ -45,7 +45,7 @@ const UserMenu: FC = () => {
             onClick={() =>
               logout({
                 logoutParams: {
-                  returnTo: `${window.location.origin}/workahomie/`,
+                  returnTo: `${window.location.origin}`,
                 },
               })
             }
