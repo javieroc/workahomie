@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
@@ -26,7 +26,13 @@ import { StripeModule } from './stripe/stripe.module';
         limit: 60, // 60 requests
       },
     ]),
-    MongooseModule.forRoot(process.env.DB_URI),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('DB_URI'),
+      }),
+      inject: [ConfigService],
+    }),
     AuthzModule,
     HostsModule,
     CloudinaryModule,
