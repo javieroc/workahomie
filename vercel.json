@@ -1,11 +1,10 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "services/server/dist/main.js",
-      "use": "@vercel/node"
+  "functions": {
+    "services/server/dist/main.js": {
+      "runtime": "nodejs18.x"
     }
-  ],
+  },
   "routes": [
     {
       "src": "/(.*)",
