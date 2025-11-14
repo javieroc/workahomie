@@ -10,16 +10,16 @@ const createReview = async (hostId: string, reviewData: CreateReviewDto): Promis
 
 export const useCreateReview = (
   hostId: string,
-  options?: UseMutationOptions<Review, Error, CreateReviewDto>,
+  options?: UseMutationOptions<Review, Error, CreateReviewDto, unknown>,
 ) => {
   const queryClient = useQueryClient();
-  return useMutation<Review, Error, CreateReviewDto>({
+  return useMutation<Review, Error, CreateReviewDto, unknown>({
     ...options,
     mutationFn: (reviewData) => createReview(hostId, reviewData),
-    onSuccess: (data, variables, context) => {
+    onSuccess: (data, variables, onMutateResult, context) => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.REVIEWS, hostId] });
       if (options?.onSuccess) {
-        options.onSuccess(data, variables, context);
+        options.onSuccess(data, variables, onMutateResult, context);
       }
     },
   });
