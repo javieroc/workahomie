@@ -14,7 +14,7 @@ const LogoutButton: FC = () => {
       onClick={() =>
         logout({
           logoutParams: {
-            returnTo: `${window.location.origin}/workahomie/`,
+            returnTo: `${window.location.origin}`,
           },
         })
       }

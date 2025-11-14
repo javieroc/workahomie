@@ -10,7 +10,7 @@ const Auth0ProviderWithInterceptor: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     if (!isLoading) {
       setupInterceptors(getAccessTokenSilently, () =>
-        logout({ logoutParams: { returnTo: `${window.location.origin}/workahomie/` } }),
+        logout({ logoutParams: { returnTo: `${window.location.origin}` } }),
       );
       setInterceptorReady(true);
     }
