@@ -20,9 +20,9 @@ const Hero: FC = () => {
       <VStack
         alignItems="center"
         spacing="16px"
-        backgroundColor="rgba(255,255,255,0.5)"
-        padding="24px"
-        borderRadius="lg"
+        backgroundColor={{ base: 'transparent', md: 'rgba(255,255,255,0.5)' }}
+        padding={{ base: '0px', md: '24px' }}
+        borderRadius={{ base: '0px', md: 'lg' }}
       >
         <Heading size="xl" color="gray.800" textAlign="center">
           Work Together, From Home.
