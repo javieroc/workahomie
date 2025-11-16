@@ -1,4 +1,4 @@
-import { Model, RootFilterQuery } from 'mongoose';
+import { Model, FilterQuery } from 'mongoose';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
@@ -39,8 +39,8 @@ export class HostsService {
     facilities,
     rate,
   }: SearchParamsDto): Promise<FindAllResponse<Host>> {
-    const findFilter: RootFilterQuery<Host> = {};
-    const countFilter: RootFilterQuery<Host> = {};
+    const findFilter: FilterQuery<Host> = {};
+    const countFilter: FilterQuery<Host> = {};
 
     if (lat && lng) {
       findFilter.location = {
