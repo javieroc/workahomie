@@ -44,8 +44,10 @@ npm run dev --workspace=web
 - [x] Fix: Refresh in github pages redirect to 404
 - [x] Feat: Custom map popup, display host card
 - [x] Feat: multi channel chat
-- [ ] Fix: my place form when edit, place pictures
+- [x] Fix: my place form when edit, place pictures
+- [ ] Styles: Custom Auth0 login widget
+- [ ] Fix: set fallback images everywhere it needs
 - [ ] Fix: wishlist request on home screen
 - [ ] Chore: Change BrowserRouter by HashRouter
-- [ ] Chore: Review Login flow again
+- [x] Chore: Review Login flow again
 - [ ] Chore: Improve map visibility
