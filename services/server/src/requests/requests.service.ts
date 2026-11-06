@@ -32,7 +32,7 @@ export type HostRef = Pick<Host, 'userId'> &
   };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type PlainRequest = Record<string, any> & { status?: string; host?: unknown };
+export type PlainRequest = Record<string, any> & { status?: string };
 
 const startOfTodayUtc = (now: Date) =>
   Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
