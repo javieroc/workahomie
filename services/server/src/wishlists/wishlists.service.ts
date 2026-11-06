@@ -34,6 +34,7 @@ export class WishlistsService {
       {
         $replaceRoot: { newRoot: '$host' },
       },
+      { $project: { phone: 0, __v: 0 } },
     ]);
 
     const wishlist = await this.wishlistModel.findOne({ userId }, { hostIds: 1 });
