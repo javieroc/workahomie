@@ -6,6 +6,10 @@ export type ReviewDocument = HydratedDocument<Review>;
 
 @Schema()
 export class Review {
+  /** Author (Auth0 user id). Missing on legacy/seeded reviews. */
+  @Prop({ index: true })
+  userId?: string;
+
   @Prop()
   userName: string;
 
@@ -26,3 +30,4 @@ export class Review {
 }
 
 export const ReviewSchema = SchemaFactory.createForClass(Review);
+ReviewSchema.index({ host: 1, date: -1 });

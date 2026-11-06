@@ -36,5 +36,11 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --fix"
+  },
+  "overrides": {
+    "multer": "^2.5.0",
+    "@google-cloud/firestore-api": {
+      "rimraf": "^6.1.4"
+    }
   }
 }

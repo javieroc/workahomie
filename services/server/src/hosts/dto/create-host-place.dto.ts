@@ -1,4 +1,6 @@
-import { IsArray, IsNotEmpty, IsOptional } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { toStringArray } from 'src/common/transforms';
 
 export class CreateHostPlaceDto {
   @IsNotEmpty()
@@ -7,10 +9,14 @@ export class CreateHostPlaceDto {
   @IsOptional()
   placeDetails: string;
 
+  /** JSON string: `{ "lat": number, "lon": number, ... }` */
   @IsNotEmpty()
+  @IsString()
   address: string;
 
+  @Transform(toStringArray)
   @IsArray()
+  @IsString({ each: true })
   @IsOptional()
   facilities: string[];
 }
