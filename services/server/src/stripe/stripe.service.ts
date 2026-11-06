@@ -7,7 +7,6 @@ export class StripeService {
 
   async createCheckoutSession(amountInEuros: number) {
     const session = await this.stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
       line_items: [
         {
           price_data: {

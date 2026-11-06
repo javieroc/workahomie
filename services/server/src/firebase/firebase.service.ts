@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { messaging } from 'firebase-admin';
+import { getMessaging } from 'firebase-admin/messaging';
 import { Token, TokenDocument } from './schemas/token.schema';
 
 @Injectable()
@@ -44,7 +44,7 @@ export class FirebaseService {
     }));
 
     try {
-      const response = await messaging().sendEach(messages);
+      const response = await getMessaging().sendEach(messages);
       this.logger.debug(
         `Notifications sent: ${response.successCount}, failed: ${response.failureCount}`,
       );
