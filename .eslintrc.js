@@ -13,6 +13,20 @@ module.exports = {
     'plugin:prettier/recommended'
   ],
   overrides: [
+    {
+      // web-v3: Vite + TS bundler resolution (`@/` alias, no extensions); tsc validates imports.
+      files: ['apps/web-v3/**/*.{ts,tsx}'],
+      rules: {
+        'import/extensions': 0,
+        'import/no-unresolved': 0,
+        // small helper components live below the component that uses them
+        '@typescript-eslint/no-use-before-define': [2, { functions: false, classes: true, variables: true }],
+        // `void promise` marks intentional fire-and-forget calls (e.g. onClick={() => void login()})
+        'no-void': 0,
+        // inputs nested inside their <label> are associated
+        'jsx-a11y/label-has-associated-control': [2, { assert: 'either' }],
+      },
+    },
   ],
   ignorePatterns: ['.eslintrc.js', 'mongo-init.js'],
   parser: '@typescript-eslint/parser',
