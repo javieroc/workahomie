@@ -1,11 +1,13 @@
-import { IsDateString, IsNotEmpty, IsOptional, IsString, IsEnum } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export enum RequestStatus {
   PENDING = 'pending',
   ACCEPTED = 'accepted',
   DECLINED = 'declined',
+  CANCELLED = 'cancelled',
 }
 
+/** `userId` comes from the access token and `status` is always `pending` on creation. */
 export class CreateRequestDto {
   @IsNotEmpty()
   @IsDateString()
@@ -16,11 +18,9 @@ export class CreateRequestDto {
   checkOut: string;
 
   @IsOptional()
-  message?: string;
-
   @IsString()
-  @IsOptional()
-  userId?: string;
+  @MaxLength(2000)
+  message?: string;
 
   @IsString()
   @IsOptional()
@@ -33,8 +33,4 @@ export class CreateRequestDto {
   @IsString()
   @IsOptional()
   userAvatar?: string;
-
-  @IsEnum(RequestStatus)
-  @IsOptional()
-  status?: RequestStatus;
 }
