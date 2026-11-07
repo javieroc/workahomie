@@ -94,16 +94,10 @@ export class SeedHostsCommand extends CommandRunner {
             'garden',
             'kitchen',
           ]),
-          pictures: [
-            faker.image.urlLoremFlickr({ category: 'work' }),
-            faker.image.urlLoremFlickr({ category: 'job' }),
-            faker.image.urlLoremFlickr({ category: 'office' }),
-            faker.image.urlLoremFlickr({ category: 'place' }),
-            faker.image.urlLoremFlickr({ category: 'art' }),
-            faker.image.urlLoremFlickr({ category: 'office' }),
-            faker.image.urlLoremFlickr({ category: 'place' }),
-            faker.image.urlLoremFlickr({ category: 'art' }),
-          ],
+          // Landscape photos from picsum (urlLoremFlickr is deprecated and the service often 500s)
+          pictures: faker.helpers.multiple(() => faker.image.url({ width: 1200, height: 800 }), {
+            count: 8,
+          }),
           rate: 0,
           countReviews: 0,
         };
