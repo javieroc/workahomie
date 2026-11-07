@@ -1,5 +1,7 @@
 import { Logger } from '@nestjs/common';
-import Stripe from 'stripe';
+// stripe >= 23 ships CommonJS as `export =` (no `.default`); without esModuleInterop a default
+// import compiles to `require('stripe').default` and crashes at boot.
+import Stripe = require('stripe');
 
 export const STRIPE_CLIENT = 'STRIPE_CLIENT';
 

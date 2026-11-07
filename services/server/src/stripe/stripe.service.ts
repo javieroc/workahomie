@@ -1,5 +1,5 @@
 import { Inject, Injectable, ServiceUnavailableException } from '@nestjs/common';
-import Stripe from 'stripe';
+import Stripe = require('stripe');
 import { STRIPE_CLIENT } from './stripe.provider';
 
 @Injectable()
