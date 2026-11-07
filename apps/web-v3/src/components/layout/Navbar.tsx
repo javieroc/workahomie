@@ -32,7 +32,7 @@ export function Navbar({ overlay = false }: { overlay?: boolean }) {
       className={cn(
         'z-40 w-full',
         overlay
-          ? 'absolute inset-x-0 top-0'
+          ? 'absolute inset-x-0 top-0 border-b border-line/50 bg-paper/70 backdrop-blur-md'
           : 'sticky top-0 border-b border-line/70 bg-paper/85 backdrop-blur-md',
       )}
     >

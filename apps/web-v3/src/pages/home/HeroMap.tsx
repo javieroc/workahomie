@@ -1,5 +1,5 @@
 import { ArrowRight, Smartphone } from 'lucide-react';
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { PlaceSearch } from '@/components/PlaceSearch';
 import { Navbar } from '@/components/layout/Navbar';
@@ -11,23 +11,14 @@ import phoneMap from '@/assets/phone-map.webp';
 
 const HeroBackdrop = lazy(() => import('./HeroBackdrop'));
 
-const TOUR_MS = 9000;
-const reducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-
 /**
- * The hero *is* the product: a live map slowly touring cities with real host pins.
+ * The hero *is* the product: a live map of one city (picked at random per visit) with real host pins.
  * Non-interactive (so it never hijacks page scroll); search sends people to /explore.
  */
 export function HeroMap() {
   const navigate = useNavigate();
-  const [i, setI] = useState(0);
-  const city = CITIES[i];
-
-  useEffect(() => {
-    if (reducedMotion()) return undefined;
-    const t = setInterval(() => setI((n) => (n + 1) % CITIES.length), TOUR_MS);
-    return () => clearInterval(t);
-  }, []);
+  // A different city on each page load; it stays put while the visitor reads.
+  const [city] = useState(() => CITIES[Math.floor(Math.random() * CITIES.length)]);
 
   return (
     <section className="relative isolate min-h-[640px] overflow-hidden bg-paper-2 lg:h-[min(92svh,900px)]">
