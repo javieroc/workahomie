@@ -1,21 +1,13 @@
-import { Prop } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-class Point {
-  @Prop({
-    type: {
-      type: String,
-      enum: ['Point'],
-      default: 'Point',
-    },
-  })
+/** GeoJSON Point. Coordinates are [longitude, latitude]. */
+@Schema({ _id: false })
+export class Point {
+  @Prop({ type: String, enum: ['Point'], default: 'Point' })
   type: string;
 
-  @Prop({
-    coordinates: {
-      type: [Number],
-    },
-  })
-  coordinates: number[]; // [longitude, latitude]
+  @Prop({ type: [Number], default: undefined })
+  coordinates: number[];
 }
 
-export { Point };
+export const PointSchema = SchemaFactory.createForClass(Point);

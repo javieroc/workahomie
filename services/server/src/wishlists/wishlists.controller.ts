@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Delete, Body, Req, UseGuards, Query } from '@nestjs/common';
-import { RequestWithUser } from 'src/interfaces/RequestWithUser';
+import { Controller, Get, Post, Delete, Body, UseGuards, Query } from '@nestjs/common';
 import { JwtGuard } from 'src/authz/jwt.guard';
+import { CurrentUserId } from 'src/authz/current-user-id.decorator';
 import { PaginationDto } from 'src/dto/pagination.dto';
 import { AddToWishlistDto } from './dto/add-to-wishlist.dto';
 import { RemoveFromWishlistDto } from './dto/remove-from-wishlist.dto';
@@ -12,27 +12,23 @@ export class WishlistsController {
   constructor(private readonly wishlistService: WishlistsService) {}
 
   @Get()
-  async getWishlist(@Req() req: RequestWithUser) {
-    const userId = req.user.sub.split('|')[1];
+  async getWishlist(@CurrentUserId() userId: string) {
     return this.wishlistService.getWishlist(userId);
   }
 
   @Get('full')
-  async getWishlistHosts(@Req() req: RequestWithUser, @Query() queryParamsDto: PaginationDto) {
-    const userId = req.user.sub.split('|')[1];
+  async getWishlistHosts(@CurrentUserId() userId: string, @Query() queryParamsDto: PaginationDto) {
     return this.wishlistService.getWishlistFull(userId, queryParamsDto);
   }
 
   @Post('add')
-  async addToWishlist(@Req() req: RequestWithUser, @Body() dto: AddToWishlistDto) {
-    const userId = req.user.sub.split('|')[1];
+  async addToWishlist(@CurrentUserId() userId: string, @Body() dto: AddToWishlistDto) {
     await this.wishlistService.addToWishlist({ userId, hostId: dto.hostId });
     return { message: 'Host added to wishlist' };
   }
 
   @Delete('remove')
-  async removeFromWishlist(@Req() req: RequestWithUser, @Body() dto: RemoveFromWishlistDto) {
-    const userId = req.user.sub.split('|')[1];
+  async removeFromWishlist(@CurrentUserId() userId: string, @Body() dto: RemoveFromWishlistDto) {
     await this.wishlistService.removeFromWishlist({ userId, hostId: dto.hostId });
     return { message: 'Host removed from wishlist' };
   }

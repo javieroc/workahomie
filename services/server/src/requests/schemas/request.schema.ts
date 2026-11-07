@@ -5,7 +5,7 @@ import { HostDocument } from 'src/hosts/schemas/host.schema';
 
 export type RequestDocument = HydratedDocument<Request>;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Request {
   @Prop()
   userId: string;
@@ -33,6 +33,12 @@ export class Request {
 
   @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Message' }] })
   messages: MessageDocument[];
+
+  createdAt?: Date;
+
+  updatedAt?: Date;
 }
 
 export const RequestSchema = SchemaFactory.createForClass(Request);
+RequestSchema.index({ userId: 1, createdAt: -1 });
+RequestSchema.index({ host: 1, createdAt: -1 });

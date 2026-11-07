@@ -8,12 +8,6 @@ import { WishlistsModule } from 'src/wishlists/wishlists.module';
 import { HostsService } from './hosts.service';
 import { HostsController } from './hosts.controller';
 import { Host, HostSchema } from './schemas/host.schema';
-import { SeedHostsCommand } from './command/seed-hosts';
-import { SeedReviewsCommand } from './command/seed-reviews';
-import { UpdatePhonesCommand } from './command/update-phones';
-import { UpdateOccupationsCommand } from './command/update-occupations';
-import { UpdatePicturesCommand } from './command/update-pictures';
-import { UpdateHostsRateCommand } from './command/update-hosts-rate';
 
 @Module({
   imports: [
@@ -27,14 +21,6 @@ import { UpdateHostsRateCommand } from './command/update-hosts-rate';
     WishlistsModule,
   ],
   controllers: [HostsController],
-  providers: [
-    HostsService,
-    SeedHostsCommand,
-    SeedReviewsCommand,
-    UpdatePhonesCommand,
-    UpdateOccupationsCommand,
-    UpdatePicturesCommand,
-    UpdateHostsRateCommand,
-  ],
+  providers: [HostsService],
 })
 export class HostsModule {}

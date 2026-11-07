@@ -1,0 +1,23 @@
+name: web-v3 CI
+
+on:
+  pull_request:
+    paths: ['apps/web-v3/**', 'package-lock.json', '.github/workflows/web-v3-ci.yml']
+  push:
+    branches: ['devel']
+    paths: ['apps/web-v3/**']
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx eslint "apps/web-v3/src/**/*.{ts,tsx}"
+      - run: npm run typecheck --workspace=web-v3
+      - run: npm test --workspace=web-v3
+      - run: npm run build --workspace=web-v3

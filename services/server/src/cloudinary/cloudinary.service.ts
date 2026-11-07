@@ -60,8 +60,8 @@ export class CloudinaryService {
 
       if (parts.length < 2) return '';
 
-      // Extract everything after /upload/
-      const publicPath = parts[1];
+      // Extract everything after /upload/ and drop the optional version segment (v123456/)
+      const publicPath = parts[1].replace(/^v\d+\//, '');
 
       // Remove the file extension (.jpg, .png, etc)
       const withoutExtension = publicPath.replace(/\.[^/.]+$/, '');
