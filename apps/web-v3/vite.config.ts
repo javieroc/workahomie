@@ -9,7 +9,7 @@ export default defineConfig({
   // Monorepo: the legacy app hoists React 18 to the root node_modules.
   // Force every package to share this app's React 19 copy.
   resolve: { dedupe: ['react', 'react-dom', 'react-router', 'react/jsx-runtime'] },
-  server: { port: 3001 },
+  server: { port: 3000 },
   build: {
     rollupOptions: {
       output: {

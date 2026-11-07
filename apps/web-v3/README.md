@@ -8,14 +8,14 @@ Replaces `apps/web` (Chakra) and the abandoned `web-v2` attempt. The Home page i
 ```bash
 cp apps/web-v3/.env.template apps/web-v3/.env   # fill in Auth0 values
 npm install                                     # from the repo root (workspaces)
-npm run dev --workspace=web-v3                  # http://localhost:3001
+npm run dev --workspace=web-v3                  # http://localhost:3000
 ```
 
 Without `VITE_AUTH0_*` the app runs anonymously (browse, map, host pages); signed-in pages show a notice.
 
 | Script | What it does |
 | --- | --- |
-| `npm run dev --workspace=web-v3` | Vite dev server on :3001 |
+| `npm run dev --workspace=web-v3` | Vite dev server on :3000 |
 | `npm run build --workspace=web-v3` | Type-check + production build to `dist/` |
 | `npm run typecheck --workspace=web-v3` | `tsc -b --noEmit` |
 | `npm test --workspace=web-v3` | Vitest unit tests |
