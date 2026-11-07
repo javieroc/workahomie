@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
-import { Point } from './point.schema';
+import { Point, PointSchema } from './point.schema';
 
 export type HostDocument = HydratedDocument<Host>;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Host {
   _id: Types.ObjectId;
 
@@ -41,13 +41,8 @@ export class Host {
   @Prop()
   address: string;
 
-  @Prop({
-    location: {
-      type: Point,
-      index: '2dsphere',
-    },
-  })
-  location: Point;
+  @Prop({ type: PointSchema })
+  location?: Point;
 
   @Prop([String])
   facilities: string[];
@@ -61,7 +56,9 @@ export class Host {
   @Prop({ default: 0 })
   countReviews: number;
 
-  isWishlisted?: boolean;
+  createdAt?: Date;
+
+  updatedAt?: Date;
 }
 
 export const HostSchema = SchemaFactory.createForClass(Host);

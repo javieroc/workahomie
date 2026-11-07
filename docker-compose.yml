@@ -11,10 +11,16 @@ services:
     ports:
       - 8000:8000
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
   mongo:
-    image: mongo
+    image: mongo:8
     restart: always
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin

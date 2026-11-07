@@ -9,16 +9,16 @@ import {
   UseGuards,
   UseInterceptors,
   UploadedFile,
-  Req,
   NotFoundException,
   BadRequestException,
   UploadedFiles,
   Query,
 } from '@nestjs/common';
-import { JwtGuard } from 'src/authz/jwt.guard';
+import { IsObjectIdPipe } from '@nestjs/mongoose';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import { memoryStorage } from 'multer';
-import { RequestWithUser } from 'src/interfaces/RequestWithUser';
+import { JwtGuard } from 'src/authz/jwt.guard';
+import { CurrentUserId } from 'src/authz/current-user-id.decorator';
+import { imageUploadOptions } from 'src/common/upload';
 import { CreateRequestDto } from 'src/requests/dto/create-request.dto';
 import { RequestsService } from 'src/requests/requests.service';
 import { CreateReviewDto } from 'src/reviews/dto/create-review.dto';
@@ -31,6 +31,7 @@ import { UpdateHostDto } from './dto/update-host.dto';
 import { UpdateHostPlaceDto } from './dto/update-host-place.dto';
 import { SearchParamsDto } from './dto/search-params.dto';
 
+/** Static routes (`pins`, `me`, `wishlisted`) are declared before `:id`. */
 @Controller('hosts')
 export class HostsController {
   constructor(
@@ -42,13 +43,12 @@ export class HostsController {
 
   @UseGuards(JwtGuard)
   @Post()
-  @UseInterceptors(FileInterceptor('profile', { storage: memoryStorage() }))
+  @UseInterceptors(FileInterceptor('profile', imageUploadOptions))
   async create(
-    @Req() req: RequestWithUser,
+    @CurrentUserId() userId: string,
     @Body() createHostDto: CreateHostDto,
     @UploadedFile() profile: Express.Multer.File,
   ) {
-    const userId = req.user.sub.split('|')[1];
     const host = await this.hostsService.findMe(userId);
     if (host) {
       throw new BadRequestException('Host already exists');
@@ -56,10 +56,19 @@ export class HostsController {
     return this.hostsService.create({ ...createHostDto, userId }, profile);
   }
 
+  @Get()
+  findAll(@Query() queryParamsDto: SearchParamsDto) {
+    return this.hostsService.findAll(queryParamsDto);
+  }
+
+  @Get('pins')
+  findPins(@Query() queryParamsDto: SearchParamsDto) {
+    return this.hostsService.findPins(queryParamsDto);
+  }
+
   @UseGuards(JwtGuard)
-  @Get('/me')
-  async findMeAsAHost(@Req() req: RequestWithUser) {
-    const userId = req.user.sub.split('|')[1];
+  @Get('me')
+  async findMeAsAHost(@CurrentUserId() userId: string) {
     const host = await this.hostsService.findMe(userId);
     if (!host) {
       throw new NotFoundException('Host not found');
@@ -67,86 +76,88 @@ export class HostsController {
     return host;
   }
 
-  @Get()
-  findAll(@Query() queryParamsDto: SearchParamsDto) {
-    return this.hostsService.findAll(queryParamsDto);
-  }
-
   @UseGuards(JwtGuard)
-  @Get('/wishlisted')
-  async findAllWishlisted(@Req() req: RequestWithUser, @Query() queryParamsDto: SearchParamsDto) {
-    const userId = req.user.sub.split('|')[1];
-    const response = await this.hostsService.findAll(queryParamsDto);
-    const wishlistedHostIds = await this.wishlistsService.getWishlist(userId);
+  @Get('wishlisted')
+  async findAllWishlisted(
+    @CurrentUserId() userId: string,
+    @Query() queryParamsDto: SearchParamsDto,
+  ) {
+    const [response, wishlistedHostIds] = await Promise.all([
+      this.hostsService.findAll(queryParamsDto),
+      this.wishlistsService.getWishlist(userId),
+    ]);
+    const wishlisted = new Set(wishlistedHostIds.map((id) => id.toString()));
     return {
       data: response.data.map((host) => ({
         ...host,
-        isWishlisted: wishlistedHostIds.includes(host._id),
+        isWishlisted: wishlisted.has(host._id.toString()),
       })),
       total: response.total,
     };
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.hostsService.findOne(id);
-  }
-
   @UseGuards(JwtGuard)
-  @Put('/me')
-  @UseInterceptors(FileInterceptor('profile', { storage: memoryStorage() }))
+  @Put('me')
+  @UseInterceptors(FileInterceptor('profile', imageUploadOptions))
   async update(
-    @Req() req: RequestWithUser,
+    @CurrentUserId() userId: string,
     @Body() updateHostDto: UpdateHostDto,
     @UploadedFile() profile: Express.Multer.File,
   ) {
-    const userId = req.user.sub.split('|')[1];
-    const host = await this.hostsService.findMe(userId);
-    if (!host) {
-      throw new NotFoundException('Host not found');
-    }
     return this.hostsService.update({ ...updateHostDto, userId }, profile);
   }
 
   @UseGuards(JwtGuard)
-  @Put('/me/place')
-  @UseInterceptors(FilesInterceptor('pictures', 10, { storage: memoryStorage() }))
+  @Put('me/place')
+  @UseInterceptors(FilesInterceptor('pictures', 10, imageUploadOptions))
   async updatePlace(
-    @Req() req: RequestWithUser,
+    @CurrentUserId() userId: string,
     @Body() updateHostPlaceDto: UpdateHostPlaceDto,
     @UploadedFiles() pictures: Array<Express.Multer.File>,
   ) {
-    const userId = req.user.sub.split('|')[1];
     return this.hostsService.updatePlace({ ...updateHostPlaceDto, userId }, pictures);
   }
 
   @UseGuards(JwtGuard)
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.hostsService.remove(id);
+  @Delete('me')
+  removeMine(@CurrentUserId() userId: string) {
+    return this.hostsService.removeMine(userId);
+  }
+
+  @Get(':id')
+  findOne(@Param('id', IsObjectIdPipe) id: string) {
+    return this.hostsService.findPublic(id);
   }
 
   @UseGuards(JwtGuard)
   @Post(':id/requests')
   async createRequest(
-    @Req() req: RequestWithUser,
-    @Param('id') id: string,
+    @CurrentUserId() userId: string,
+    @Param('id', IsObjectIdPipe) id: string,
     @Body() createHostRequestDto: CreateRequestDto,
   ) {
-    const userId = req.user.sub.split('|')[1];
-    const host = await this.hostsService.findOne(id);
-    return this.requestsService.create({ userId, host, ...createHostRequestDto });
+    const host = await this.hostsService.findById(id);
+    return this.requestsService.create(userId, host, createHostRequestDto);
+  }
+
+  @UseGuards(JwtGuard)
+  @Get(':id/reviews/eligibility')
+  getReviewEligibility(@CurrentUserId() userId: string, @Param('id', IsObjectIdPipe) id: string) {
+    return this.reviewsService.getEligibility(id, userId);
   }
 
   @Get(':id/reviews')
-  async getReviews(@Param('id') id: string, @Query() paginationDto: PaginationDto) {
+  async getReviews(@Param('id', IsObjectIdPipe) id: string, @Query() paginationDto: PaginationDto) {
     return this.reviewsService.findAll(id, paginationDto);
   }
 
   @UseGuards(JwtGuard)
   @Post(':id/reviews')
-  async createReview(@Param('id') id: string, @Body() createHostReviewDto: CreateReviewDto) {
-    const host = await this.hostsService.findOne(id);
-    return this.reviewsService.create({ ...createHostReviewDto, host });
+  async createReview(
+    @CurrentUserId() userId: string,
+    @Param('id', IsObjectIdPipe) id: string,
+    @Body() createHostReviewDto: CreateReviewDto,
+  ) {
+    return this.reviewsService.create(id, userId, createHostReviewDto);
   }
 }

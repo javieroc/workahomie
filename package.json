@@ -7,7 +7,8 @@
     "dev": "concurrently --kill-others \"npm run start:dev --workspace=server\" \"npm run dev --workspace=web\"",
     "prepare": "husky",
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "eslint:fix": "eslint --fix . --ext .js,.jsx,.ts,.tsx"
+    "eslint:fix": "eslint --fix . --ext .js,.jsx,.ts,.tsx",
+    "dev:v3": "concurrently --kill-others \"npm run start:dev --workspace=server\" \"npm run dev --workspace=web-v3\""
   },
   "keywords": [],
   "author": "",
@@ -36,5 +37,11 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --fix"
+  },
+  "overrides": {
+    "multer": "^2.5.0",
+    "@google-cloud/firestore-api": {
+      "rimraf": "^6.1.4"
+    }
   }
 }

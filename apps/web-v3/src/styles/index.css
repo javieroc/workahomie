@@ -1,0 +1,110 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource-variable/instrument-sans';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import 'maplibre-gl/dist/maplibre-gl.css';
+
+/*
+  Workahomies — "neighbourhood cartography"
+  Paper + plum ink, with the Android app's magenta as the action colour
+  and tangerine reserved for small highlights (pins, coordinates, badges).
+*/
+@theme {
+  --font-display: 'Bricolage Grotesque Variable', ui-serif, Georgia, serif;
+  --font-sans: 'Instrument Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --color-paper: #f6f1e9;
+  --color-paper-2: #efe7da;
+  --color-card: #fffcf7;
+  --color-ink: #24122f;
+  --color-ink-2: #4a3a55;
+  --color-muted: #7d6f86;
+  --color-line: #e2d7c8;
+  --color-plum-950: #160a1e;
+  --color-plum-900: #24122f;
+  --color-plum-800: #3a1d4b;
+  --color-plum-700: #55296e;
+  --color-magenta: #d0337a;
+  --color-magenta-600: #b52367;
+  --color-magenta-100: #fbe4ee;
+  --color-tangerine: #f08a3c;
+  --color-tangerine-100: #fdebdc;
+  --color-moss: #3f8f6b;
+  --color-danger: #c4382f;
+
+  --radius-xl2: 1.25rem;
+  --shadow-card: 0 1px 0 rgb(36 18 47 / 0.04), 0 12px 32px -16px rgb(36 18 47 / 0.25);
+  --shadow-float: 0 24px 60px -24px rgb(22 10 30 / 0.55);
+
+  --animate-rise: rise 0.8s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+  --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes pulse-ring {
+    0% { transform: scale(0.6); opacity: 0.7; }
+    100% { transform: scale(2.4); opacity: 0; }
+  }
+}
+
+@layer base {
+  html { -webkit-tap-highlight-color: transparent; }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+  h1, h2, h3, h4 { @apply font-display tracking-tight; text-wrap: balance; }
+  p { text-wrap: pretty; }
+  :focus-visible { outline: 2px solid var(--color-magenta); outline-offset: 2px; }
+  ::selection { background: var(--color-magenta-100); color: var(--color-ink); }
+}
+
+@layer components {
+  /* Topographic contour texture used as a quiet background motif */
+  .contours {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Cg fill='none' stroke='%2324122f' stroke-opacity='.07' stroke-width='1.2'%3E%3Cpath d='M-20 120c80-40 160 30 250 0s170-90 260-40 110 60 130 40'/%3E%3Cpath d='M-20 160c90-40 160 40 250 10s160-90 260-40 110 70 130 50'/%3E%3Cpath d='M-20 200c90-30 170 50 250 20s150-80 250-40 120 70 140 60'/%3E%3Cpath d='M-20 330c60 30 140-40 230-10s140 90 230 60 120-60 180-40'/%3E%3Cpath d='M-20 370c60 30 150-30 230 0s140 80 230 50 120-50 180-30'/%3E%3Cpath d='M-20 410c70 20 150-20 230 10s150 70 230 40 120-40 180-20'/%3E%3Cellipse cx='420' cy='500' rx='70' ry='34'/%3E%3Cellipse cx='420' cy='500' rx='120' ry='60'/%3E%3Cellipse cx='420' cy='500' rx='170' ry='86'/%3E%3Cellipse cx='120' cy='40' rx='60' ry='28'/%3E%3Cellipse cx='120' cy='40' rx='110' ry='52'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 600px 600px;
+  }
+  .contours-light {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.08' stroke-width='1.2'%3E%3Cpath d='M-20 120c80-40 160 30 250 0s170-90 260-40 110 60 130 40'/%3E%3Cpath d='M-20 160c90-40 160 40 250 10s160-90 260-40 110 70 130 50'/%3E%3Cpath d='M-20 200c90-30 170 50 250 20s150-80 250-40 120 70 140 60'/%3E%3Cpath d='M-20 330c60 30 140-40 230-10s140 90 230 60 120-60 180-40'/%3E%3Cpath d='M-20 370c60 30 150-30 230 0s140 80 230 50 120-50 180-30'/%3E%3Cellipse cx='420' cy='500' rx='70' ry='34'/%3E%3Cellipse cx='420' cy='500' rx='120' ry='60'/%3E%3Cellipse cx='420' cy='500' rx='170' ry='86'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 600px 600px;
+  }
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.18em];
+  }
+}
+
+/* Hero legibility wash over the live map */
+.hero-wash {
+  background: linear-gradient(180deg, rgb(246 241 233 / 0.97) 0%, rgb(246 241 233 / 0.9) 55%, rgb(246 241 233 / 0.35) 100%);
+}
+@media (min-width: 64rem) {
+  .hero-wash {
+    background:
+      linear-gradient(90deg, rgb(246 241 233 / 0.97) 0%, rgb(246 241 233 / 0.93) 34%, rgb(246 241 233 / 0.55) 50%, rgb(246 241 233 / 0) 68%),
+      linear-gradient(0deg, rgb(246 241 233 / 0.9) 0%, rgb(246 241 233 / 0) 18%);
+  }
+}
+
+/* MapLibre polish */
+.maplibregl-ctrl-group { border-radius: 14px !important; overflow: hidden; box-shadow: var(--shadow-card) !important; }
+.maplibregl-ctrl-attrib { font-size: 10px; background: rgb(255 252 247 / 0.8) !important; }
+.maplibregl-popup-content { border-radius: 18px !important; padding: 0 !important; overflow: hidden; box-shadow: var(--shadow-float) !important; }
+.maplibregl-popup-tip { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

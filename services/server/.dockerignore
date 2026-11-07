@@ -1,0 +1,8 @@
+# Keep secrets and host-built artifacts out of the image
+.env
+.env.*
+!.env.template
+node_modules
+dist
+coverage
+*.log

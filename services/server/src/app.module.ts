@@ -14,6 +14,7 @@ import { ChatModule } from './chat/chat.module';
 import { WishlistsModule } from './wishlists/wishlists.module';
 import { FirebaseModule } from './firebase/firebase.module';
 import { StripeModule } from './stripe/stripe.module';
+import { StatsModule } from './stats/stats.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { StripeModule } from './stripe/stripe.module';
     WishlistsModule,
     FirebaseModule,
     StripeModule,
+    StatsModule,
   ],
   controllers: [AppController],
   providers: [

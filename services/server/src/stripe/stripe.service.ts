@@ -1,19 +1,23 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, ServiceUnavailableException } from '@nestjs/common';
 import Stripe from 'stripe';
+import { STRIPE_CLIENT } from './stripe.provider';
 
 @Injectable()
 export class StripeService {
-  constructor(@Inject('STRIPE_CLIENT') private readonly stripe: Stripe) {}
+  constructor(@Inject(STRIPE_CLIENT) private readonly stripe: Stripe | null) {}
 
-  async createCheckoutSession(amountInEuros: number) {
+  async createCheckoutSession(amountInEuros: number): Promise<{ url: string | null }> {
+    if (!this.stripe) {
+      throw new ServiceUnavailableException('Donations are currently unavailable');
+    }
+
     const session = await this.stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
       line_items: [
         {
           price_data: {
             currency: 'eur',
             product_data: { name: 'Workahomie Donation' },
-            unit_amount: amountInEuros * 100, // Stripe expects cents
+            unit_amount: Math.round(amountInEuros * 100), // Stripe expects cents
           },
           quantity: 1,
         },
